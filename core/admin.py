@@ -35,8 +35,12 @@ class LaurentAdmin(admin.ModelAdmin):
 		obj.tube_bod = obj.cassette - 1
 		obj.inner = obj.tube_bod - 0.25
 		obj.outer = obj.tube_bod + 0.125
-		if obj.fabric.fabric.name == 'Laurent':
+		if obj.fabric_color.fabric.name == 'Laurent' or obj.fabric_color.fabric.name == 'Husky' or obj.fabric_color.fabric.name == 'Galaxy':
 			obj.height = obj.original_height + 3.875
+		elif obj.fabric_color.fabric.name == 'Laurent' or obj.fabric_color.fabric.name == 'Husky' or obj.fabric_color.fabric.name == 'Galaxy':
+			obj.height = obj.original_height + 4.125
+		else:
+			obj.height = obj.original_height + 4.5
 		obj.save()
 
 admin.site.register(ControlSize, ControlSizeAdmin)

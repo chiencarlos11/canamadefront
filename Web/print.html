@@ -1,0 +1,32 @@
+<html>
+
+<head>
+</head>
+
+<body>
+	<table>
+		<tr>
+	{% for item in orders %}
+		<td>PO Number: <b>{{item}}</b></td>
+<!-- 		<td><b>{{item.original_widtd}}</b></td>
+		<td><b>{{item.original_height}}</b></td> -->
+		<td>Cassette: <b>{{item.cassette}}</b></td>
+		<td>Tube BOD: <b>{{item.tube_bod}}</b></td>
+		<td>INNER: <b>{{item.inner}}</b></td>
+	</tr>
+	<tr>
+		<td>OUTER: <b>{{item.outer}}</b></td>
+		<td>HEIGHT: <b>{{item.height}}</b></td>
+		<td>Control: <b>{{item.control_size}}</b> <b>{{item.control_type}}</b> <b>{{item.control_position}}</b></td>
+		<td>Color: <b>{{item.cassette_color}}</b></td>
+		<td>Fabric: <b>{{item.fabric}}</b> <b>{{item.fabric_color}}</b></td>
+	</tr>
+	<tr>
+		
+	{% endfor %}
+		</tr>
+	</table>
+
+</body>
+
+</html>

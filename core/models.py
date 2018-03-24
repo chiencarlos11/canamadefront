@@ -29,7 +29,6 @@ class ControlType(m.Model):
 	def __str__(self):
 		return str(self.name)
 
-
 class ControlPosition(m.Model):
 	name = m.CharField(max_length=50)
 
@@ -53,10 +52,10 @@ class FabricColor(m.Model):
 	fabric = m.ForeignKey(Fabric, on_delete=m.DO_NOTHING)
 
 	def __unicode__(self):
-		return str(self.fabric) + " " + self.name
+		return self.name
 
 	def __str__(self):
-		return str(self.fabric) + " " + self.name
+		return self.name
 
 class Blind(m.Model):
 	ponumber = m.CharField(max_length=256, default='New Client')
@@ -71,7 +70,6 @@ class Blind(m.Model):
 		return str(self.ponumber)
 
 class Laurent(Blind):
-
 	cassette = m.FloatField(blank=True, null=True)
 	tube_bod = m.FloatField(blank=True, null=True)
 	inner = m.FloatField(blank=True, null=True)
@@ -81,7 +79,8 @@ class Laurent(Blind):
 	control_type = m.ForeignKey(ControlType, on_delete=m.DO_NOTHING)
 	control_position = m.ForeignKey(ControlPosition, on_delete=m.DO_NOTHING)
 	cassette_color = m.ForeignKey(CassetteColor, on_delete=m.DO_NOTHING)
-	fabric = m.ForeignKey(FabricColor, on_delete=m.DO_NOTHING)
+	fabric = m.ForeignKey(Fabric, on_delete=m.DO_NOTHING)
+	fabric_color = m.ForeignKey(FabricColor, on_delete=m.DO_NOTHING)
 
 
 
