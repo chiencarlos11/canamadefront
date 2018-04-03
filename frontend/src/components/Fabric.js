@@ -1,5 +1,6 @@
 import React from 'react';
-import { FormGroup, Label, Input} from 'reactstrap';
+import { FormGroup, Label, Input, Button} from 'reactstrap';
+import {Consumer} from '../context/MyContext.js'
 
 export default class Fabric extends React.Component {
 	constructor(){
@@ -36,7 +37,7 @@ export default class Fabric extends React.Component {
 	        <option value= "Laurent" >Laurent</option>
 	        <option value= "Morgan">Morgan</option>
 	        <option value= "Husky">Husky</option>
-	        <option value= "Scotby">Scotby</option>
+	        <option value= "Scotby">Scotby</option>e
 	        <option value= "Galaxy">Galaxy</option>
 	        <option value= "Richmond">Richmond</option>
 	        <option value= "Timber">Timber</option>
@@ -51,6 +52,24 @@ export default class Fabric extends React.Component {
 	      </FormGroup>
 	      <p>{this.state.selected_fabric}</p>
 	      <p>{this.state.selected_fabric_color}</p>
+
+	      <Consumer>
+	      {context => {
+
+	      	const {actions } = context;
+
+	      	return (
+	      	<React.Fragment>
+	      		<Button onClick={ () => {actions.add_order("Hello World")}}>Add me!</Button>
+	      	</React.Fragment>
+	      	)
+	      	}
+	  	  }
+	      </Consumer>
+
+
+
+
 	     </div>
 	  )}
 }
