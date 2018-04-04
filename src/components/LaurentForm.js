@@ -5,35 +5,69 @@ import SoloDatePicker from './DatePicker.js';
 import Fabric from './Fabric.js'
 
 export default class LaurentForm extends React.Component {
+  constructor(){
+    super();
+    this.handleData = this.handleData.bind(this);
+    this.state = {
+      date: Date.now(),
+      po_number: '',
+      original_width: '',
+      original_height: '',
+      control_size: '24',
+      cassette_orientation: '',
+      cassette_extra: '',
+      cassette_color: '',
+      fabric_type: 'Laurent',
+      fabric_color: '301',
+    };
+  }
+
+  handleData(dateMap) {
+    for (const [key, value] of dateMap.entries()) {
+      var newState = {};
+      newState[key] = value;
+      this.setState(newState);
+    }
+
+  }
+
+  handleDataPiece(event){
+    var itemMap = new Map();
+    itemMap.set(event.target.name, event.target.value)
+    this.handleData(itemMap)
+  }
+
+
   render() {
     return (
+      <div>
       <Form>
         <FormGroup>
           <Label >Date</Label>
-          <SoloDatePicker />
+          <SoloDatePicker handlerFromParent={this.handleData}/>
         </FormGroup>
         <FormGroup>
           <Label>PO Number</Label>
-          <Input type="text" name="po_number" id="po_number" placeholder="" />
+          <Input type="text" name="po_number" id="po_number" placeholder="" value={this.state.po_number} onChange={this.handleDataPiece.bind(this)}/>
         </FormGroup>
         <FormGroup>
           <Label>Original Width</Label>
-          <Input type="number" name="original_width" id="original_width" placeholder="" />
+          <Input type="number" name="original_width" id="original_width" placeholder="" value={this.state.original_width} onChange={this.handleDataPiece.bind(this)}/>
         </FormGroup>
         <FormGroup>
           <Label>Original Height</Label>
-          <Input type="number" name="original_height" id="original_height" placeholder="" />
+          <Input type="number" name="original_height" id="original_height" placeholder="" value={this.state.original_height} onChange={this.handleDataPiece.bind(this)}/>
         </FormGroup>
         <FormGroup>
           <Label>Control</Label>
-          <Input type="select" name="control" id="control">
-            <option>24</option>
-            <option>36</option>
-            <option>48</option>
-            <option>60</option>
-            <option>72</option>
-            <option>84</option>
-            <option>96</option>
+          <Input type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
+            <option value='24'>24</option>
+            <option value='36'>36</option>
+            <option value='48'>48</option>
+            <option value='60'>60</option>
+            <option value='72'>72</option>
+            <option value='84'>84</option>
+            <option value='96'>96</option>
           </Input>
         </FormGroup>
         <FormGroup>
@@ -43,13 +77,13 @@ export default class LaurentForm extends React.Component {
               <Col>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="cassette_orientation" />{' '}
+                    <Input type="radio" name="cassette_orientation" value = 'Left' onChange={this.handleDataPiece.bind(this)}/>{' '}
                     Left
                   </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="cassette_orientation" />{' '}
+                    <Input type="radio" name="cassette_orientation" value='Right' onChange={this.handleDataPiece.bind(this)}/>{' '}
                     Right
                   </Label>
                 </FormGroup>
@@ -57,13 +91,13 @@ export default class LaurentForm extends React.Component {
                 <Col>
                 <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_extra" />{' '}
+                  <Input type="radio" name="cassette_extra" value= 'Court' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   Court
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_extra" />{' '}
+                  <Input type="radio" name="cassette_extra" value='Trim' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   Trim
                 </Label>
               </FormGroup>
@@ -71,13 +105,13 @@ export default class LaurentForm extends React.Component {
               <Col>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_color" />{' '}
+                  <Input type="radio" name="cassette_color" value='White' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   White
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_color" />{' '}
+                  <Input type="radio" name="cassette_color" value='Silver' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   Silver
                 </Label>
               </FormGroup>
@@ -85,9 +119,20 @@ export default class LaurentForm extends React.Component {
             </Row>
           </Container>
           </FormGroup>
-          <Fabric />
-
+          <Fabric handlerFromParent={this.handleData} />
       </Form>
+      <p>{this.state.date}</p>
+      <p>{this.state.po_number}</p>
+      <p>{this.state.original_width}</p>
+      <p>{this.state.original_height}</p>
+      <p>{this.state.control_size}</p>
+      <p>{this.state.cassette_orientation}</p>
+      <p>{this.state.cassette_extra}</p>
+      <p>{this.state.cassette_color}</p>
+      <p>{this.state.fabric_type}</p>
+      <p>{this.state.fabric_color}</p>
+      
+      </div>
     );
   }
 }

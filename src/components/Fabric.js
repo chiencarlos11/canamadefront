@@ -18,14 +18,26 @@ export default class Fabric extends React.Component {
 						color_selection: [...this.color_dict['Laurent']]};
 	}
 
+
 	update_fabric(event){
 		this.setState({selected_fabric: event.target.value});
 		this.setState({selected_fabric_color: this.color_dict[event.target.value][0]});
 		this.setState({color_selection: this.color_dict[event.target.value]});
+
+		//Updating Parents
+		var fabricMap = new Map();
+		fabricMap.set('fabric_type', event.target.value)
+		fabricMap.set('fabric_color', this.color_dict[event.target.value][0])
+		this.props.handlerFromParent(fabricMap)
 	}
 
 	update_fabric_color(event){
 		this.setState({selected_fabric_color: event.target.value});
+
+		//Updating Parents
+		var fabricMap = new Map();
+		fabricMap.set('fabric_color', event.target.value)
+		this.props.handlerFromParent(fabricMap)
 	}
 
 	  render() {
@@ -50,8 +62,6 @@ export default class Fabric extends React.Component {
 	      {this.state.color_selection.map(code => <option key={code} value={code}>{code}</option>)};
 	      </Input>
 	      </FormGroup>
-	      <p>{this.state.selected_fabric}</p>
-	      <p>{this.state.selected_fabric_color}</p>
 
 	      <Consumer>
 	      {context => {

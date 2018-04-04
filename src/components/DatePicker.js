@@ -1,30 +1,36 @@
-import React from 'react';
-import DatePicker from 'react-datepicker';
+import React, { Component } from 'react';
+import DatePicker from 'react-date-picker';
 import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
+import 'moment-timezone';
  
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
- 
-export default class SoloDatePicker extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      startDate: moment()
-    };
-    this.handleChange = this.handleChange.bind(this);
+export default class SoloDatePicker extends Component {
+  state = {
+    date: new Date(),
   }
  
-  handleChange(date) {
-    this.setState({
-      startDate: date
-    });
+  onChange(date){
+    this.setState({ date })
+    //Updating Parents
+    var dateMap = new Map();
+    var myTimezone = "America/Toronto";
+    var myDatetimeFormat= "YYYY-MM-DD";
+    var myDatetimeString = moment(date).tz(myTimezone).format(myDatetimeFormat);
+
+    dateMap.set('date', myDatetimeString)
+    this.props.handlerFromParent(dateMap)
   }
- 
+
   render() {
-    return <DatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange}
-    />;
+    return (
+      <div>
+        <DatePicker
+          onChange={this.onChange.bind(this)}
+          value={this.state.date}
+        />
+      </div>
+    );
   }
 }
+
+
+
