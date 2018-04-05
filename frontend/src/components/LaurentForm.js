@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
+import { Button, ModalFooter, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SoloDatePicker from './DatePicker.js';
 import Fabric from './Fabric.js'
+import {Consumer} from '../context/MyContext.js'
 
 export default class LaurentForm extends React.Component {
   constructor(){
@@ -20,6 +21,9 @@ export default class LaurentForm extends React.Component {
       fabric_type: 'Laurent',
       fabric_color: '301',
     };
+
+    this.prepare_order = this.prepare_order.bind(this);
+
   }
 
   handleData(dateMap) {
@@ -35,6 +39,17 @@ export default class LaurentForm extends React.Component {
     var itemMap = new Map();
     itemMap.set(event.target.name, event.target.value)
     this.handleData(itemMap)
+  }
+
+  prepare_order(){
+
+    var order_string = '';
+
+    order_string = "Po Number: " + this.state.po_number + " OW: " + this.state.original_width + " OH: " + this.state.original_height + " CZ: " + this.state.control_size +
+                    " CO: " + this.state.cassette_orientation + " CE: " + this.state.cassette_extra + " CC: " + this.state.cassette_color + " FT: " + this.state.fabric_type + " " + this.state.fabric_color;
+
+    return order_string;
+
   }
 
 
@@ -131,6 +146,24 @@ export default class LaurentForm extends React.Component {
       <p>{this.state.cassette_color}</p>
       <p>{this.state.fabric_type}</p>
       <p>{this.state.fabric_color}</p>
+
+      <ModalFooter>
+      <Consumer>
+        {context => {
+
+          const {actions } = context;
+
+          return (
+          <React.Fragment>
+            <Button onClick={ () => {actions.add_order(this.prepare_order())}}>Submit</Button>
+          </React.Fragment>
+          )
+          }
+        }
+        </Consumer>
+
+        <Button color="secondary" onClick={this.props.toggleModal}>Cancel</Button>
+      </ModalFooter>
       
       </div>
     );

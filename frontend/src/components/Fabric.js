@@ -1,6 +1,5 @@
 import React from 'react';
-import { FormGroup, Label, Input, Button} from 'reactstrap';
-import {Consumer} from '../context/MyContext.js'
+import { FormGroup, Label, Input} from 'reactstrap';
 
 export default class Fabric extends React.Component {
 	constructor(){
@@ -62,23 +61,6 @@ export default class Fabric extends React.Component {
 	      {this.state.color_selection.map(code => <option key={code} value={code}>{code}</option>)};
 	      </Input>
 	      </FormGroup>
-
-	      <Consumer>
-	      {context => {
-
-	      	const {actions } = context;
-
-	      	return (
-	      	<React.Fragment>
-	      		<Button onClick={ () => {actions.add_order("Hello World")}}>Add me!</Button>
-	      	</React.Fragment>
-	      	)
-	      	}
-	  	  }
-	      </Consumer>
-
-
-
 
 	     </div>
 	  )}

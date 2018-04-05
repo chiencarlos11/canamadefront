@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.0.0",
+    "mathjs": "^4.0.1",
     "moment": "^2.22.0",
     "moment-timezone": "^0.5.14",
     "namor": "^1.0.1",
