@@ -1,39 +1,42 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button,Alert,Modal, ModalHeader, ModalBody, ModalFooter, Card, CardText, CardBody, CardTitle, CardSubtitle, Container, Row, Col } from 'reactstrap';
+import { Button,Alert,Modal, ModalHeader, ModalBody, Card, CardText, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LaurentForm from './components/LaurentForm'
 import {MyProvider, Consumer} from './context/MyContext'
 
-class BlindTypeButton extends React.Component {
+
+class ModalContent extends React.Component {
 	constructor(props){
 		super(props);
 		this.label = props.label;
 		this.blind_type = props.blind_type;
 		this.color = props.color;
 		this.showForm = false;
+		this.formtype = '';
 	}
 	
-	handleClick(blind_type) {
+	handleClick(e) {
 		this.setState({showForm: true});
-		console.log("You Clicked " + blind_type)
+		console.log("You Clicked " + e.target.name)
 		this.showForm = true;
+		this.formtype = e.target.name
 	}
 	
 	render(){
 		
 		if (this.showForm){
 			return(
-				<LaurentForm />
+				<LaurentForm toggleModal={this.props.toggleModal}/>
 				);
 		}
 		
 		return(
-			<Button outline color={this.color} onClick={(e) => this.handleClick(this.blind_type)}>
-			{this.label}
-			</Button>
-			
+			<div>
+			<Button outline name='Laurent' color="primary" onClick={this.handleClick.bind(this)}>Laurent</Button>
+			<Button outline name='Morgan' color="primary" onClick={this.handleClick.bind(this)}>Morgan</Button>
+			</div>
 			);
 	}
 }
@@ -64,27 +67,25 @@ class ModalExample extends React.Component {
 		this.setState({showForm: true});
 		console.log("You Clicked " + blind_type)
 		
-		
 	}
 	
 	render() {
+
 		return (
+
 			<div>
 			<Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
 			<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 			<ModalHeader toggle={this.toggle}>Choose Blind Type</ModalHeader>
 			<ModalBody>
-			
-			<BlindTypeButton label='Laurent' blind_type='Laurent' color='primary' />
-			
+			<ModalContent toggleModal={this.toggle}/>
 			</ModalBody>
-			<ModalFooter>
-		{/* <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}*/}
-		<Button color="secondary" onClick={this.toggle}>Cancel</Button>
-		</ModalFooter>
-		</Modal>
-		</div>
-		);
+			
+			</Modal>
+			</div>
+
+			);
+
 	}
 }
 
@@ -133,48 +134,30 @@ class LoggingButton extends React.Component {
 class BlindPanel extends React.Component {
 	
 	render(){
-		
 		return(
 			
-			<Card>
+			<Card body>
 			<CardBody>
-			<CardTitle>{this.props.data}</CardTitle>
-			<CardSubtitle>Card subtitle</CardSubtitle>
-			<CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
+			<CardTitle>Laurent</CardTitle>
+			<CardText>{this.props.body}</CardText>
 			
 			<Container>
 			<Row>
-			<Col>
+			<Col sm="4">
 			<Button key='1'>Copy</Button>
 			</Col>
-			<Col>
+			<Col sm="4">
 			<Button key='2'>Edit</Button>
 			</Col>
-			<Col>
+			<Col sm="4">
 			<Button key='3'>Delete</Button>
 			</Col>
 			</Row>
-			</Container>
-			</CardBody>
-			</Card>
-			
-			);
-	}
-}
+		</Container>
+		</CardBody>
+		</Card>
 
-class Output extends Component{
-
-	render(){
-		return(
-			<Consumer>
-			{({state}) => (
-				<React.Fragment>
-				<h1>Orders: {state.orders}</h1>
-				</React.Fragment>
-				)}
-			</Consumer>
-
-			)
+		);
 	}
 }
 
@@ -214,26 +197,38 @@ class App extends Component {
 			<br/>
 			<Container>
 			<Row>
-			<Col>
-			<BlindPanel data={this.state.data}/>
-			</Col>
-			<Col>
-			<BlindPanel data={this.state.data}/>
-			</Col>
-			<Col>
-			<BlindPanel data={this.state.data}/>
-			</Col>
-			</Row>
-			</Container>
-			
-			<Output/>
-			
-			
-			</div>
-			</MyProvider>
-			
-			
-			);
+			<Consumer>
+			{context => {
+
+				const {state} = context;
+
+				return (
+					<React.Fragment>
+					{state['orders'].map(function(item, i){
+
+						return(
+							<Col sm="4" key={i}>
+							<BlindPanel id={i} key={i} body={item}/>
+							</Col>
+							)
+
+					})}
+					</React.Fragment>
+					)
+			}
+		}
+		</Consumer>
+		</Row>
+
+
+		</Container>
+
+
+		</div>
+		</MyProvider>
+
+
+		);
 	}
 }
 
