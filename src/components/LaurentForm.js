@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SoloDatePicker from './DatePicker.js';
 import Fabric from './Fabric.js'
 import {Consumer} from '../context/MyContext.js'
+var math = require('mathjs');
+var Fraction = require('fraction.js');
 
 export default class LaurentForm extends React.Component {
   constructor(){
@@ -20,6 +22,11 @@ export default class LaurentForm extends React.Component {
       cassette_color: '',
       fabric_type: 'Laurent',
       fabric_color: '301',
+      cassette_size: '',
+      tube_tob: '',
+      inner: '',
+      outer: '',
+      height: '',
     };
 
     this.prepare_order = this.prepare_order.bind(this);
@@ -39,16 +46,63 @@ export default class LaurentForm extends React.Component {
     var itemMap = new Map();
     itemMap.set(event.target.name, event.target.value)
     this.handleData(itemMap)
+    if (event.target.name === 'original_width'){
+      let new_cassette_size = math.fraction(event.target.value - (3/8));
+      this.setState({cassette_size: new_cassette_size});
+      let new_tube_tob = math.fraction(new_cassette_size - 1);
+      this.setState({tube_tob: new_tube_tob});
+      let new_inner = math.fraction(new_tube_tob - (1/4));
+      this.setState({inner: new_inner});
+      let new_outer = math.fraction(new_tube_tob + (1/8));
+      this.setState({outer: new_outer});
+
+    }
+
+  }
+
+  compute_fraction(value){
+
+    let frac = value%1;
+    var x = new Fraction(frac);
+    var res = x.toFraction(true); 
+
+    return Math.trunc(value) + " " + res
+  }
+
+  compute_height(){
+    let new_height = 0;
+    let original_height = this.state['original_height'];
+
+    let fabric_type = this.state.fabric_type;
+    if (fabric_type === 'Laurent' || fabric_type === 'Husky' || fabric_type === 'Galaxy'){
+      new_height = math.number(original_height) + (3 + (7/8)); 
+      this.setState({height: new_height});
+    }
+    if (fabric_type === 'Timber' || fabric_type === 'Scotby' || fabric_type === 'Morgan'){
+      new_height = original_height + ( 4 + (1/8));
+      this.setState({height: new_height});
+    }
+    if (fabric_type === 'Richmond'){
+      new_height = original_height + ( 4 + (1/2));
+      this.setState({height: new_height});
+    }
+
+    return new_height;
   }
 
   prepare_order(){
 
-    var order_string = '';
+    let new_height = this.compute_height()
 
-    order_string = "Po Number: " + this.state.po_number + " OW: " + this.state.original_width + " OH: " + this.state.original_height + " CZ: " + this.state.control_size +
+    let order_name = 'Laurent';
+
+    let order_string = "Po Number: " + this.state.po_number + " OW: " + this.state.original_width + " OH: " + this.state.original_height + " CZ: " + this.state.control_size +
+                    " CS: " + this.compute_fraction(this.state.cassette_size) + " TOB: " + this.compute_fraction(this.state.tube_tob) + " inner: " + this.compute_fraction(this.state.inner) + 
+                    " outer: " + this.compute_fraction(this.state.outer) + " Height: " + this.compute_fraction(new_height) +
                     " CO: " + this.state.cassette_orientation + " CE: " + this.state.cassette_extra + " CC: " + this.state.cassette_color + " FT: " + this.state.fabric_type + " " + this.state.fabric_color;
 
-    return order_string;
+    let laurent_object = {name: order_name, body: order_string, modal:this.props.toggleModal}
+    return laurent_object;
 
   }
 
@@ -136,16 +190,6 @@ export default class LaurentForm extends React.Component {
           </FormGroup>
           <Fabric handlerFromParent={this.handleData} />
       </Form>
-      <p>{this.state.date}</p>
-      <p>{this.state.po_number}</p>
-      <p>{this.state.original_width}</p>
-      <p>{this.state.original_height}</p>
-      <p>{this.state.control_size}</p>
-      <p>{this.state.cassette_orientation}</p>
-      <p>{this.state.cassette_extra}</p>
-      <p>{this.state.cassette_color}</p>
-      <p>{this.state.fabric_type}</p>
-      <p>{this.state.fabric_color}</p>
 
       <ModalFooter>
       <Consumer>
