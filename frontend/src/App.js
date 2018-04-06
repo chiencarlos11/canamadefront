@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button,Alert,Modal, ModalHeader, ModalBody, Card, CardText, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Card, CardText, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LaurentForm from './components/LaurentForm'
 import {MyProvider, Consumer} from './context/MyContext'
@@ -90,70 +90,47 @@ class ModalExample extends React.Component {
 }
 
 
-function WarningBanner(props) {
-	if (!props.warn) {
-		return null;
-	}
-	
-	return (
-		<Alert color="primary">
-		This is a primary alert — check it out!
-		</Alert>
-		);
-}
-
-
-class LoggingButton extends React.Component {
-	
-	constructor(){
-		super();
-		this.state = {showWarning: false};
-	}
-	
-	
-	handleClick() {
-		this.setState({showWarning: true});
-	}
-	
-	render() {
-		// This syntax ensures `this` is bound within handleClick
-		return (
-			
-			<div>
-			
-			<WarningBanner warn={this.state.showWarning} />
-			
-			<Button color="primary" onClick={(e) => this.handleClick(e)}>
-			Click me
-			</Button>
-			</div>
-			);
-	}
-}
-
 class BlindPanel extends React.Component {
+
+	constructor(props){
+		super(props);
+
+		this.remove_panel = this.remove_panel.bind(this);
+		this.copy_panel = this.copy_panel.bind(this);
+	}
+
+	remove_panel(){
+		this.props.remove_order(this.props.index)
+	}
+
+	copy_panel(){
+		this.props.copy_order(this.props.index)
+	}
 	
 	render(){
 		return(
 			
 			<Card body>
 			<CardBody>
-			<CardTitle>Laurent</CardTitle>
+			<CardTitle>{this.props.name}</CardTitle>
 			<CardText>{this.props.body}</CardText>
 			
-			<Container>
-			<Row>
-			<Col sm="4">
-			<Button key='1'>Copy</Button>
-			</Col>
-			<Col sm="4">
-			<Button key='2'>Edit</Button>
-			</Col>
-			<Col sm="4">
-			<Button key='3'>Delete</Button>
-			</Col>
-			</Row>
-		</Container>
+
+					<Container>
+					<Row>
+					<Col sm="4">
+					<Button onClick={this.remove_panel} >Remove</Button>
+					</Col>
+					<Col sm="4">
+					<Button key='2'>Edit</Button>
+					</Col>
+					<Col sm="4">
+					<Button onClick={this.copy_panel} >Copy</Button>
+					</Col>
+					</Row>
+					</Container>
+
+
 		</CardBody>
 		</Card>
 
@@ -183,13 +160,9 @@ class App extends Component {
 			<div className="App">
 			<header className="App-header">
 			<img src={logo} className="App-logo" alt="logo" />
-			<h1 className="App-title">Welcome to React</h1>
+			<h1 className="App-title">CanaMade Production</h1>
 			</header>
-			<p className="App-intro">
-			To get started, edit <code>src/App.js</code> and save to reload.
-			</p>
-			<br/>
-			<LoggingButton />
+
 			<br/>
 			<ModalExample buttonLabel="New Order" callbackFromParent={this.myCallback.bind(this)}/>
 			<br/>
@@ -200,7 +173,7 @@ class App extends Component {
 			<Consumer>
 			{context => {
 
-				const {state} = context;
+				const {state, actions} = context;
 
 				return (
 					<React.Fragment>
@@ -208,7 +181,7 @@ class App extends Component {
 
 						return(
 							<Col sm="4" key={i}>
-							<BlindPanel id={i} key={i} body={item}/>
+							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
 							</Col>
 							)
 
