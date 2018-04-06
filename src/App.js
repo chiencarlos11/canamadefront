@@ -5,6 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, Card, CardText, CardBody, CardTi
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LaurentForm from './components/LaurentForm'
 import {MyProvider, Consumer} from './context/MyContext'
+import Tilt from 'react-tilt'
 
 
 class ModalContent extends React.Component {
@@ -109,7 +110,8 @@ class BlindPanel extends React.Component {
 	
 	render(){
 		return(
-			
+			<Tilt className="Tilt" options={{ max : 5, axis: 'X' }} style={{ height: 100, width: 400 }} >
+ 			<div className="Tilt-inner">
 			<Card body>
 			<CardBody>
 			<CardTitle>{this.props.name}</CardTitle>
@@ -118,13 +120,9 @@ class BlindPanel extends React.Component {
 
 					<Container>
 					<Row>
-					<Col sm="4">
+					<Col>
 					<Button onClick={this.remove_panel} >Remove</Button>
-					</Col>
-					<Col sm="4">
-					<Button key='2'>Edit</Button>
-					</Col>
-					<Col sm="4">
+					<Button >Edit</Button>
 					<Button onClick={this.copy_panel} >Copy</Button>
 					</Col>
 					</Row>
@@ -133,6 +131,9 @@ class BlindPanel extends React.Component {
 
 		</CardBody>
 		</Card>
+		
+		</div>
+		</Tilt>
 
 		);
 	}
