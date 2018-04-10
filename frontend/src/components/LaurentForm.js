@@ -8,20 +8,20 @@ var math = require('mathjs');
 var Fraction = require('fraction.js');
 
 export default class LaurentForm extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.handleData = this.handleData.bind(this);
     this.state = {
       date: Date.now(),
       po_number: '',
       original_width: '',
       original_height: '',
-      control_size: '24',
+      control_size: '',
       cassette_orientation: '',
       cassette_extra: '',
       cassette_color: '',
-      fabric_type: 'Laurent',
-      fabric_color: '301',
+      fabric_type: '',
+      fabric_color: '',
       cassette_size: '',
       tube_tob: '',
       inner: '',
@@ -33,6 +33,27 @@ export default class LaurentForm extends React.Component {
 
   }
 
+  componentDidMount(){
+      
+    this.setState({
+      date: Date.now(),
+      po_number: this.props.initial_state.po_number,
+      original_width: this.props.initial_state.original_width,
+      original_height: this.props.initial_state.original_height,
+      control_size: this.props.initial_state.control_size,
+      cassette_orientation: this.props.initial_state.cassette_orientation,
+      cassette_extra: '',
+      cassette_color: '',
+      fabric_type: this.props.initial_state.fabric_type,
+      fabric_color: this.props.initial_state.fabric_color,
+      cassette_size: '',
+      tube_tob: '',
+      inner: '',
+      outer: '',
+      height: '',
+    });
+  }
+  
   handleData(dateMap) {
     for (const [key, value] of dateMap.entries()) {
       var newState = {};
@@ -93,17 +114,23 @@ export default class LaurentForm extends React.Component {
   prepare_order(){
 
     let new_height = this.compute_height()
-
     let order_name = 'Laurent';
-
-    let order_string = "Po Number: " + this.state.po_number + " OW: " + this.state.original_width + " OH: " + this.state.original_height + " CZ: " + this.state.control_size +
-                    " CS: " + this.compute_fraction(this.state.cassette_size) + " TOB: " + this.compute_fraction(this.state.tube_tob) + " inner: " + this.compute_fraction(this.state.inner) + 
-                    " outer: " + this.compute_fraction(this.state.outer) + " Height: " + this.compute_fraction(new_height) +
-                    " CO: " + this.state.cassette_orientation + " CE: " + this.state.cassette_extra + " CC: " + this.state.cassette_color + " FT: " + this.state.fabric_type + " " + this.state.fabric_color;
-
-    let laurent_object = {name: order_name, body: order_string, modal:this.props.toggleModal}
+    let curr_order = Object.assign(this.state, { new_height: new_height});
+    let laurent_object = { name: order_name, body: curr_order, modal:this.props.toggleModal}
     return laurent_object;
 
+  }
+
+  action_order(actions){
+    let new_height = this.compute_height()
+    if (this.props.edit_action){
+      let order_name = 'Laurent';
+      let curr_order = Object.assign(this.state, { new_height: new_height });
+      let laurent_object = { name: order_name, body: curr_order, modal: this.props.toggleModal }
+      actions.update_order(this.props.index, laurent_object)
+    }else{
+      actions.add_order(this.prepare_order())
+    }
   }
 
 
@@ -195,11 +222,11 @@ export default class LaurentForm extends React.Component {
       <Consumer>
         {context => {
 
-          const {actions } = context;
+          const {actions} = context;
 
           return (
           <React.Fragment>
-            <Button onClick={ () => {actions.add_order(this.prepare_order())}}>Submit</Button>
+            <Button onClick={ () => {this.action_order(actions)}}>Submit</Button>
           </React.Fragment>
           )
           }

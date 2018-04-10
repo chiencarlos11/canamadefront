@@ -6,6 +6,25 @@ export class MyProvider extends Component{
 
   state = {
     orders: [],
+    current_index: 0,
+    toggle: false,
+    curr_order: {
+      date: Date.now(),
+      po_number: '',
+      original_width: '',
+      original_height: '',
+      control_size: '24',
+      cassette_orientation: '',
+      cassette_extra: '',
+      cassette_color: '',
+      fabric_type: 'Laurent',
+      fabric_color: '301',
+      cassette_size: '',
+      tube_tob: '',
+      inner: '',
+      outer: '',
+      height: '',
+    }
   };
 
   add_order = order => {
@@ -23,10 +42,41 @@ export class MyProvider extends Component{
 
   copy_order = index => {
     var new_orders = this.state.orders.slice()
-    var new_order = this.state.orders[index];
+    var new_order = new_orders[index];
     new_orders.push(new_order)
     this.setState({orders: new_orders})
   };
+
+  update_order = (index,order) => {
+    console.log("=== Updating new Order ==== " + index) 
+    console.log(JSON.stringify(order));
+    var new_orders = this.state.orders.slice()
+    new_orders[index] = order;
+    this.setState({ orders: new_orders,
+                    curr_order: order })
+    order['modal']();
+  };
+
+  get_order = index => {
+    var new_orders = this.state.orders.slice();
+    var new_order = new_orders[index];
+    return new_order;
+  };
+
+  toggle = index => {
+
+    if (!this.state.toggle){
+      this.setState({
+        current_index: index,
+        curr_order: this.get_order(index),
+      });
+
+    }
+
+    this.setState({
+      toggle: !this.state.toggle,
+    });
+  }
 
   render(){
     return (
@@ -36,6 +86,9 @@ export class MyProvider extends Component{
           add_order: this.add_order,
           remove_order: this.remove_order,
           copy_order: this.copy_order,
+          update_order: this.update_order,
+          get_order: this.get_order,
+          toggle: this.toggle,
         },
       }}>
         {this.props.children}
