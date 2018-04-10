@@ -3,44 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Modal, ModalHeader, ModalBody, Card, CardText, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LaurentForm from './components/LaurentForm'
 import {MyProvider, Consumer} from './context/MyContext'
-import Tilt from 'react-tilt'
 
-
-class ModalContent extends React.Component {
-	constructor(props){
-		super(props);
-		this.label = props.label;
-		this.blind_type = props.blind_type;
-		this.color = props.color;
-		this.showForm = false;
-		this.formtype = '';
-	}
-	
-	handleClick(e) {
-		this.setState({showForm: true});
-		console.log("You Clicked " + e.target.name)
-		this.showForm = true;
-		this.formtype = e.target.name
-	}
-	
-	render(){
-		
-		if (this.showForm){
-			return(
-				<LaurentForm toggleModal={this.props.toggleModal}/>
-				);
-		}
-		
-		return(
-			<div>
-			<Button outline name='Laurent' color="primary" onClick={this.handleClick.bind(this)}>Laurent</Button>
-			<Button outline name='Morgan' color="primary" onClick={this.handleClick.bind(this)}>Morgan</Button>
-			</div>
-			);
-	}
-}
+import ModalContent from './components/ModalContent'
+import LaurentEditForm from './components/LaurentEditForm'
 
 class ModalExample extends React.Component {
 	constructor(props) {
@@ -51,10 +17,7 @@ class ModalExample extends React.Component {
 		};
 		
 		this.blindTypes = ['Laurent','Roller Shade','CanaMade Shade','Vertical Blinds','Cellular Shades'];
-		
 		this.toggle = this.toggle.bind(this);
-		
-		
 	}
 	
 	toggle() {
@@ -66,77 +29,124 @@ class ModalExample extends React.Component {
 	
 	handleClick(blind_type) {
 		this.setState({showForm: true});
-		console.log("You Clicked " + blind_type)
 		
 	}
 	
 	render() {
-
+		
+		let initial_state = {
+			date: Date.now(),
+			po_number: '',
+			original_width: '',
+			original_height: '',
+			control_size: '24',
+			cassette_orientation: '',
+			cassette_extra: '',
+			cassette_color: '',
+			fabric_type: 'Laurent',
+			fabric_color: '301',
+			cassette_size: '',
+			tube_tob: '',
+			inner: '',
+			outer: '',
+			height: '',
+		};
+		
 		return (
-
+			
 			<div>
 			<Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
 			<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 			<ModalHeader toggle={this.toggle}>Choose Blind Type</ModalHeader>
 			<ModalBody>
-			<ModalContent toggleModal={this.toggle}/>
+			<ModalContent initial_state={initial_state} toggleModal={this.toggle}/>
 			</ModalBody>
 			
 			</Modal>
 			</div>
-
-			);
-
+			
+		);
+		
 	}
 }
 
 
 class BlindPanel extends React.Component {
-
+	
 	constructor(props){
 		super(props);
-
+		
 		this.remove_panel = this.remove_panel.bind(this);
 		this.copy_panel = this.copy_panel.bind(this);
+		this.edit_panel = this.edit_panel.bind(this);
+		
+		this.state = {
+			modal: false,
+		};
 	}
-
+	
+	toggle() {
+		this.setState({
+			modal: !this.state.modal
+		});
+		this.props.callbackFromParent('Laurent');
+	}
+	
 	remove_panel(){
 		this.props.remove_order(this.props.index)
 	}
-
+	
 	copy_panel(){
 		this.props.copy_order(this.props.index)
 	}
 	
+	edit_panel(actions){
+		console.log("You clicked toggle edit");
+		actions.toggle(this.props.index);
+	}
+	
 	render(){
 		return(
-			<Tilt className="Tilt" options={{ max : 5, axis: 'X' }} style={{ height: 100, width: 400 }} >
- 			<div className="Tilt-inner">
+			
 			<Card body>
 			<CardBody>
 			<CardTitle>{this.props.name}</CardTitle>
 			<CardText>{this.props.body}</CardText>
 			
-
-					<Container>
-					<Row>
-					<Col>
-					<Button onClick={this.remove_panel} >Remove</Button>
-					<Button >Edit</Button>
-					<Button onClick={this.copy_panel} >Copy</Button>
-					</Col>
-					</Row>
-					</Container>
-
-
+			
+			<Container>
+			<Row>
+			<Col>
+			<Button onClick={this.remove_panel} >Remove</Button>
+			
+			<Consumer>
+			{context => {
+				
+				const { actions } = context;
+				
+				return (
+					<React.Fragment>
+					
+					<Button onClick={() => {this.edit_panel(actions)}} >Edit</Button>
+					</React.Fragment>
+				)
+			}
+		}
+		</Consumer>
+		
+		
+		
+		<Button onClick={this.copy_panel} >Copy</Button>
+		</Col>
+		</Row>
+		</Container>
+		
+		
 		</CardBody>
 		</Card>
 		
-		</div>
-		</Tilt>
-
-		);
-	}
+	);
+}
 }
 
 
@@ -145,14 +155,29 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: "No Data Available Yet!"
+			data: "No Data Available Yet!",
 		};    
+
+		this.parse_body = this.parse_body.bind(this);
 	};
 	
 	
 	myCallback = (dataFromChild) => {
 		this.setState({ data: dataFromChild });
 	};
+
+	parse_body(order){
+
+		let order_string  = ''
+		if (order){
+		 	order_string = "Po Number: " + order.po_number + " OW: " + order.original_width + " OH: " + order.original_height + " CZ: " + order.control_size +
+			" CS: " + this.compute_fraction(order.cassette_size) + " TOB: " + this.compute_fraction(order.tube_tob) + " inner: " + this.compute_fraction(order.inner) +
+			" outer: " + this.compute_fraction(order.outer) + " Height: " + this.compute_fraction(order.new_height) +
+			" CO: " + order.cassette_orientation + " CE: " + order.cassette_extra + " CC: " + order.cassette_color + " FT: " + order.fabric_type + " " + order.fabric_color;
+		}
+		return order_string
+
+	}
 	
 	
 	render() {
@@ -161,9 +186,8 @@ class App extends Component {
 			<div className="App">
 			<header className="App-header">
 			<img src={logo} className="App-logo" alt="logo" />
-			<h1 className="App-title">CanaMade Production</h1>
+			<h1 className="App-title">Welcome to React</h1>
 			</header>
-
 			<br/>
 			<ModalExample buttonLabel="New Order" callbackFromParent={this.myCallback.bind(this)}/>
 			<br/>
@@ -173,37 +197,39 @@ class App extends Component {
 			<Row>
 			<Consumer>
 			{context => {
-
+				
 				const {state, actions} = context;
-
+				
 				return (
 					<React.Fragment>
 					{state['orders'].map(function(item, i){
-
+						
 						return(
 							<Col sm="4" key={i}>
-							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
+								<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={JSON.stringify(item['body'])}/>
 							</Col>
-							)
-
+						)
+						
 					})}
+					
+					<LaurentEditForm index={state.current_index} toggle_initial_state={state.toggle} toggle_edit={actions.toggle} />
 					</React.Fragment>
-					)
+				)
 			}
 		}
 		</Consumer>
 		</Row>
-
-
+		
+		
 		</Container>
-
-
+		
+		
 		</div>
 		</MyProvider>
-
-
-		);
-	}
+		
+		
+	);
+}
 }
 
 export default App;
