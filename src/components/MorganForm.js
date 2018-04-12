@@ -30,6 +30,7 @@ export default class LaurentForm extends React.Component {
     };
 
     this.prepare_order = this.prepare_order.bind(this);
+
   }
 
   componentDidMount(){
@@ -114,21 +115,19 @@ export default class LaurentForm extends React.Component {
 
     let new_height = this.compute_height()
     let order_name = 'Laurent';
-    let curr_order = Object.assign(this.state, { height: this.compute_fraction(new_height)});
-
-    curr_order['cassette_size'] = this.compute_fraction(curr_order['cassette_size'])
-    curr_order['tube_tob'] = this.compute_fraction(curr_order['tube_tob'])
-    curr_order['inner'] = this.compute_fraction(curr_order['inner'])
-    curr_order['outer'] = this.compute_fraction(curr_order['outer'])
-
+    let curr_order = Object.assign(this.state, { new_height: new_height});
     let laurent_object = { name: order_name, body: curr_order, modal:this.props.toggleModal}
     return laurent_object;
 
   }
 
   action_order(actions){
+    let new_height = this.compute_height()
     if (this.props.edit_action){
-      actions.update_order(this.props.index, this.prepare_order())
+      let order_name = 'Laurent';
+      let curr_order = Object.assign(this.state, { new_height: new_height });
+      let laurent_object = { name: order_name, body: curr_order, modal: this.props.toggleModal }
+      actions.update_order(this.props.index, laurent_object)
     }else{
       actions.add_order(this.prepare_order())
     }

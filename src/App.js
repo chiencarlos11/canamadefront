@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, Card, CardText, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 
 import ModalContent from './components/ModalContent'
 import LaurentEditForm from './components/LaurentEditForm'
+import CardContent from './components/CardContent'
 
 class ModalExample extends React.Component {
 	constructor(props) {
@@ -111,13 +112,11 @@ class BlindPanel extends React.Component {
 			<Card body>
 			<CardBody>
 			<CardTitle>{this.props.name}</CardTitle>
-			<CardText>{this.props.body}</CardText>
-			
-			
+					<CardContent body={this.props.body} />
 			<Container>
 			<Row>
 			<Col>
-			<Button onClick={this.remove_panel} >Remove</Button>
+			<Button onClick={this.copy_panel} >Copy</Button>
 			
 			<Consumer>
 			{context => {
@@ -135,8 +134,7 @@ class BlindPanel extends React.Component {
 		</Consumer>
 		
 		
-		
-		<Button onClick={this.copy_panel} >Copy</Button>
+		<Button onClick={this.remove_panel} >Remove</Button>
 		</Col>
 		</Row>
 		</Container>
@@ -157,7 +155,7 @@ class App extends Component {
 		this.state = {
 			data: "No Data Available Yet!",
 		};    
-
+		
 		this.parse_body = this.parse_body.bind(this);
 	};
 	
@@ -165,18 +163,18 @@ class App extends Component {
 	myCallback = (dataFromChild) => {
 		this.setState({ data: dataFromChild });
 	};
-
+	
 	parse_body(order){
-
+		
 		let order_string  = ''
 		if (order){
-		 	order_string = "Po Number: " + order.po_number + " OW: " + order.original_width + " OH: " + order.original_height + " CZ: " + order.control_size +
+			order_string = "Po Number: " + order.po_number + " OW: " + order.original_width + " OH: " + order.original_height + " CZ: " + order.control_size +
 			" CS: " + this.compute_fraction(order.cassette_size) + " TOB: " + this.compute_fraction(order.tube_tob) + " inner: " + this.compute_fraction(order.inner) +
 			" outer: " + this.compute_fraction(order.outer) + " Height: " + this.compute_fraction(order.new_height) +
 			" CO: " + order.cassette_orientation + " CE: " + order.cassette_extra + " CC: " + order.cassette_color + " FT: " + order.fabric_type + " " + order.fabric_color;
 		}
 		return order_string
-
+		
 	}
 	
 	
@@ -186,7 +184,7 @@ class App extends Component {
 			<div className="App">
 			<header className="App-header">
 			<img src={logo} className="App-logo" alt="logo" />
-			<h1 className="App-title">Welcome to React</h1>
+			<h1 className="App-title">CanaMade</h1>
 			</header>
 			<br/>
 			<ModalExample buttonLabel="New Order" callbackFromParent={this.myCallback.bind(this)}/>
@@ -206,7 +204,7 @@ class App extends Component {
 						
 						return(
 							<Col sm="4" key={i}>
-								<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={JSON.stringify(item['body'])}/>
+							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
 							</Col>
 						)
 						
