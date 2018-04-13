@@ -7,24 +7,9 @@ export class MyProvider extends Component{
   state = {
     orders: [],
     current_index: 0,
+    current_blind_type: '',
     toggle: false,
-    curr_order: {
-      date: Date.now(),
-      po_number: '',
-      original_width: '',
-      original_height: '',
-      control_size: '24',
-      cassette_orientation: '',
-      cassette_extra: '',
-      cassette_color: '',
-      fabric_type: 'Laurent',
-      fabric_color: '301',
-      cassette_size: '',
-      tube_tob: '',
-      inner: '',
-      outer: '',
-      height: '',
-    }
+    curr_order: {}
   };
 
   add_order = order => {
@@ -63,11 +48,11 @@ export class MyProvider extends Component{
     return new_order;
   };
 
-  toggle = index => {
-
+  toggle = (index, blind_type) => {
     if (!this.state.toggle){
       this.setState({
         current_index: index,
+        current_blind_type: blind_type,
         curr_order: this.get_order(index),
       });
 

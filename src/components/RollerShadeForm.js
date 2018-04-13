@@ -2,12 +2,12 @@ import React from 'react';
 import { Button, ModalFooter, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SoloDatePicker from './DatePicker.js';
-import Fabric from './Fabric.js'
+import RollerShadeFabric from './RollerShadeFabric.js'
 import {Consumer} from '../context/MyContext.js'
 var math = require('mathjs');
 var Fraction = require('fraction.js');
 
-export default class LaurentForm extends React.Component {
+export default class RollerShadeForm extends React.Component {
   constructor(props){
     super(props);
     this.handleData = this.handleData.bind(this);
@@ -20,12 +20,10 @@ export default class LaurentForm extends React.Component {
       cassette_orientation: '',
       cassette_extra: '',
       cassette_color: '',
-      fabric_type: '',
-      fabric_color: '',
+      fabric_type: 'Maze Screen 5%',
+      fabric_color: '101',
       cassette_size: '',
       tube_tob: '',
-      inner: '',
-      outer: '',
       height: '',
     };
 
@@ -34,24 +32,24 @@ export default class LaurentForm extends React.Component {
   }
 
   componentDidMount(){
-      
-    this.setState({
-      date: Date.now(),
-      po_number: this.props.initial_state.po_number,
-      original_width: this.props.initial_state.original_width,
-      original_height: this.props.initial_state.original_height,
-      control_size: this.props.initial_state.control_size,
-      cassette_orientation: this.props.initial_state.cassette_orientation,
-      cassette_extra: '',
-      cassette_color: '',
-      fabric_type: this.props.initial_state.fabric_type,
-      fabric_color: this.props.initial_state.fabric_color,
-      cassette_size: '',
-      tube_tob: '',
-      inner: '',
-      outer: '',
-      height: '',
-    });
+    
+    if (this.props.initial_state){
+      this.setState({
+        date: Date.now(),
+        po_number: this.props.initial_state.po_number,
+        original_width: this.props.initial_state.original_width,
+        original_height: this.props.initial_state.original_height,
+        control_size: this.props.initial_state.control_size,
+        cassette_orientation: this.props.initial_state.cassette_orientation,
+        cassette_extra: '',
+        cassette_color: '',
+        fabric_type: this.props.initial_state.fabric_type,
+        fabric_color: this.props.initial_state.fabric_color,
+        cassette_size: '',
+        tube_tob: '',
+        height: '',
+      });
+    }
   }
   
   handleData(dateMap) {
@@ -72,10 +70,6 @@ export default class LaurentForm extends React.Component {
       this.setState({cassette_size: new_cassette_size});
       let new_tube_tob = math.fraction(new_cassette_size - 1);
       this.setState({tube_tob: new_tube_tob});
-      let new_inner = math.fraction(new_tube_tob - (1/4));
-      this.setState({inner: new_inner});
-      let new_outer = math.fraction(new_tube_tob + (1/8));
-      this.setState({outer: new_outer});
 
     }
 
@@ -93,41 +87,28 @@ export default class LaurentForm extends React.Component {
   compute_height(){
     let new_height = 0;
     let original_height = this.state['original_height'];
-
-    let fabric_type = this.state.fabric_type;
-    if (fabric_type === 'Laurent' || fabric_type === 'Husky' || fabric_type === 'Galaxy'){
-      new_height = math.number(original_height) + (3 + (7/8)); 
-      this.setState({height: new_height});
-    }
-    if (fabric_type === 'Timber' || fabric_type === 'Scotby' || fabric_type === 'Morgan'){
-      new_height = original_height + ( 4 + (1/8));
-      this.setState({height: new_height});
-    }
-    if (fabric_type === 'Richmond'){
-      new_height = original_height + ( 4 + (1/2));
-      this.setState({height: new_height});
-    }
-
+    new_height = math.number(original_height) + 10; 
+    this.setState({height: new_height});
     return new_height;
   }
 
   prepare_order(){
 
     let new_height = this.compute_height()
-    let order_name = 'Laurent';
-    let curr_order = Object.assign(this.state, { new_height: new_height});
+    let order_name = 'Roller Shade';
+    let curr_order = Object.assign(this.state, { height: this.compute_fraction(new_height)});
+    curr_order['cassette_size'] = this.compute_fraction(curr_order['cassette_size'])
+    curr_order['tube_tob'] = this.compute_fraction(curr_order['tube_tob'])
+
+
     let laurent_object = { name: order_name, body: curr_order, modal:this.props.toggleModal}
     return laurent_object;
 
   }
 
   action_order(actions){
-    let new_height = this.compute_height()
     if (this.props.edit_action){
-      let order_name = 'Laurent';
-      let curr_order = Object.assign(this.state, { new_height: new_height });
-      let laurent_object = { name: order_name, body: curr_order, modal: this.props.toggleModal }
-      actions.update_order(this.props.index, laurent_object)
+      actions.update_order(this.props.index, this.prepare_order())
     }else{
       actions.add_order(this.prepare_order())
     }
@@ -215,7 +196,7 @@ export default class LaurentForm extends React.Component {
             </Row>
           </Container>
           </FormGroup>
-          <Fabric handlerFromParent={this.handleData} />
+          <RollerShadeFabric handlerFromParent={this.handleData} />
       </Form>
 
       <ModalFooter>

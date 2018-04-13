@@ -33,7 +33,7 @@ export default class LaurentEditForm extends Component {
                             <Modal isOpen={this.props.toggle_initial_state} toggle={this.toggle} className={this.props.className}>
                                 <ModalHeader index={actions.index} toggle={this.toggle}>Choose Blind Type</ModalHeader>
                                 <ModalBody>
-                                    <ModalContent index={this.props.index} initial_state={state.curr_order.body} edit_action={actions.update_order} toggleModal={this.toggle} showForm={true} />
+                                    <ModalContent blind_type={state.current_blind_type} index={this.props.index} initial_state={state.curr_order.body} edit_action={actions.update_order} toggleModal={this.toggle} showForm={true} />
                                 </ModalBody>
                             </Modal>
                         </React.Fragment>

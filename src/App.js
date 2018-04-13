@@ -25,7 +25,7 @@ class ModalExample extends React.Component {
 		this.setState({
 			modal: !this.state.modal
 		});
-		this.props.callbackFromParent('Laurent');
+		this.props.callbackFromParent('');
 	}
 	
 	handleClick(blind_type) {
@@ -35,24 +35,6 @@ class ModalExample extends React.Component {
 	
 	render() {
 		
-		let initial_state = {
-			date: Date.now(),
-			po_number: '',
-			original_width: '',
-			original_height: '',
-			control_size: '24',
-			cassette_orientation: '',
-			cassette_extra: '',
-			cassette_color: '',
-			fabric_type: 'Laurent',
-			fabric_color: '301',
-			cassette_size: '',
-			tube_tob: '',
-			inner: '',
-			outer: '',
-			height: '',
-		};
-		
 		return (
 			
 			<div>
@@ -60,7 +42,7 @@ class ModalExample extends React.Component {
 			<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 			<ModalHeader toggle={this.toggle}>Choose Blind Type</ModalHeader>
 			<ModalBody>
-			<ModalContent initial_state={initial_state} toggleModal={this.toggle}/>
+			<ModalContent toggleModal={this.toggle}/>
 			</ModalBody>
 			
 			</Modal>
@@ -90,7 +72,7 @@ class BlindPanel extends React.Component {
 		this.setState({
 			modal: !this.state.modal
 		});
-		this.props.callbackFromParent('Laurent');
+		this.props.callbackFromParent('');
 	}
 	
 	remove_panel(){
@@ -103,7 +85,7 @@ class BlindPanel extends React.Component {
 	
 	edit_panel(actions){
 		console.log("You clicked toggle edit");
-		actions.toggle(this.props.index);
+		actions.toggle(this.props.index, this.props.name);
 	}
 	
 	render(){
@@ -112,7 +94,7 @@ class BlindPanel extends React.Component {
 			<Card body>
 			<CardBody>
 			<CardTitle>{this.props.name}</CardTitle>
-					<CardContent body={this.props.body} />
+					<CardContent body={this.props.body} blind_type={this.props.name}/>
 			<Container>
 			<Row>
 			<Col>
@@ -156,26 +138,13 @@ class App extends Component {
 			data: "No Data Available Yet!",
 		};    
 		
-		this.parse_body = this.parse_body.bind(this);
+
 	};
 	
 	
 	myCallback = (dataFromChild) => {
 		this.setState({ data: dataFromChild });
 	};
-	
-	parse_body(order){
-		
-		let order_string  = ''
-		if (order){
-			order_string = "Po Number: " + order.po_number + " OW: " + order.original_width + " OH: " + order.original_height + " CZ: " + order.control_size +
-			" CS: " + this.compute_fraction(order.cassette_size) + " TOB: " + this.compute_fraction(order.tube_tob) + " inner: " + this.compute_fraction(order.inner) +
-			" outer: " + this.compute_fraction(order.outer) + " Height: " + this.compute_fraction(order.new_height) +
-			" CO: " + order.cassette_orientation + " CE: " + order.cassette_extra + " CC: " + order.cassette_color + " FT: " + order.fabric_type + " " + order.fabric_color;
-		}
-		return order_string
-		
-	}
 	
 	
 	render() {
