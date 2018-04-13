@@ -20,8 +20,8 @@ export default class LaurentForm extends React.Component {
       cassette_orientation: '',
       cassette_extra: '',
       cassette_color: '',
-      fabric_type: '',
-      fabric_color: '',
+      fabric_type: 'Laurent',
+      fabric_color: '301',
       cassette_size: '',
       tube_tob: '',
       inner: '',
@@ -33,24 +33,26 @@ export default class LaurentForm extends React.Component {
   }
 
   componentDidMount(){
-      
-    this.setState({
-      date: Date.now(),
-      po_number: this.props.initial_state.po_number,
-      original_width: this.props.initial_state.original_width,
-      original_height: this.props.initial_state.original_height,
-      control_size: this.props.initial_state.control_size,
-      cassette_orientation: this.props.initial_state.cassette_orientation,
-      cassette_extra: '',
-      cassette_color: '',
-      fabric_type: this.props.initial_state.fabric_type,
-      fabric_color: this.props.initial_state.fabric_color,
-      cassette_size: '',
-      tube_tob: '',
-      inner: '',
-      outer: '',
-      height: '',
-    });
+
+    if (this.props.initial_state){
+      this.setState({
+        date: Date.now(),
+        po_number: this.props.initial_state.po_number,
+        original_width: this.props.initial_state.original_width,
+        original_height: this.props.initial_state.original_height,
+        control_size: this.props.initial_state.control_size,
+        cassette_orientation: this.props.initial_state.cassette_orientation,
+        cassette_extra: '',
+        cassette_color: '',
+        fabric_type: this.props.initial_state.fabric_type,
+        fabric_color: this.props.initial_state.fabric_color,
+        cassette_size: '',
+        tube_tob: '',
+        inner: '',
+        outer: '',
+        height: '',
+      });
+    }
   }
   
   handleData(dateMap) {
