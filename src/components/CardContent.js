@@ -11,7 +11,7 @@ export default class CardContent extends React.Component {
         for (let value of LAURENT_ITEMS) {
         order_string = order_string + value + ": " + this.props.body[value] + " "
       }
-    }else if (this.props.blind_type === 'Roller Shade'){
+    }else if (this.props.blind_type === 'Roller Shades'){
           for (let value of ROLLER_SHADE_ITEMS) {
               order_string = order_string + value + ": " + this.props.body[value] + " "
             }

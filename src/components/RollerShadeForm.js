@@ -95,7 +95,7 @@ export default class RollerShadeForm extends React.Component {
   prepare_order(){
 
     let new_height = this.compute_height()
-    let order_name = 'Roller Shade';
+    let order_name = 'Roller Shades';
     let curr_order = Object.assign(this.state, { height: this.compute_fraction(new_height)});
     curr_order['cassette_size'] = this.compute_fraction(curr_order['cassette_size'])
     curr_order['tube_tob'] = this.compute_fraction(curr_order['tube_tob'])
