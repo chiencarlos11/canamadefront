@@ -13,7 +13,7 @@ export default class LaurentEditForm extends Component {
             showForm: false,
         };
 
-        this.blindTypes = ['Laurent', 'Roller Shade', 'CanaMade Shade', 'Vertical Blinds', 'Cellular Shades'];
+        this.blindTypes = ['Laurent', 'Roller Shades', 'CanaMade Shades', 'Vertical Blinds', 'Cellular Shades'];
         this.toggle = this.toggle.bind(this);
     }
 

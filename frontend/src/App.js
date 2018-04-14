@@ -17,7 +17,7 @@ class ModalExample extends React.Component {
 			showForm: false
 		};
 		
-		this.blindTypes = ['Laurent','Roller Shade','CanaMade Shade','Vertical Blinds','Cellular Shades'];
+		this.blindTypes = ['Laurent','Roller Shades','CanaMade Shade','Vertical Blinds','Cellular Shades'];
 		this.toggle = this.toggle.bind(this);
 	}
 	
@@ -39,7 +39,7 @@ class ModalExample extends React.Component {
 			
 			<div>
 			<Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-			<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+			<Modal size="lg" isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 			<ModalHeader toggle={this.toggle}>Choose Blind Type</ModalHeader>
 			<ModalBody>
 			<ModalContent toggleModal={this.toggle}/>
@@ -149,6 +149,7 @@ class App extends Component {
 	
 	render() {
 		return (
+
 			<MyProvider>
 			<div className="App">
 			<header className="App-header">
@@ -193,7 +194,6 @@ class App extends Component {
 		
 		</div>
 		</MyProvider>
-		
 		
 	);
 }
