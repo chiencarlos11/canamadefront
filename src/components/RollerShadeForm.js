@@ -120,21 +120,57 @@ export default class RollerShadeForm extends React.Component {
       <div>
       <Form>
         <FormGroup>
-          <Label >Date</Label>
-          <SoloDatePicker handlerFromParent={this.handleData}/>
-        </FormGroup>
-        <FormGroup>
           <Label>PO Number</Label>
           <Input type="text" name="po_number" id="po_number" placeholder="" value={this.state.po_number} onChange={this.handleDataPiece.bind(this)}/>
         </FormGroup>
+        <Container>
+        <Row>
+        <Col>
+        <Label>Original Width</Label>
+        </Col>
+        <Col>
+          <FormGroup>
+            <Input type="number" name="original_width" id="original_width" placeholder="" value={this.state.original_width} onChange={this.handleDataPiece.bind(this)}/>
+          </FormGroup>
+        </Col>
+        <Col>
+          <Input type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
+            <option value='0'>0"</option>
+            <option value='1/8'>1/8"</option>
+            <option value='1/4'>1/4"</option>
+            <option value='3/8'>3/8"</option>
+            <option value='1/2'>1/2"</option>
+            <option value='5/8'>5/8"</option>
+            <option value='3/4'>3/4"</option>
+            <option value='7/8'>7/8"</option>
+          </Input>
+        </Col>
+        </Row>
+        </Container>
+        <Container>
+        <Row>
+        <Col>
+        <Label>Original Height</Label>
+         </Col>
+        <Col>
         <FormGroup>
-          <Label>Original Width</Label>
-          <Input type="number" name="original_width" id="original_width" placeholder="" value={this.state.original_width} onChange={this.handleDataPiece.bind(this)}/>
-        </FormGroup>
-        <FormGroup>
-          <Label>Original Height</Label>
           <Input type="number" name="original_height" id="original_height" placeholder="" value={this.state.original_height} onChange={this.handleDataPiece.bind(this)}/>
         </FormGroup>
+        </Col>
+        <Col>
+          <Input type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
+            <option value='0'>0"</option>
+            <option value='1/8'>1/8"</option>
+            <option value='1/4'>1/4"</option>
+            <option value='3/8'>3/8"</option>
+            <option value='1/2'>1/2"</option>
+            <option value='5/8'>5/8"</option>
+            <option value='3/4'>3/4"</option>
+            <option value='7/8'>7/8"</option>
+          </Input>
+        </Col>
+        </Row>
+        </Container>
         <FormGroup>
           <Label>Control</Label>
           <Input type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
@@ -197,6 +233,10 @@ export default class RollerShadeForm extends React.Component {
           </Container>
           </FormGroup>
           <RollerShadeFabric handlerFromParent={this.handleData} />
+          <FormGroup>
+          <Label >Date</Label>
+          <SoloDatePicker handlerFromParent={this.handleData}/>
+        </FormGroup>
       </Form>
 
       <ModalFooter>
