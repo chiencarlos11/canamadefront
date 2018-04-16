@@ -2,8 +2,18 @@ import React from 'react'
 import {LAURENT_ITEMS, ROLLER_SHADE_ITEMS, CANAMADE_ITEMS} from '../context/Constants'
 import moment from 'moment';
 import 'moment-timezone';
+var Fraction = require('fraction.js');
 
 export default class CardContent extends React.Component {
+
+
+  compute_fraction(value){
+
+    let frac = value%1;
+    var x = new Fraction(frac);
+    var res = x.toFraction(true);
+    return Math.trunc(value) + " " + res
+  }
 
   render() {
 
@@ -20,7 +30,10 @@ export default class CardContent extends React.Component {
           let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
           order_string = order_string + value + ": " + mydatevariable + " "
           
-        }else{
+        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height') {
+          order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
+        }
+        else{
           order_string = order_string + value + ": " + this.props.body[value] + " "
         }
 
@@ -32,7 +45,10 @@ export default class CardContent extends React.Component {
           let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
           order_string = order_string + value + ": " + mydatevariable + " "
           
-        }else{
+        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height') {
+          order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
+        }
+        else{
           order_string = order_string + value + ": " + this.props.body[value] + " "
         }
       }
@@ -42,7 +58,10 @@ export default class CardContent extends React.Component {
           let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
           order_string = order_string + value + ": " + mydatevariable + " "
           
-        }else{
+        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height') {
+          order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
+        }
+        else{
           order_string = order_string + value + ": " + this.props.body[value] + " "
         }
       }
