@@ -1,13 +1,13 @@
-export const LAURENT_ITEMS = ['date', 'po_number', 'original_width', 'original_height',
+export const LAURENT_ITEMS = ['date', 'po_number', 'original_width', 'original_width_fraction', 'original_height', 'original_height_fraction',
                          'control_size', 'cassette_orientation', 'cassette_extra', 
     'cassette_color', 'fabric_type', 'fabric_color', 'cassette_size', 'tube_tob', 'inner', 'outer','height'];
 
 
-export const ROLLER_SHADE_ITEMS = ['date', 'po_number', 'original_width', 'original_height',
+export const ROLLER_SHADE_ITEMS = ['date', 'po_number', 'original_width', 'original_width_fraction', 'original_height', 'original_height_fraction',
                          'control_size', 'cassette_orientation', 'cassette_extra', 
     'cassette_color', 'fabric_type', 'fabric_color', 'cassette_size', 'tube_tob','height'];
 
-export const CANAMADE_ITEMS = ['date', 'po_number', 'original_width', 'original_height',
+export const CANAMADE_ITEMS = ['date', 'po_number', 'original_width', 'original_width_fraction', 'original_height', 'original_height_fraction',
                          'control_size', 'cassette_orientation', 'cassette_extra', 
     'cassette_color', 'fabric_type', 'fabric_color', 'cassette_size', 'tube_tob','height'];
 
