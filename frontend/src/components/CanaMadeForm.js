@@ -2,28 +2,30 @@ import React from 'react';
 import { Button, ModalFooter, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SoloDatePicker from './DatePicker.js';
-import RollerShadeFabric from './RollerShadeFabric.js'
+import {CANAMADE_ITEMS_FABRIC} from '../context/Constants'
+import Fabric from './CanaMadeFabric.js'
 import {Consumer} from '../context/MyContext.js'
-import moment from 'moment';
-import 'moment-timezone';
 var math = require('mathjs');
 var Fraction = require('fraction.js');
 
-export default class RollerShadeForm extends React.Component {
+
+export default class CanaMadeForm extends React.Component {
   constructor(props){
     super(props);
     this.handleData = this.handleData.bind(this);
     this.state = {
-      date: this.get_date_now(),
+      date: new Date(),
       po_number: '',
-      original_width: '',
-      original_height: '',
+      original_width: 0,
+      original_height: 0,
+      original_width_fraction: 0,
+      original_height_fraction: 0,
       control_size: '',
       cassette_orientation: '',
       cassette_extra: '',
       cassette_color: '',
-      fabric_type: 'Maze Screen 5%',
-      fabric_color: '101',
+      fabric_type: 'Light Filtering',
+      fabric_color: '0101',
       cassette_size: '',
       tube_tob: '',
       height: '',
@@ -31,13 +33,6 @@ export default class RollerShadeForm extends React.Component {
 
     this.prepare_order = this.prepare_order.bind(this);
 
-  }
-
-  get_date_now(){
-    var myTimezone = "America/Toronto";
-    var myDatetimeFormat= "YYYY-MM-DD";
-    var myDatetimeString = moment(Date.now()).tz(myTimezone).format(myDatetimeFormat);
-    return myDatetimeString
   }
 
   componentDidMount(){
@@ -48,10 +43,12 @@ export default class RollerShadeForm extends React.Component {
         po_number: this.props.initial_state.po_number,
         original_width: this.props.initial_state.original_width,
         original_height: this.props.initial_state.original_height,
+        original_width_fraction: this.props.initial_state.original_width_fraction,
+        original_height_fraction: this.props.initial_state.original_height_fraction,
         control_size: this.props.initial_state.control_size,
         cassette_orientation: this.props.initial_state.cassette_orientation,
-        cassette_extra: '',
-        cassette_color: '',
+        cassette_extra: this.props.initial_state.cassette_extra,
+        cassette_color: this.props.initial_state.cassette_color,
         fabric_type: this.props.initial_state.fabric_type,
         fabric_color: this.props.initial_state.fabric_color,
         cassette_size: '',
@@ -70,16 +67,43 @@ export default class RollerShadeForm extends React.Component {
 
   }
 
+  handleDateData(dateData) {
+    this.setState({date:dateData});
+
+  }
+
+  parse_fraction(string_fraction){
+
+    let result = 0;
+
+    if (string_fraction){
+      var split = string_fraction.split('/');
+      result = parseInt(split[0], 10) / parseInt(split[1], 10);
+    }
+
+    return result;
+    
+  }
+
   handleDataPiece(event){
     var itemMap = new Map();
     itemMap.set(event.target.name, event.target.value)
     this.handleData(itemMap)
     if (event.target.name === 'original_width'){
-      let new_cassette_size = math.fraction(event.target.value - (3/8));
+      let original_width_fraction_fraction = math.fraction(this.state.original_width_fraction)
+      let new_cassette_size = math.fraction((event.target.value + original_width_fraction_fraction) - (3/8));
       this.setState({cassette_size: new_cassette_size});
       let new_tube_tob = math.fraction(new_cassette_size - 1);
       this.setState({tube_tob: new_tube_tob});
 
+    } else if(event.target.name === 'original_width_fraction'){
+      console.log("Setting original_width_fraction = " + event.target.value)
+      let original_width = math.fraction(this.state.original_width)
+      let original_width_fraction_fraction = math.fraction(this.parse_fraction(event.target.value))
+      let new_cassette_size = math.fraction((original_width + original_width_fraction_fraction) - (3/8));
+      this.setState({cassette_size: new_cassette_size});
+      let new_tube_tob = math.fraction(new_cassette_size - 1);
+      this.setState({tube_tob: new_tube_tob});
     }
 
   }
@@ -96,7 +120,10 @@ export default class RollerShadeForm extends React.Component {
   compute_height(){
     let new_height = 0;
     let original_height = this.state['original_height'];
-    new_height = math.number(original_height) + 10; 
+    let original_height_fraction = this.state['original_height_fraction'];
+    console.log("original_height_fraction = " + original_height_fraction)
+    console.log("original_height_fraction  math = " + math.number(this.parse_fraction(original_height_fraction)))
+    new_height = math.number(original_height) + math.number(this.parse_fraction(original_height_fraction)) + 10; 
     this.setState({height: new_height});
     return new_height;
   }
@@ -104,7 +131,7 @@ export default class RollerShadeForm extends React.Component {
   prepare_order(){
 
     let new_height = this.compute_height()
-    let order_name = 'Roller Shades';
+    let order_name = 'CanaMade';
     let curr_order = Object.assign(this.state, { height: this.compute_fraction(new_height)});
     curr_order['cassette_size'] = this.compute_fraction(curr_order['cassette_size'])
     curr_order['tube_tob'] = this.compute_fraction(curr_order['tube_tob'])
@@ -122,7 +149,6 @@ export default class RollerShadeForm extends React.Component {
       actions.add_order(this.prepare_order())
     }
   }
-
 
   render() {
     return (
@@ -143,7 +169,7 @@ export default class RollerShadeForm extends React.Component {
           </FormGroup>
         </Col>
         <Col>
-          <Input type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
+          <Input value={this.state.original_width_fraction} type="select" name="original_width_fraction" id="original_width_fraction" onChange={this.handleDataPiece.bind(this)}>
             <option value='0'>0"</option>
             <option value='1/8'>1/8"</option>
             <option value='1/4'>1/4"</option>
@@ -167,7 +193,7 @@ export default class RollerShadeForm extends React.Component {
         </FormGroup>
         </Col>
         <Col>
-          <Input type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
+          <Input value={this.state.original_height_fraction} type="select" name="original_height_fraction" id="original_height_fraction" onChange={this.handleDataPiece.bind(this)}>
             <option value='0'>0"</option>
             <option value='1/8'>1/8"</option>
             <option value='1/4'>1/4"</option>
@@ -182,7 +208,7 @@ export default class RollerShadeForm extends React.Component {
         </Container>
         <FormGroup>
           <Label>Control</Label>
-          <Input type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
+          <Input value={this.state.control_size} type="select" name="control_size" id="control_size" onChange={this.handleDataPiece.bind(this)}>
             <option value='24'>24</option>
             <option value='36'>36</option>
             <option value='48'>48</option>
@@ -199,13 +225,13 @@ export default class RollerShadeForm extends React.Component {
               <Col>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="cassette_orientation" value = 'Left' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                    <Input checked={this.state.cassette_orientation === 'Left'} type="radio" name="cassette_orientation" value = 'Left' onChange={this.handleDataPiece.bind(this)}/>{' '}
                     Left
                   </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="cassette_orientation" value='Right' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                    <Input checked={this.state.cassette_orientation === 'Right'} type="radio" name="cassette_orientation" value='Right' onChange={this.handleDataPiece.bind(this)}/>{' '}
                     Right
                   </Label>
                 </FormGroup>
@@ -213,13 +239,13 @@ export default class RollerShadeForm extends React.Component {
                 <Col>
                 <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_extra" value= 'Court' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  <Input checked={this.state.cassette_extra === 'Court'} type="radio" name="cassette_extra" value= 'Court' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   Court
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_extra" value='Trim' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  <Input checked={this.state.cassette_extra === 'Trim'} type="radio" name="cassette_extra" value='Trim' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   Trim
                 </Label>
               </FormGroup>
@@ -227,13 +253,13 @@ export default class RollerShadeForm extends React.Component {
               <Col>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_color" value='White' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  <Input checked={this.state.cassette_color === 'White'} type="radio" name="cassette_color" value='White' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   White
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_color" value='Silver' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  <Input checked={this.state.cassette_color === 'Silver'} type="radio" name="cassette_color" value='Silver' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   Silver
                 </Label>
               </FormGroup>
@@ -241,10 +267,10 @@ export default class RollerShadeForm extends React.Component {
             </Row>
           </Container>
           </FormGroup>
-          <RollerShadeFabric handlerFromParent={this.handleData} />
+          <Fabric fabric_dict={CANAMADE_ITEMS_FABRIC} fabric_type={this.state.fabric_type} fabric_color={this.state.fabric_color} handlerFromParent={this.handleData} />
           <FormGroup>
           <Label >Date</Label>
-          <SoloDatePicker handlerFromParent={this.handleData}/>
+          <SoloDatePicker date={this.state.date} handlerFromParent={this.handleDateData.bind(this)}/>
         </FormGroup>
       </Form>
 

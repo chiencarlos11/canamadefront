@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-date-picker';
-import moment from 'moment';
-import 'moment-timezone';
  
 export default class SoloDatePicker extends Component {
-  state = {
-    date: new Date(),
+  constructor(){
+    super();
+    this.state = {
+      date: new Date(),
+    }
   }
- 
-  onChange(date){
-    this.setState({ date })
-    //Updating Parents
-    var dateMap = new Map();
-    var myTimezone = "America/Toronto";
-    var myDatetimeFormat= "YYYY-MM-DD";
-    var myDatetimeString = moment(date).tz(myTimezone).format(myDatetimeFormat);
 
-    dateMap.set('date', myDatetimeString)
-    this.props.handlerFromParent(dateMap)
+  static getDerivedStateFromProps(props, state){
+    if (props.date !== state.date){
+      return{date: props.date};
+    }
+    return null;
+  }
+    
+  
+  onChange(date){
+    this.setState({ date: date })
+    //Updating Parents
+    this.props.handlerFromParent(date)
   }
 
   render() {
