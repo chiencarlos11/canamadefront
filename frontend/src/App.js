@@ -166,7 +166,7 @@ class BlindPanel extends React.Component {
 			<CardTitle>{this.props.name}</CardTitle>
 			<CardContent body={this.props.body} blind_type={this.props.name}/>
 
-			{this.state.flipped && <EditCard remove_order={this.props.remove_order} copy_order={this.props.copy_order} name={this.props.name} index={this.props.index} key={this.props.index} body={this.props.body}/>}
+			{(this.state.flipped) ? (<EditCard remove_order={this.props.remove_order} copy_order={this.props.copy_order} name={this.props.name} index={this.props.index} key={this.props.index} body={this.props.body}/>):(<div><br /><br /></div>)}
 			
 			
 
@@ -218,7 +218,6 @@ class App extends Component {
 					</Col>
 				</Row>
 			</Container>
-			<br/>
 			<br/>
 			<br/>
 			<Container>
