@@ -4,15 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SoloDatePicker from './DatePicker.js';
 import Fabric from './Fabric.js'
 import {Consumer} from '../context/MyContext.js'
+import moment from 'moment';
+import 'moment-timezone';
 var math = require('mathjs');
 var Fraction = require('fraction.js');
+
 
 export default class LaurentForm extends React.Component {
   constructor(props){
     super(props);
     this.handleData = this.handleData.bind(this);
     this.state = {
-      date: Date.now(),
+      date: this.get_date_now(),
       po_number: '',
       original_width: '',
       original_height: '',
@@ -32,11 +35,18 @@ export default class LaurentForm extends React.Component {
     this.prepare_order = this.prepare_order.bind(this);
   }
 
+  get_date_now(){
+    var myTimezone = "America/Toronto";
+    var myDatetimeFormat= "YYYY-MM-DD";
+    var myDatetimeString = moment(Date.now()).tz(myTimezone).format(myDatetimeFormat);
+    return myDatetimeString
+  }
+
   componentDidMount(){
 
     if (this.props.initial_state){
       this.setState({
-        date: Date.now(),
+        date: this.props.initial_state.date,
         po_number: this.props.initial_state.po_number,
         original_width: this.props.initial_state.original_width,
         original_height: this.props.initial_state.original_height,
