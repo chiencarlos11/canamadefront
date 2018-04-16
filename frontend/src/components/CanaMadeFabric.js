@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormGroup, Label, Input} from 'reactstrap';
-import {CANAMADE_ITEMS_FABRIC} from '../context/Constants'
 
 export default class Fabric extends React.Component {
 	constructor(props){
@@ -17,7 +16,7 @@ export default class Fabric extends React.Component {
 
 	static getDerivedStateFromProps(props, state){
     if (props.fabric_type !== state.selected_fabric || props.fabric_color !== state.selected_fabric_color){
-      return{selected_fabric: props.fabric_type,selected_fabric_color: props.fabric_color, color_selection: [...CANAMADE_ITEMS_FABRIC[props.fabric_type]]};
+      return{selected_fabric: props.fabric_type,selected_fabric_color: props.fabric_color, color_selection: [...props.fabric_dict[props.fabric_type]]};
     }
     return null;
   }
