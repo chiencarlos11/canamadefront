@@ -2,18 +2,18 @@ import React from 'react';
 import { Button, ModalFooter, Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SoloDatePicker from './DatePicker.js';
-import {CANAMADE_ITEMS_FABRIC, CONTROL_SIZE, FRACTIONS} from '../context/Constants'
+import {CONTROL_SIZE, FRACTIONS} from '../context/Constants'
 import Fabric from './CanaMadeFabric.js'
 import {Consumer} from '../context/MyContext.js'
-var math = require('mathjs');
-
 
 export default class CanaMadeForm extends React.Component {
   constructor(props){
     super(props);
     this.handleData = this.handleData.bind(this);
 
-    this.fabric_keys = Object.keys(CANAMADE_ITEMS_FABRIC)
+    this.formtype = this.props.formtype
+
+    this.fabric_keys = Object.keys(this.props.constantform)
 
     this.state = {
       date: new Date(),
@@ -27,9 +27,11 @@ export default class CanaMadeForm extends React.Component {
       cassette_extra: 'Court',
       cassette_color: 'White',
       fabric_type: this.fabric_keys[0],
-      fabric_color: CANAMADE_ITEMS_FABRIC[this.fabric_keys[0]][0],
+      fabric_color: this.props.constantform[this.fabric_keys[0]][0],
       cassette_size: '',
       tube_tob: '',
+      inner: '',
+      outer: '',
       height: '',
     };
 
@@ -56,6 +58,8 @@ export default class CanaMadeForm extends React.Component {
         cassette_size: this.props.initial_state.cassette_size,
         tube_tob: this.props.initial_state.tube_tob,
         height: this.props.initial_state.height,
+        inner:this.props.initial_state.inner,
+        outer: this.props.initial_state.outer,
       });
     }
   }
@@ -88,27 +92,24 @@ export default class CanaMadeForm extends React.Component {
   }
 
   handleDataPiece(event){
+
     var itemMap = new Map();
     itemMap.set(event.target.name, event.target.value)
     this.handleData(itemMap)
-    if (event.target.value && event.target.name === 'original_width'){
-      let original_width_fraction_fraction = math.fraction(this.state.original_width_fraction)
-      console.log("fraction = " + original_width_fraction_fraction)
-      let new_cassette_size = (parseFloat(event.target.value) + original_width_fraction_fraction) - (3/8);
-      this.setState({cassette_size: new_cassette_size});
-      let new_tube_tob = new_cassette_size - 1;
-      this.setState({tube_tob: new_tube_tob});
 
-    } else if(event.target.value && event.target.name === 'original_width_fraction'){
-      console.log("Setting original_width_fraction = " + event.target.value)
-      let original_width = math.fraction(this.state.original_width)
-      let original_width_fraction_fraction = math.fraction(this.parse_fraction(event.target.value))
-      let new_cassette_size = (parseFloat(original_width) + original_width_fraction_fraction) - (3/8);
-      this.setState({cassette_size: new_cassette_size});
-      let new_tube_tob = new_cassette_size - 1;
-      this.setState({tube_tob: new_tube_tob});
-    } 
+    let result = this.props.handleaction(event.target.name, event.target.value, this.state)
+    if (result){
+      this.setState({cassette_size: result['cassette_size']});
+      this.setState({tube_tob: result['tube_tob']});
 
+      if(result['inner']){
+        this.setState({inner: result['inner']});
+      }
+      if(result['outer']){
+        this.setState({outer: result['outer']});
+      }
+
+    }
   }
 
 
@@ -116,15 +117,22 @@ export default class CanaMadeForm extends React.Component {
     let new_height = 0;
     let original_height = this.state['original_height'];
     let original_height_fraction = this.state['original_height_fraction'];
-    new_height = math.number(original_height) + math.number(this.parse_fraction(original_height_fraction)) + 10; 
-    this.setState({height: new_height});
+    let fabric_type = this.state['fabric_type'];
+
+    let new_result_height = this.props.calculateheight(original_height, original_height_fraction, fabric_type)
+
+    if (new_result_height){
+      this.setState({height: new_result_height});
+      new_height = new_result_height
+    }
+    
     return new_height;
   }
 
   prepare_order(){
 
     let new_height = this.compute_height()
-    let order_name = 'CanaMade';
+    let order_name = this.formtype;
     let curr_order = Object.assign(this.state, { height: new_height});
 
     let laurent_object = { name: order_name, body: curr_order, modal:this.props.toggleModal}
@@ -241,7 +249,7 @@ export default class CanaMadeForm extends React.Component {
             </Row>
           </Container>
           </FormGroup>
-          <Fabric fabric_dict={CANAMADE_ITEMS_FABRIC} fabric_type={this.state.fabric_type} fabric_color={this.state.fabric_color} handlerFromParent={this.handleData} />
+          <Fabric fabric_dict={this.props.constantform} fabric_type={this.state.fabric_type} fabric_color={this.state.fabric_color} handlerFromParent={this.handleData} />
           <FormGroup>
           <Label >Date</Label>
           <SoloDatePicker date={this.state.date} handlerFromParent={this.handleDateData.bind(this)}/>

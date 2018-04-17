@@ -27,9 +27,6 @@ class EditCard extends Component{
 	}
 	
 	edit_panel(actions){
-		console.log("You clicked toggle edit");
-		console.log("this.props.index = " + this.props.index);
-		console.log("this.props.name = " + this.props.name);
 		actions.toggle(this.props.index, this.props.name);
 	}
 

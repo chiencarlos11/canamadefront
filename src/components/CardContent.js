@@ -30,7 +30,7 @@ export default class CardContent extends React.Component {
           let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
           order_string = order_string + value + ": " + mydatevariable + " "
           
-        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height') {
+        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height' || value === 'inner' || value === 'outer') {
           order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
         }
         else{
@@ -45,7 +45,7 @@ export default class CardContent extends React.Component {
           let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
           order_string = order_string + value + ": " + mydatevariable + " "
           
-        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height') {
+        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height' || value === 'inner' || value === 'outer') {
           order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
         }
         else{
@@ -58,7 +58,7 @@ export default class CardContent extends React.Component {
           let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
           order_string = order_string + value + ": " + mydatevariable + " "
           
-        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height') {
+        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height' || value === 'inner' || value === 'outer') {
           order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
         }
         else{
