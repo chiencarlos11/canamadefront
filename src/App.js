@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, Card, CardBody, CardTitle, Container, Row, Col } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Card, CardBody, CardTitle, Container, Row, Col} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 import ModalContent from './components/ModalContent'
 import LaurentEditForm from './components/LaurentEditForm'
 import CardContent from './components/CardContent'
-
-
+import BlindModalTable from './components/BlindModalTable'
 
 class EditCard extends Component{
 	constructor(props){
@@ -106,17 +105,19 @@ class ModalExample extends React.Component {
 	}
 	
 	render() {
+
+		let local_content = (this.props.batchModal) ? (<BlindModalTable/>) : (<ModalContent toggleModal={this.toggle}/>)
+
 		
 		return (
 			
 			<div>
 			<Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
 			<Modal size={this.state.modalsize} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-			<ModalHeader toggle={this.toggle}>Choose Blind Type</ModalHeader>
+			<ModalHeader toggle={this.toggle}>CanaMade</ModalHeader>
 			<ModalBody>
-			<ModalContent toggleModal={this.toggle}/>
+			{local_content}
 			</ModalBody>
-			
 			</Modal>
 			</div>
 			
@@ -165,7 +166,6 @@ class BlindPanel extends React.Component {
 
 			{(this.state.flipped) ? (<EditCard remove_order={this.props.remove_order} copy_order={this.props.copy_order} name={this.props.name} index={this.props.index} key={this.props.index} body={this.props.body}/>):(<div><br /><br /></div>)}
 			
-			
 
 		</CardBody>
 		
@@ -192,7 +192,7 @@ class App extends Component {
 	myCallback = (dataFromChild) => {
 		this.setState({ data: dataFromChild });
 	};
-	
+
 	
 	render() {
 
@@ -209,6 +209,10 @@ class App extends Component {
 				<Row>
 					<Col >
 						<ModalExample buttonLabel="New Order" callbackFromParent={this.myCallback.bind(this)}/>
+						
+					</Col>
+					<Col>
+						<ModalExample buttonLabel="New Batch Order" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
 					</Col>
 					<Col >
 						<PrintThisComponent  />
@@ -250,6 +254,7 @@ class App extends Component {
 		
 		</div>
 		</MyProvider>
+		
 		
 	);
 }
