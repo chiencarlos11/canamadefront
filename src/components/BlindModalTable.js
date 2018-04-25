@@ -1,6 +1,9 @@
 import React from 'react';
-import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input } from 'reactstrap';
-
+import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button } from 'reactstrap';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
+import {Consumer} from '../context/MyContext.js'
 
 class ExampleDrop extends React.Component {
   constructor(props) {
@@ -41,10 +44,7 @@ class ExampleDrop extends React.Component {
           {this.state.value}
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem  value='Select1' header >Header</DropdownItem>
-          <DropdownItem  disabled>Action</DropdownItem>
           <DropdownItem value='Select2' >Select2</DropdownItem>
-          <DropdownItem divider />
           <DropdownItem value='Select3' >Select3</DropdownItem>
         </DropdownMenu>
       </Dropdown>
@@ -52,44 +52,93 @@ class ExampleDrop extends React.Component {
   }
 }
 
+class BlindRow extends React.Component{
+
+  constructor(props){
+    super(props)
+
+    this.state = {
+      date: new moment()
+    };
+  }
+
+  handleDateData(dateData) {
+    console.log("Starting HandleData")
+  }
+
+  render(){
+    return(
+      <tr>
+            <th scope="row">{this.props.id}</th>
+            <td><Input type="text" name="PO Number" id="id" placeholder={this.props.body['po_number']} /></td>
+            <td><Input type="text" name="original_width" id="id" placeholder={this.props.body['original_width']} /></td>
+            <td><Input type="text" name="original_height" id="id" placeholder={this.props.body['original_height']} /></td>
+            <td><ExampleDrop /></td>
+            <td><ExampleDrop /></td>
+            <td><ExampleDrop /></td>
+            <td><ExampleDrop /></td>
+            <td><ExampleDrop /></td>
+            <td><ExampleDrop /></td>
+            <td><DatePicker selected={this.state.date} onChange={this.handleDateData} /></td>
+          </tr>
+    )};
+
+}
+
 
 export default class BlindModalTable extends React.Component {
+
+  constructor(props){
+    super(props)
+
+  }
 
   render(){
 
     return(
-
+      <div>
       <Table>
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>PO Number</th>
+            <th>Original Width</th>
+            <th>Original Height</th>
+            <th>Control</th>
+            <th>Cas L/R</th>
+            <th>Cas Cord/Chain</th>
+            <th>Cas Silver/White</th>
+            <th>Fabric</th>
+            <th>Fabric Color</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td><Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" /></td>
-            <td>Otto</td>
-            <td><ExampleDrop /></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <Consumer>
+      {context => {
+        
+        const {state} = context;
+        
+        return (
+          <React.Fragment>
+          {state['orders'].map(function(item, i){
+            
+            return(
+                <BlindRow key={i} id={i} body={item['body']}/>
+            )
+            
+          })}
+          
+          </React.Fragment>
+        )
+      }
+    }
+    </Consumer>
         </tbody>
       </Table>
 
+      <Button>Add row</Button>
+      </div>
 
       )
   }

@@ -221,14 +221,14 @@ export default class CanaMadeForm extends React.Component {
                 <Col>
                 <FormGroup check>
                 <Label check>
-                  <Input checked={this.state.cassette_extra === 'Court'} type="radio" name="cassette_extra" value= 'Court' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  Court
+                  <Input checked={this.state.cassette_extra === 'Court'} type="radio" name="cassette_extra" value= 'Cord' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  Cord
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input checked={this.state.cassette_extra === 'Trim'} type="radio" name="cassette_extra" value='Trim' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  Trim
+                  <Input checked={this.state.cassette_extra === 'Trim'} type="radio" name="cassette_extra" value='Chain' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  Chain
                 </Label>
               </FormGroup>
               </Col>

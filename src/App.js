@@ -8,6 +8,7 @@ import ModalContent from './components/ModalContent'
 import LaurentEditForm from './components/LaurentEditForm'
 import CardContent from './components/CardContent'
 import BlindModalTable from './components/BlindModalTable'
+import './modal.css';
 
 class EditCard extends Component{
 	constructor(props){
@@ -85,7 +86,7 @@ class ModalExample extends React.Component {
 		this.state = {
 			modal: false,
 			showForm: false,
-			modalsize: "lg"
+			modalsize: "xl"
 		};
 		
 		this.blindTypes = ['Laurent','Roller Shades','CanaMade Shade','Vertical Blinds','Cellular Shades'];
