@@ -107,7 +107,7 @@ class ModalExample extends React.Component {
 	
 	render() {
 
-		let local_content = (this.props.batchModal) ? (<BlindModalTable/>) : (<ModalContent toggleModal={this.toggle}/>)
+		let local_content = (this.props.batchModal) ? (<BlindModalTable toggleModal={this.toggle} />) : (<ModalContent toggleModal={this.toggle}/>)
 
 		
 		return (

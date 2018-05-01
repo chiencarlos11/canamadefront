@@ -264,7 +264,7 @@ export default class CanaMadeForm extends React.Component {
 
           return (
           <React.Fragment>
-            <Button onClick={ () => {this.action_order(actions)}}>Submit</Button>
+            <Button color="primary" onClick={ () => {this.action_order(actions)}}>Submit</Button>
           </React.Fragment>
           )
           }
