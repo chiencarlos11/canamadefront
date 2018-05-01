@@ -7,6 +7,7 @@ import {Consumer} from '../context/MyContext.js'
 import {handleCanaMadeDataPiece, handleCanaMadeheight, CANAMADE_ITEMS_FABRIC, ROLLER_SHADE_ITEMS_FABRIC} from '../context/Constants'
 import {LAURENT_ITEMS_FABRIC, handleLaurentDataPiece, handleLaurentheight} from '../context/Constants'
 import {CONTROL_SIZE, FRACTIONS} from '../context/Constants'
+var math = require('mathjs');
 
 class FabricDrop extends React.Component {
   constructor(props) {
@@ -158,7 +159,6 @@ class FabricDrop extends React.Component {
 
     return (
       <React.Fragment>
-
       <td>
       <Dropdown isOpen={this.state.caso_dropdownOpen} toggle={this.toggleCaso}  >
         <DropdownToggle caret>
@@ -238,8 +238,11 @@ class BlindRow extends React.Component{
 
   render(){
 
+    let label_id = math.number(this.props.id) + 1
+
     return(
       <tr>
+            <th scope="row">{label_id}</th>
             <th scope="row">{this.props.name}</th>
             <td><Input type="text" name="PO Number" id="id" placeholder={this.props.body['po_number']} /></td>
             <td><Input type="text" name="original_width" id="id" placeholder={this.props.body['original_width']} /></td>
@@ -286,6 +289,7 @@ export default class BlindModalTable extends React.Component {
       <Table>
         <thead>
           <tr>
+            <th>#</th>
             <th>Blind</th>
             <th>PO Number</th>
             <th>Original Width</th>

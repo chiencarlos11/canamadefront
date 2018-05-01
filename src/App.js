@@ -213,7 +213,7 @@ class App extends Component {
 						
 					</Col>
 					<Col>
-						<ModalExample buttonLabel="New Batch Order" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
+						<ModalExample buttonLabel="Batch Orders" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
 					</Col>
 					<Col >
 						<PrintThisComponent  />
