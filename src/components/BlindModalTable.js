@@ -6,6 +6,7 @@ import moment from 'moment';
 import {Consumer} from '../context/MyContext.js'
 import {handleCanaMadeDataPiece, handleCanaMadeheight, CANAMADE_ITEMS_FABRIC, ROLLER_SHADE_ITEMS_FABRIC} from '../context/Constants'
 import {LAURENT_ITEMS_FABRIC, handleLaurentDataPiece, handleLaurentheight} from '../context/Constants'
+import {CONTROL_SIZE, FRACTIONS} from '../context/Constants'
 
 class FabricDrop extends React.Component {
   constructor(props) {
@@ -38,35 +39,78 @@ class FabricDrop extends React.Component {
     }
 
     this.state = {
+      caso_dropdownOpen: false,
       dropdownOpen: false,
       colordropdownOpen: false,
-      value: 'Select',
-      colorvalue: 'Select',
+      date: new Date(),
+      po_number: '',
+      original_width: 0,
+      original_height: 0,
+      original_width_fraction: FRACTIONS[0],
+      original_height_fraction: FRACTIONS[0],
+      control_size: CONTROL_SIZE[0],
+      cassette_orientation: 'Left',
+      cassette_extra: 'Cord',
+      cassette_color: 'White',
       selected_fabric: this.fabric[0],
       selected_fabric_color: this.fabric_color[0],
+      cassette_size: '',
+      tube_tob: '',
+      inner: '',
+      outer: '',
+      height: '',
       color_selection: [...this.fabric_color],
     };
 
+    this.toggleCaso = this.toggleCaso.bind(this);
+    this.toggleCase = this.toggleCase.bind(this);
+    this.toggleCasc = this.toggleCasc.bind(this);
     this.toggle = this.toggle.bind(this);
     this.toggleColor = this.toggleColor.bind(this);
 
   }
 
+  toggleCaso(e) {
+    console.log("toggleCaso")
+    this.setState({
+      caso_dropdownOpen: !this.state.caso_dropdownOpen,
+    });
 
-  update_fabric(event){
-    console.log("Update_fabric triggered")
-    this.setState({selected_fabric: event.target.value});
-    this.setState({selected_fabric_color: this.color_dict[event.target.value][0]});
-    this.setState({color_selection: this.color_dict[event.target.value]});
+    if (e.target.value){
+      this.setState({
+        cassette_orientation: e.target.value,
+    });
+    }
 
   }
 
-  update_fabric_color(event){
-    console.log("update_fabric_color triggered")
-    this.setState({selected_fabric_color: event.target.value});
+  toggleCase(e) {
+    console.log("toggleCase")
+    this.setState({
+      case_dropdownOpen: !this.state.case_dropdownOpen,
+    });
+
+    if (e.target.value){
+      this.setState({
+        cassette_extra: e.target.value,
+    });
+    }
 
   }
 
+  toggleCasc(e) {
+    console.log("toggleCasc")
+    this.setState({
+      casc_dropdownOpen: !this.state.casc_dropdownOpen,
+    });
+
+    if (e.target.value){
+      this.setState({
+        cassette_color: e.target.value,
+    });
+    }
+
+  }
 
   toggle(e) {
     console.log("toggle")
@@ -76,10 +120,9 @@ class FabricDrop extends React.Component {
 
     if (e.target.value){
       this.setState({
-      value: e.target.value,
       selected_fabric: e.target.value,
       color_selection: this.dict[e.target.value],
-      colorvalue: this.dict[e.target.value][0],
+      selected_fabric_color: this.dict[e.target.value][0],
     });
     }
 
@@ -93,7 +136,7 @@ class FabricDrop extends React.Component {
 
     if (e.target.value){
       this.setState({
-      colorvalue: e.target.value
+      selected_fabric_color: e.target.value
     });
     }
   }
@@ -101,7 +144,7 @@ class FabricDrop extends React.Component {
   updatelabel(e){
     console.log("Setting new label = " + e.target.value)
     this.setState({
-      value: e.target.value
+      selected_fabric: e.target.value
     });
   }
 
@@ -115,10 +158,48 @@ class FabricDrop extends React.Component {
 
     return (
       <React.Fragment>
+
       <td>
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} onChange={this.update_fabric.bind(this)} >
+      <Dropdown isOpen={this.state.caso_dropdownOpen} toggle={this.toggleCaso}  >
         <DropdownToggle caret>
-          {this.state.value}
+          {this.state.cassette_orientation}
+        </DropdownToggle>
+        <DropdownMenu>
+            <DropdownItem value='Left' >Left</DropdownItem>
+            <DropdownItem value='Right' >Right</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+      </td>
+
+      <td>
+      <Dropdown isOpen={this.state.case_dropdownOpen} toggle={this.toggleCase}  >
+        <DropdownToggle caret>
+          {this.state.cassette_extra}
+        </DropdownToggle>
+        <DropdownMenu>
+            <DropdownItem value='Cord' >Cord</DropdownItem>
+            <DropdownItem value='Chain' >Chain</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+      </td>
+
+      <td>
+      <Dropdown isOpen={this.state.casc_dropdownOpen} toggle={this.toggleCasc}  >
+        <DropdownToggle caret>
+          {this.state.cassette_color}
+        </DropdownToggle>
+        <DropdownMenu>
+            <DropdownItem value='White' >White</DropdownItem>
+            <DropdownItem value='Silver' >Silver</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+      </td>
+
+
+      <td>
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}  >
+        <DropdownToggle caret>
+          {this.state.selected_fabric}
         </DropdownToggle>
         <DropdownMenu>
           {drop_options}
@@ -127,9 +208,9 @@ class FabricDrop extends React.Component {
       </td>
 
       <td>
-      <Dropdown isOpen={this.state.colordropdownOpen} toggle={this.toggleColor} onChange={this.update_fabric_color.bind(this)} >
+      <Dropdown isOpen={this.state.colordropdownOpen} toggle={this.toggleColor} >
         <DropdownToggle caret>
-          {this.state.colorvalue}
+          {this.state.selected_fabric_color}
         </DropdownToggle>
         <DropdownMenu>
           {color_drop_options}
@@ -163,6 +244,7 @@ class BlindRow extends React.Component{
             <td><Input type="text" name="PO Number" id="id" placeholder={this.props.body['po_number']} /></td>
             <td><Input type="text" name="original_width" id="id" placeholder={this.props.body['original_width']} /></td>
             <td><Input type="text" name="original_height" id="id" placeholder={this.props.body['original_height']} /></td>
+
             <FabricDrop name={this.props.name} />
             <td><DatePicker selected={this.state.date} onChange={this.handleDateData} /></td>
       </tr>
