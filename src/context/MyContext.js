@@ -16,7 +16,9 @@ export class MyProvider extends Component{
     var new_orders = this.state.orders.slice()
     new_orders.push(order)
     this.setState({orders: new_orders})
-    order['modal']();
+    if (order['modal']){
+      order['modal']();
+    }
   };
 
   remove_order = index => {

@@ -230,6 +230,8 @@ class BlindRow extends React.Component{
     this.state = {
       date: new moment()
     };
+
+  
   }
 
   handleDateData(dateData) {
@@ -267,6 +269,8 @@ export default class BlindModalTable extends React.Component {
       value: 'Select'
     };
 
+    this.blindTypes = ['Laurent','Roller Shades','CanaMade','Vertical Blinds','Cellular Shades'];
+
   }
 
   toggle(e) {
@@ -279,7 +283,46 @@ export default class BlindModalTable extends React.Component {
       this.setState({
       value: e.target.value
     });
+
     }
+
+  }
+
+  add_new_order(name, actions){
+    console.log("Adding New Order")
+    if (name){
+
+      let blank_order = {
+      caso_dropdownOpen: false,
+      dropdownOpen: false,
+      colordropdownOpen: false,
+      date: new Date(),
+      po_number: '',
+      original_width: 0,
+      original_height: 0,
+      original_width_fraction: FRACTIONS[0],
+      original_height_fraction: FRACTIONS[0],
+      control_size: CONTROL_SIZE[0],
+      cassette_orientation: 'Left',
+      cassette_extra: 'Cord',
+      cassette_color: 'White',
+      selected_fabric: '',
+      selected_fabric_color: '',
+      cassette_size: '',
+      tube_tob: '',
+      inner: '',
+      outer: '',
+      height: '',
+      color_selection: [],
+    };
+
+    let new_blank_order = Object.assign({}, blank_order)
+
+
+      let new_order = { name: name, body: new_blank_order, modal:false}
+      actions.add_order(new_order)
+    }
+
   }
 
   render(){
@@ -327,18 +370,41 @@ export default class BlindModalTable extends React.Component {
         </tbody>
       </Table>
       <ModalFooter>
-        <Dropdown className="mr-auto" isOpen={this.state.dropdownOpen} toggle={this.toggle} >
+
+      <Consumer>
+        {context => {
+
+          const {actions} = context;
+
+          let blinds_options = this.blindTypes.map(fa => (  <DropdownItem onClick={() => {this.add_new_order(fa,actions)}} key={fa} value={fa} >{fa}</DropdownItem> ));
+
+          return (
+          <React.Fragment>
+ 
+            <Dropdown className="mr-auto" isOpen={this.state.dropdownOpen} toggle={this.toggle.bind(this)} >
           <DropdownToggle color="danger" caret>
             New Order
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem value='Laurent' >Laurent</DropdownItem>
-            <DropdownItem value='Roller Shades' >Roller Shades</DropdownItem>
-            <DropdownItem value='CanaMade Shades' >CanaMade Shades</DropdownItem>
-            <DropdownItem value='Vertical' >Vertical</DropdownItem>
-            <DropdownItem value='Cellular' >Cellular</DropdownItem>
+            {blinds_options}
           </DropdownMenu>
         </Dropdown>
+
+
+
+          </React.Fragment>
+          )
+          }
+        }
+      </Consumer>
+
+
+
+
+
+
+
+        
         <Button color="secondary" onClick={this.props.toggleModal} >Cancel</Button>
       </ModalFooter>
       </div>
