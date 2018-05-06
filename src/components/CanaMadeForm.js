@@ -33,6 +33,9 @@ export default class CanaMadeForm extends React.Component {
       inner: '',
       outer: '',
       height: '',
+      color_dict: this.props.constantform,
+      handleaction: this.props.handleaction,
+      calculateheight: this.props.calculateheight,
     };
 
     this.prepare_order = this.prepare_order.bind(this);

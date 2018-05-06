@@ -43,6 +43,7 @@ class FabricDrop extends React.Component {
       caso_dropdownOpen: false,
       dropdownOpen: false,
       colordropdownOpen: false,
+      controldropdownOpen: false,
       date: new Date(),
       po_number: '',
       original_width: 0,
@@ -63,11 +64,53 @@ class FabricDrop extends React.Component {
       color_selection: [...this.fabric_color],
     };
 
+    this.toggleControl = this.toggleControl.bind(this);
     this.toggleCaso = this.toggleCaso.bind(this);
     this.toggleCase = this.toggleCase.bind(this);
     this.toggleCasc = this.toggleCasc.bind(this);
     this.toggle = this.toggle.bind(this);
     this.toggleColor = this.toggleColor.bind(this);
+    this.update_order = this.update_order.bind(this);
+
+  }
+
+  componentDidMount(){
+    
+    if (this.props.body){
+      this.setState({
+        // date: this.props.body.date,
+        po_number: this.props.body.po_number,
+        original_width: this.props.body.original_width,
+        original_height: this.props.body.original_height,
+        original_width_fraction: this.props.body.original_width_fraction,
+        original_height_fraction: this.props.body.original_height_fraction,
+        control_size: this.props.body.control_size,
+        cassette_orientation: this.props.body.cassette_orientation,
+        cassette_extra: this.props.body.cassette_extra,
+        cassette_color: this.props.body.cassette_color,
+        fabric_type: this.props.body.fabric_type,
+        fabric_color: this.props.body.fabric_color,
+        cassette_size: this.props.body.cassette_size,
+        tube_tob: this.props.body.tube_tob,
+        height: this.props.body.height,
+        inner:this.props.body.inner,
+        outer: this.props.body.outer,
+      });
+    }
+
+    if (this.props.body.fabric_type){
+      this.setState({
+        selected_fabric: this.props.body.fabric_type,
+        color_selection: [...this.props.body.color_dict[this.props.body.fabric_type]],
+      })
+    }
+
+    if (this.props.body.fabric_color){
+      this.setState({
+        selected_fabric_color: this.props.body.fabric_color,
+      })
+    }
+
 
   }
 
@@ -80,6 +123,20 @@ class FabricDrop extends React.Component {
     if (e.target.value){
       this.setState({
         cassette_orientation: e.target.value,
+    });
+    }
+
+  }
+
+  toggleControl(e) {
+    console.log("toggleControl")
+    this.setState({
+      controldropdownOpen: !this.state.controldropdownOpen,
+    });
+
+    if (e.target.value){
+      this.setState({
+        control_size: e.target.value,
     });
     }
 
@@ -125,6 +182,13 @@ class FabricDrop extends React.Component {
       color_selection: this.dict[e.target.value],
       selected_fabric_color: this.dict[e.target.value][0],
     });
+
+      console.log("Choosing Fabric = " + e.target.value)
+      //Updating Parents
+      var fabricMap = new Map();
+      fabricMap.set('fabric_type', e.target.value)
+      fabricMap.set('fabric_color', this.props.body.color_dict[e.target.value][0])
+      this.props.handleData(fabricMap)
     }
 
   }
@@ -139,6 +203,7 @@ class FabricDrop extends React.Component {
       this.setState({
       selected_fabric_color: e.target.value
     });
+
     }
   }
 
@@ -149,24 +214,41 @@ class FabricDrop extends React.Component {
     });
   }
 
+  update_order(index, order){
+
+    this.props.update_order(index, order)
+  }
+
   render() {
-
-    console.log("fabric color = " + JSON.stringify(this.state.color_selection))
     
-    let drop_options = this.fabric.map(fa => (  <DropdownItem key={fa} value={fa} >{fa}</DropdownItem> ));
+    let control_sizes = CONTROL_SIZE.map(fa => (  <DropdownItem name='control_size' onClick={this.props.updateDataPiece.bind(this)} key={fa} value={fa} >{fa}</DropdownItem> ));
 
-    let color_drop_options = this.state.color_selection.map(fa => (  <DropdownItem key={fa} value={fa} >{fa}</DropdownItem> ));
+    let drop_options = this.fabric.map(fa => (  <DropdownItem name='fabric_type' key={fa} value={fa} >{fa}</DropdownItem> ));
+
+    let color_drop_options = this.state.color_selection.map(fa => (  <DropdownItem name='fabric_color' onClick={this.props.updateDataPiece.bind(this)} key={fa} value={fa} >{fa}</DropdownItem> ));
 
     return (
       <React.Fragment>
+
+      <td>
+      <Dropdown isOpen={this.state.controldropdownOpen} toggle={this.toggleControl}  >
+        <DropdownToggle caret>
+          {this.props.body.control_size}
+        </DropdownToggle>
+        <DropdownMenu>
+          {control_sizes}
+        </DropdownMenu>
+      </Dropdown>
+      </td>
+
       <td>
       <Dropdown isOpen={this.state.caso_dropdownOpen} toggle={this.toggleCaso}  >
         <DropdownToggle caret>
-          {this.state.cassette_orientation}
+          {this.props.body.cassette_orientation}
         </DropdownToggle>
         <DropdownMenu>
-            <DropdownItem value='Left' >Left</DropdownItem>
-            <DropdownItem value='Right' >Right</DropdownItem>
+            <DropdownItem name='cassette_orientation' onClick={this.props.updateDataPiece.bind(this)} value='Left' >Left</DropdownItem>
+            <DropdownItem name='cassette_orientation' onClick={this.props.updateDataPiece.bind(this)} value='Right' >Right</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       </td>
@@ -174,11 +256,11 @@ class FabricDrop extends React.Component {
       <td>
       <Dropdown isOpen={this.state.case_dropdownOpen} toggle={this.toggleCase}  >
         <DropdownToggle caret>
-          {this.state.cassette_extra}
+          {this.props.body.cassette_extra}
         </DropdownToggle>
         <DropdownMenu>
-            <DropdownItem value='Cord' >Cord</DropdownItem>
-            <DropdownItem value='Chain' >Chain</DropdownItem>
+            <DropdownItem name='cassette_extra' onClick={this.props.updateDataPiece.bind(this)} value='Cord' >Cord</DropdownItem>
+            <DropdownItem name='cassette_extra' onClick={this.props.updateDataPiece.bind(this)} value='Chain' >Chain</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       </td>
@@ -186,11 +268,11 @@ class FabricDrop extends React.Component {
       <td>
       <Dropdown isOpen={this.state.casc_dropdownOpen} toggle={this.toggleCasc}  >
         <DropdownToggle caret>
-          {this.state.cassette_color}
+          {this.props.body.cassette_color}
         </DropdownToggle>
         <DropdownMenu>
-            <DropdownItem value='White' >White</DropdownItem>
-            <DropdownItem value='Silver' >Silver</DropdownItem>
+            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='White' >White</DropdownItem>
+            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='Silver' >Silver</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       </td>
@@ -227,16 +309,127 @@ class BlindRow extends React.Component{
   constructor(props){
     super(props)
 
+    this.fabric_keys = Object.keys(this.props.body.color_dict)
+
     this.state = {
-      date: new moment()
+      date: new moment(),
+      original_width: 0,
+      original_height: 0,
+      original_width_fraction: FRACTIONS[0],
+      original_height_fraction: FRACTIONS[0],
+      control_size: CONTROL_SIZE[0],
+      cassette_orientation: 'Left',
+      cassette_extra: 'Cord',
+      cassette_color: 'White',
+      fabric_type: this.fabric_keys[0],
+      fabric_color: this.props.body.color_dict[this.fabric_keys[0]][0],
+      cassette_size: '',
+      tube_tob: '',
+      inner: '',
+      outer: '',
+      height: '',
+      color_selection: [],
     };
 
   
   }
 
+  componentDidMount(){
+    
+    if (this.props.body){
+      this.setState({
+        // date: this.props.body.date,
+        po_number: this.props.body.po_number,
+        original_width: this.props.body.original_width,
+        original_height: this.props.body.original_height,
+        original_width_fraction: this.props.body.original_width_fraction,
+        original_height_fraction: this.props.body.original_height_fraction,
+        control_size: this.props.body.control_size,
+        cassette_orientation: this.props.body.cassette_orientation,
+        cassette_extra: this.props.body.cassette_extra,
+        cassette_color: this.props.body.cassette_color,
+        fabric_type: this.props.body.fabric_type,
+        fabric_color: this.props.body.fabric_color,
+        cassette_size: this.props.body.cassette_size,
+        tube_tob: this.props.body.tube_tob,
+        height: this.props.body.height,
+        inner:this.props.body.inner,
+        outer: this.props.body.outer,
+      });
+    }
+  }
+
+
+
   handleDateData(dateData) {
     console.log("Starting HandleData")
   }
+
+
+  update_order(){
+    console.log("Executing update_order")
+    let mod_object = { name: this.props.name, body: this.props.body}
+    this.props.actions.update_order_no_modal(this.props.id, mod_object)
+  }
+
+  handleData(dateMap) {
+    for (const [key, value] of dateMap.entries()) {
+      var newState = {};
+      newState[key] = value;
+      this.setState(newState);
+      this.props.body[key] = value;
+    }
+
+  }
+
+  handleDataPiece(event){
+    console.log("Executing handleDataPiece")
+    var itemMap = new Map();
+    itemMap.set(event.target.name, event.target.value)
+    this.handleData(itemMap)
+
+    let result = this.props.body.handleaction(event.target.name, event.target.value, this.props.body)
+    if (result){
+      this.setState({cassette_size: result['cassette_size']});
+      this.setState({tube_tob: result['tube_tob']});
+      this.props.body.cassette_size = result['cassette_size']
+      this.props.body.tube_tob = result['tube_tob']
+
+      if(result['inner']){
+        this.setState({inner: result['inner']});
+        this.props.body.inner = result['inner']
+      }
+      if(result['outer']){
+        this.setState({outer: result['outer']});
+        this.props.body.outer = result['outer']
+      }
+
+    }
+
+    this.compute_height();
+
+  }
+
+
+  compute_height(){
+    let new_height = 0;
+    let original_height = this.state['original_height'];
+    let original_height_fraction = this.state['original_height_fraction'];
+    let fabric_type = this.state['fabric_type'];
+
+
+    console.log("current fabric_type = " + fabric_type)
+
+    let new_result_height = this.props.body.calculateheight(original_height, original_height_fraction, fabric_type)
+
+    if (new_result_height){
+      this.setState({height: new_result_height});
+      new_height = new_result_height
+    }
+    this.props.body.height = new_height;
+    console.log("new_height = " + new_height)
+  }
+
 
   render(){
 
@@ -246,11 +439,11 @@ class BlindRow extends React.Component{
       <tr>
             <th scope="row">{label_id}</th>
             <th scope="row">{this.props.name}</th>
-            <td><Input type="text" name="PO Number" id="id" placeholder={this.props.body['po_number']} /></td>
-            <td><Input type="text" name="original_width" id="id" placeholder={this.props.body['original_width']} /></td>
-            <td><Input type="text" name="original_height" id="id" placeholder={this.props.body['original_height']} /></td>
+            <td><Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="text" name="po_number" id="id" placeholder={this.state.po_number} /></td>
+            <td><Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_width" id="id" placeholder={this.state.original_width} /></td>
+            <td><Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_height" id="id" placeholder={this.state.original_height} /></td>
 
-            <FabricDrop name={this.props.name} />
+            <FabricDrop onBlur={this.update_order.bind(this)} handleData={this.handleData.bind(this)} updateDataPiece={this.handleDataPiece.bind(this)} index={this.props.id} body={this.props.body} name={this.props.name} />
             <td><DatePicker selected={this.state.date} onChange={this.handleDateData} /></td>
       </tr>
     )};
@@ -306,8 +499,6 @@ export default class BlindModalTable extends React.Component {
       cassette_orientation: 'Left',
       cassette_extra: 'Cord',
       cassette_color: 'White',
-      selected_fabric: '',
-      selected_fabric_color: '',
       cassette_size: '',
       tube_tob: '',
       inner: '',
@@ -316,12 +507,38 @@ export default class BlindModalTable extends React.Component {
       color_selection: [],
     };
 
+    if (name && name === 'Laurent'){
+      blank_order['handleaction'] = handleLaurentDataPiece
+      blank_order['calculateheight'] = handleLaurentheight
+      blank_order['color_dict'] = LAURENT_ITEMS_FABRIC
+    }
+
+    if (name && name === 'Roller Shades'){
+      blank_order['handleaction'] = handleCanaMadeDataPiece
+      blank_order['calculateheight'] = handleCanaMadeheight
+      blank_order['color_dict'] = ROLLER_SHADE_ITEMS_FABRIC
+    }
+
+    if (name && name === 'CanaMade'){
+      blank_order['handleaction'] = handleCanaMadeDataPiece
+      blank_order['calculateheight'] = handleCanaMadeheight
+      blank_order['color_dict'] = CANAMADE_ITEMS_FABRIC
+    }
+
+    let fabric_keys = Object.keys(blank_order.color_dict)
+    blank_order['fabric_type'] = fabric_keys[0];
+    blank_order['fabric_color'] = blank_order.color_dict[fabric_keys[0]][0];
+
     let new_blank_order = Object.assign({}, blank_order)
 
 
       let new_order = { name: name, body: new_blank_order, modal:false}
       actions.add_order(new_order)
     }
+
+  }
+
+  update_order(update_order_action, index, order){
 
   }
 
@@ -335,12 +552,12 @@ export default class BlindModalTable extends React.Component {
             <th>#</th>
             <th>Blind</th>
             <th>PO Number</th>
-            <th>Original Width</th>
-            <th>Original Height</th>
+            <th>Orig Width</th>
+            <th>Orig Height</th>
             <th>Control</th>
-            <th>Cas L/R</th>
-            <th>Cas Cord/Chain</th>
-            <th>Cas Silver/White</th>
+            <th>L/R</th>
+            <th>Cord/Chain</th>
+            <th>Silver/White</th>
             <th>Fabric</th>
             <th>Fabric Color</th>
             <th>Date</th>
@@ -350,14 +567,14 @@ export default class BlindModalTable extends React.Component {
           <Consumer>
       {context => {
         
-        const {state} = context;
+        const {state, actions} = context;
         
         return (
           <React.Fragment>
           {state['orders'].map(function(item, i){
             
             return(
-                <BlindRow name={item['name']} key={i} id={i} body={item['body']}/>
+                <BlindRow actions={actions} name={item['name']} key={i} id={i} body={item['body']}/>
             )
             
           })}

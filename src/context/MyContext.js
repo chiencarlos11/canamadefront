@@ -44,6 +44,15 @@ export class MyProvider extends Component{
     order['modal']();
   };
 
+  update_order_no_modal = (index,order) => {
+    console.log("=== Updating new Order ==== " + index) 
+    console.log(JSON.stringify(order));
+    var new_orders = this.state.orders.slice()
+    new_orders[index] = order;
+    this.setState({ orders: new_orders,
+                    curr_order: order })
+  };
+
   get_order = index => {
     var new_orders = this.state.orders.slice();
     var new_order = new_orders[index];
@@ -74,6 +83,7 @@ export class MyProvider extends Component{
           remove_order: this.remove_order,
           copy_order: this.copy_order,
           update_order: this.update_order,
+          update_order_no_modal: this.update_order_no_modal,
           get_order: this.get_order,
           toggle: this.toggle,
         },
