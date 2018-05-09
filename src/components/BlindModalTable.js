@@ -1,12 +1,13 @@
 import React from 'react';
-import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button, ModalFooter } from 'reactstrap';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button, ModalFooter, Container, Row, Col } from 'reactstrap';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import {Consumer} from '../context/MyContext.js'
 import {handleCanaMadeDataPiece, handleCanaMadeheight, CANAMADE_ITEMS_FABRIC, ROLLER_SHADE_ITEMS_FABRIC} from '../context/Constants'
 import {LAURENT_ITEMS_FABRIC, handleLaurentDataPiece, handleLaurentheight} from '../context/Constants'
 import {CONTROL_SIZE, FRACTIONS} from '../context/Constants'
+import '../blindtable.css';
 var math = require('mathjs');
 
 class FabricDrop extends React.Component {
@@ -231,7 +232,7 @@ class FabricDrop extends React.Component {
       <React.Fragment>
 
       <td>
-      <Dropdown isOpen={this.state.controldropdownOpen} toggle={this.toggleControl}  >
+      <Dropdown isOpen={this.state.controldropdownOpen} toggle={this.toggleControl} size="sm" >
         <DropdownToggle caret>
           {this.props.body.control_size}
         </DropdownToggle>
@@ -242,7 +243,7 @@ class FabricDrop extends React.Component {
       </td>
 
       <td>
-      <Dropdown isOpen={this.state.caso_dropdownOpen} toggle={this.toggleCaso}  >
+      <Dropdown isOpen={this.state.caso_dropdownOpen} toggle={this.toggleCaso} size="sm" >
         <DropdownToggle caret>
           {this.props.body.cassette_orientation}
         </DropdownToggle>
@@ -254,7 +255,7 @@ class FabricDrop extends React.Component {
       </td>
 
       <td>
-      <Dropdown isOpen={this.state.case_dropdownOpen} toggle={this.toggleCase}  >
+      <Dropdown isOpen={this.state.case_dropdownOpen} toggle={this.toggleCase} size="sm" >
         <DropdownToggle caret>
           {this.props.body.cassette_extra}
         </DropdownToggle>
@@ -266,7 +267,7 @@ class FabricDrop extends React.Component {
       </td>
 
       <td>
-      <Dropdown isOpen={this.state.casc_dropdownOpen} toggle={this.toggleCasc}  >
+      <Dropdown isOpen={this.state.casc_dropdownOpen} toggle={this.toggleCasc} size="sm" >
         <DropdownToggle caret>
           {this.props.body.cassette_color}
         </DropdownToggle>
@@ -279,7 +280,7 @@ class FabricDrop extends React.Component {
 
 
       <td>
-      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}  >
+      <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="sm" >
         <DropdownToggle caret>
           {this.state.selected_fabric}
         </DropdownToggle>
@@ -290,7 +291,7 @@ class FabricDrop extends React.Component {
       </td>
 
       <td>
-      <Dropdown isOpen={this.state.colordropdownOpen} toggle={this.toggleColor} >
+      <Dropdown isOpen={this.state.colordropdownOpen} toggle={this.toggleColor} size="sm" >
         <DropdownToggle caret>
           {this.state.selected_fabric_color}
         </DropdownToggle>
@@ -434,17 +435,46 @@ class BlindRow extends React.Component{
   render(){
 
     let label_id = math.number(this.props.id) + 1
+    let FRACTION_OPTIONS = FRACTIONS.map(fa => (  <option key={fa} value={fa} >{fa}</option> ));
 
     return(
       <tr>
             <th scope="row">{label_id}</th>
             <th scope="row">{this.props.name}</th>
-            <td><Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="text" name="po_number" id="id" placeholder={this.state.po_number} /></td>
-            <td><Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_width" id="id" placeholder={this.state.original_width} /></td>
-            <td><Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_height" id="id" placeholder={this.state.original_height} /></td>
+
+            <td>
+                <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="text" name="po_number" placeholder={this.state.po_number} />
+            </td>
+            <td>
+              <Container>
+              <Row>
+              <Col>
+              <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_width" placeholder={this.state.original_width} />
+              </Col>
+              <Col > 
+              <Input defaultValue={this.props.body.original_width_fraction} type="select" name="original_width_fraction" onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} bsSize="sm">
+                {FRACTION_OPTIONS}
+              </Input>
+              </Col>
+              </Row>
+              </Container>
+            </td>
+            <td>
+            <Container>
+              <Row>
+              <Col>
+                <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_height" placeholder={this.state.original_height} />
+                </Col>
+                <Col> 
+                <Input defaultValue={this.props.body.original_height_fraction} type="select" name="original_height_fraction" id="original_height_fraction" onChange={this.handleDataPiece.bind(this)} onBlur={this.update_order.bind(this)} bsSize="sm">
+                {FRACTION_OPTIONS}
+              </Input>
+            </Col>
+            </Row>
+            </Container>
+            </td>
 
             <FabricDrop onBlur={this.update_order.bind(this)} handleData={this.handleData.bind(this)} updateDataPiece={this.handleDataPiece.bind(this)} index={this.props.id} body={this.props.body} name={this.props.name} />
-            <td><DatePicker selected={this.state.date} onChange={this.handleDateData} /></td>
       </tr>
     )};
 
@@ -546,21 +576,20 @@ export default class BlindModalTable extends React.Component {
 
     return(
       <div>
-      <Table>
+      <Table className="blindtable" hover>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Blind</th>
-            <th>PO Number</th>
-            <th>Orig Width</th>
-            <th>Orig Height</th>
-            <th>Control</th>
-            <th>L/R</th>
-            <th>Cord/Chain</th>
-            <th>Silver/White</th>
-            <th>Fabric</th>
-            <th>Fabric Color</th>
-            <th>Date</th>
+            <th className="text-center" >#</th>
+            <th className="text-center">Blind</th>
+            <th className="text-center">PO Num</th>
+            <th className="text-center" >Original Width</th>
+            <th className="text-center" >Original Height</th>
+            <th className="text-center">Control</th>
+            <th className="text-center">L/R</th>
+            <th className="text-center">Cord/Chain</th>
+            <th className="text-center">Silver/White</th>
+            <th className="text-center">Fabric</th>
+            <th className="text-center">Fabric Color</th>
           </tr>
         </thead>
         <tbody>

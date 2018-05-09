@@ -1,5 +1,4 @@
 import React from 'react'
-import {LAURENT_ITEMS, ROLLER_SHADE_ITEMS, CANAMADE_ITEMS} from '../context/Constants'
 import moment from 'moment';
 import 'moment-timezone';
 var Fraction = require('fraction.js');
@@ -16,61 +15,17 @@ export default class CardContent extends React.Component {
   }
 
   render() {
-
-    let order_string = "";
     let myDatetimeFormat= "YYYY-MM-DD";
     var myTimezone = "America/Toronto";
-
-    if (this.props.blind_type === 'Laurent'){
-      for (let value of LAURENT_ITEMS) {
-
-        if (value === 'date'){
-          let myDatetimeFormat= "YYYY-MM-DD";
-    
-          let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
-          order_string = order_string + value + ": " + mydatevariable + " "
-          
-        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height' || value === 'inner' || value === 'outer') {
-          order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
-        }
-        else{
-          order_string = order_string + value + ": " + this.props.body[value] + " "
-        }
-
-        
-      }
-    }else if (this.props.blind_type === 'Roller Shades'){
-      for (let value of ROLLER_SHADE_ITEMS) {
-        if (value === 'date'){
-          let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
-          order_string = order_string + value + ": " + mydatevariable + " "
-          
-        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height' || value === 'inner' || value === 'outer') {
-          order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
-        }
-        else{
-          order_string = order_string + value + ": " + this.props.body[value] + " "
-        }
-      }
-    }else if (this.props.blind_type === 'CanaMade'){
-      for (let value of CANAMADE_ITEMS) {
-        if (value === 'date'){
-          let mydatevariable = moment(this.props.body[value]).tz(myTimezone).format(myDatetimeFormat);
-          order_string = order_string + value + ": " + mydatevariable + " "
-          
-        }else if(value === 'cassette_size' || value === 'tube_tob' || value === 'height' || value === 'inner' || value === 'outer') {
-          order_string = order_string + value + ": " + this.compute_fraction(this.props.body[value]) + " "
-        }
-        else{
-          order_string = order_string + value + ": " + this.props.body[value] + " "
-        }
-      }
-    }
+    let date_string = moment(this.props.body['date']).tz(myTimezone).format(myDatetimeFormat);
 
     
     return (
-      <div>
-      {order_string}
+      <div className="CardContent">
+        <center><b>{this.props.blind_type}</b></center>
+        PO Number: <b>{this.props.body['po_number']}</b>  Date: <b>{date_string}</b> <br/>  
+        Height: <b>{this.compute_fraction(this.props.body['height'])}</b>   Tube: <b>{this.compute_fraction(this.props.body['tube_tob'])}</b>  inner: <b>{this.compute_fraction(this.props.body['inner'])}</b>  outer: <b>{this.compute_fraction(this.props.body['outer'])}</b> <br/> 
+        CAS: <b>{this.compute_fraction(this.props.body['cassette_size'])}</b> Color: <b>{this.props.body['fabric_type']} {this.props.body['fabric_color']} {this.props.body['cassette_color']} </b>  Control: <b>{this.props.body['cassette_orientation']}</b>
       </div>
       )
   }
