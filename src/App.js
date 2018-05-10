@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, Card, CardBody, CardTitle, Container, Row, Col} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Card, CardBody, Container, Row, Col} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 import ModalContent from './components/ModalContent'
 import LaurentEditForm from './components/LaurentEditForm'
 import CardContent from './components/CardContent'
 import BlindModalTable from './components/BlindModalTable'
-import PrintTemplate from 'react-print';
 import './modal.css';
 
 class EditCard extends Component{

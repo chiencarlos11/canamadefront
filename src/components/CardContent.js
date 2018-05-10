@@ -25,7 +25,7 @@ export default class CardContent extends React.Component {
       <div>
         <center><b>{this.props.blind_type}</b></center>
         <div className="CardContent">
-          <Container>
+          <Container fluid>
           <Row>
               <Col>
                 Original: <b>{this.props.body['original_width']} {this.props.body['original_width_fraction']} x {this.props.body['original_height']} {this.props.body['original_height_fraction']}</b>
