@@ -492,7 +492,8 @@ export default class BlindModalTable extends React.Component {
       value: 'Select'
     };
 
-    this.blindTypes = ['Laurent','Roller Shades','CanaMade','Vertical Blinds','Cellular Shades'];
+    // this.blindTypes = ['Laurent','Roller Shades','CanaMade','Vertical Blinds','Cellular Shades'];
+    this.blindTypes = ['Laurent','Roller Shades','CanaMade'];
 
   }
 

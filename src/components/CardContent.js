@@ -23,9 +23,13 @@ export default class CardContent extends React.Component {
     
     return (
       <div>
-        <center><b>{this.props.blind_type}</b></center>
         <div className="CardContent">
           <Container fluid>
+          <Row>
+            <Col sm="12" md={{ size: 8, offset: 4 }}>
+              <b>{this.props.blind_type}</b>
+            </Col>
+          </Row>
           <Row>
               <Col>
                 Original: <b>{this.props.body['original_width']} {this.props.body['original_width_fraction']} x {this.props.body['original_height']} {this.props.body['original_height_fraction']}</b>

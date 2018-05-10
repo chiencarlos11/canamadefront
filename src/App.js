@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, Card, CardBody, Container, Row, Col} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, CardBody, Container, Row, Col} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 import ModalContent from './components/ModalContent'
@@ -89,7 +89,8 @@ class ModalExample extends React.Component {
 			modalsize: "xl"
 		};
 		
-		this.blindTypes = ['Laurent','Roller Shades','CanaMade Shade','Vertical Blinds','Cellular Shades'];
+		// this.blindTypes = ['Laurent','Roller Shades','CanaMade Shade','Vertical Blinds','Cellular Shades'];
+		this.blindTypes = ['Laurent','Roller Shades','CanaMade Shade'];
 		this.toggle = this.toggle.bind(this);
 	}
 	
@@ -158,7 +159,7 @@ class BlindPanel extends React.Component {
 		return(
 			
 			
-			<Card>
+			<div>
 			
 			<CardBody onMouseLeave={() => this.mouseOut()} onMouseEnter={() => this.mouseOver()}>
 
@@ -167,9 +168,9 @@ class BlindPanel extends React.Component {
 			{(this.state.flipped) ? (<EditCard remove_order={this.props.remove_order} copy_order={this.props.copy_order} name={this.props.name} index={this.props.index} key={this.props.index} body={this.props.body}/>):(<div><br /><br /></div>)}
 			
 
-		</CardBody>
+			</CardBody>
 		
-		</Card>
+			</div>
 		
 		
 	);
