@@ -8,6 +8,7 @@ import ModalContent from './components/ModalContent'
 import LaurentEditForm from './components/LaurentEditForm'
 import CardContent from './components/CardContent'
 import BlindModalTable from './components/BlindModalTable'
+import PrintTemplate from 'react-print';
 import './modal.css';
 
 class EditCard extends Component{
@@ -215,7 +216,7 @@ class App extends Component {
 						<ModalExample buttonLabel="Multiple Orders" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
 					</Col>
 					<Col >
-						<PrintThisComponent  />
+						<PrintThisComponent />
 					</Col>
 				</Row>
 			</Container>
@@ -230,6 +231,7 @@ class App extends Component {
 				
 				return (
 					<React.Fragment>
+
 					{state['orders'].map(function(item, i){
 						
 						return(
@@ -239,7 +241,7 @@ class App extends Component {
 						)
 						
 					})}
-					
+
 					<LaurentEditForm index={state.current_index} toggle_initial_state={state.toggle} toggle_edit={actions.toggle} />
 					</React.Fragment>
 				)

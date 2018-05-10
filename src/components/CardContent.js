@@ -1,4 +1,5 @@
 import React from 'react'
+import {Container, Row, Col } from 'reactstrap';
 import moment from 'moment';
 import 'moment-timezone';
 var Fraction = require('fraction.js');
@@ -21,11 +22,59 @@ export default class CardContent extends React.Component {
 
     
     return (
-      <div className="CardContent">
+      <div>
         <center><b>{this.props.blind_type}</b></center>
-        PO Number: <b>{this.props.body['po_number']}</b>  Date: <b>{date_string}</b> <br/>  
-        Height: <b>{this.compute_fraction(this.props.body['height'])}</b>   Tube: <b>{this.compute_fraction(this.props.body['tube_tob'])}</b>  inner: <b>{this.compute_fraction(this.props.body['inner'])}</b>  outer: <b>{this.compute_fraction(this.props.body['outer'])}</b> <br/> 
-        CAS: <b>{this.compute_fraction(this.props.body['cassette_size'])}</b> Color: <b>{this.props.body['fabric_type']} {this.props.body['fabric_color']} {this.props.body['cassette_color']} </b>  Control: <b>{this.props.body['cassette_orientation']}</b>
+        <div className="CardContent">
+          <Container>
+          <Row>
+              <Col>
+                Original: <b>{this.props.body['original_width']} {this.props.body['original_width_fraction']} x {this.props.body['original_height']} {this.props.body['original_height_fraction']}</b>
+              </Col>
+          </Row>
+            <Row>
+                <Col>
+                  PO#: <b>{this.props.body['po_number']}</b>  
+                </Col>
+                <Col>
+                  Date: <b>{date_string}</b>  
+                </Col>
+            </Row>
+          <Row>
+            <Col xs="auto">
+              Height: <b>{this.compute_fraction(this.props.body['height'])}</b>       
+            </Col>
+            <Col xs="auto">
+              Tube: <b>{this.compute_fraction(this.props.body['tube_tob'])}</b>
+            </Col>
+            <Col>
+              CAS: <b>{this.compute_fraction(this.props.body['cassette_size'])}</b>
+            </Col>
+            
+          </Row>
+          <Row>
+            <Col xs="auto">
+              inner: <b>{this.compute_fraction(this.props.body['inner'])}</b>
+            </Col>
+            <Col xs="auto">
+              outer: <b>{this.compute_fraction(this.props.body['outer'])}</b>
+            </Col>
+            <Col xs="8">
+              Color: <b>{this.props.body['fabric_type']} {this.props.body['fabric_color']} {this.props.body['cassette_color']} </b>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              Control: <b>{this.props.body['cassette_orientation']}</b>
+            </Col>
+            <Col>
+              HH: <b>{this.props.body['control_size']}</b>
+            </Col>
+            <Col>
+              <b>{this.props.body['cassette_extra']}</b>
+            </Col>   
+          </Row>
+          </Container>
+        </div>
       </div>
       )
   }
