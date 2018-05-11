@@ -45,14 +45,15 @@ export default class CardContent extends React.Component {
             </Row>
           <Row>
             <Col xs="auto">
-              Height: <b>{this.compute_fraction(this.props.body['height'])}</b>       
+              CAS: <b>{this.compute_fraction(this.props.body['cassette_size'])}</b>
             </Col>
             <Col xs="auto">
               Tube: <b>{this.compute_fraction(this.props.body['tube_tob'])}</b>
             </Col>
-            <Col>
-              CAS: <b>{this.compute_fraction(this.props.body['cassette_size'])}</b>
+            <Col xs="auto">
+              Height: <b>{this.compute_fraction(this.props.body['height'])}</b>       
             </Col>
+            
             
           </Row>
           <Row>

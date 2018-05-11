@@ -1,69 +1,69 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, CardBody, Container, Row, Col} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, CardBody, Container, Row, Col, Table} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 import ModalContent from './components/ModalContent'
-import LaurentEditForm from './components/LaurentEditForm'
+// import LaurentEditForm from './components/LaurentEditForm'
 import CardContent from './components/CardContent'
 import BlindModalTable from './components/BlindModalTable'
 import './modal.css';
 
-class EditCard extends Component{
-	constructor(props){
-		super(props);
-		this.remove_panel = this.remove_panel.bind(this);
-		this.copy_panel = this.copy_panel.bind(this);
-		this.edit_panel = this.edit_panel.bind(this);
-	}
+// class EditCard extends Component{
+// 	constructor(props){
+// 		super(props);
+// 		this.remove_panel = this.remove_panel.bind(this);
+// 		this.copy_panel = this.copy_panel.bind(this);
+// 		this.edit_panel = this.edit_panel.bind(this);
+// 	}
 
-	remove_panel(){
-		this.props.remove_order(this.props.index)
-	}
+// 	remove_panel(){
+// 		this.props.remove_order(this.props.index)
+// 	}
 	
-	copy_panel(){
-		this.props.copy_order(this.props.index)
-	}
+// 	copy_panel(){
+// 		this.props.copy_order(this.props.index)
+// 	}
 	
-	edit_panel(actions){
-		actions.toggle(this.props.index, this.props.name);
-	}
+// 	edit_panel(actions){
+// 		actions.toggle(this.props.index, this.props.name);
+// 	}
 
-	render(){
+// 	render(){
 
 
-	return(
-		<Container>
-			<Row>
-			<Col>
+// 	return(
+// 		<Container>
+// 			<Row>
+// 			<Col>
 
-			<Button onClick={this.copy_panel} >Copy</Button>
+// 			<Button onClick={this.copy_panel} >Copy</Button>
 			
-			<Consumer>
-			{context => {
+// 			<Consumer>
+// 			{context => {
 				
-				const { actions } = context;
+// 				const { actions } = context;
 				
-				return (
-					<React.Fragment>
+// 				return (
+// 					<React.Fragment>
 					
-					<Button onClick={() => {this.edit_panel(actions)}} >Edit</Button>
-					</React.Fragment>
-				)
-			}
-		}
-		</Consumer>
+// 					<Button onClick={() => {this.edit_panel(actions)}} >Edit</Button>
+// 					</React.Fragment>
+// 				)
+// 			}
+// 		}
+// 		</Consumer>
 		
 		
-		<Button onClick={this.remove_panel} >Remove</Button>
-		</Col>
-		</Row>
-		</Container>
+// 		<Button onClick={this.remove_panel} >Remove</Button>
+// 		</Col>
+// 		</Row>
+// 		</Container>
 
-		)
-	}
-}
+// 		)
+// 	}
+// }
 
 class PrintThisComponent extends Component {
 
@@ -165,7 +165,7 @@ class BlindPanel extends React.Component {
 
 			<CardContent body={this.props.body} blind_type={this.props.name}/>
 
-			{(this.state.flipped) ? (<EditCard remove_order={this.props.remove_order} copy_order={this.props.copy_order} name={this.props.name} index={this.props.index} key={this.props.index} body={this.props.body}/>):(<div><br /><br /></div>)}
+			{/*{(this.state.flipped) ? (<EditCard remove_order={this.props.remove_order} copy_order={this.props.copy_order} name={this.props.name} index={this.props.index} key={this.props.index} body={this.props.body}/>):(<div><br /><br /></div>)}*/}
 			
 
 			</CardBody>
@@ -222,8 +222,9 @@ class App extends Component {
 			</Container>
 			<br/>
 			<br/>
-			<Container>
-			<Row>
+			<Table>
+			<tbody>
+			<tr>
 			<Consumer>
 			{context => {
 				
@@ -235,23 +236,32 @@ class App extends Component {
 					{state['orders'].map(function(item, i){
 						
 						return(
-							<Col sm="4" key={i}>
+							<div>
+							<td sm="1" key={i}>
 							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
-							</Col>
+							</td>
+							<td>
+							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
+							</td>
+							<td>
+							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
+							</td>
+							</div>
 						)
 						
 					})}
 
-					<LaurentEditForm index={state.current_index} toggle_initial_state={state.toggle} toggle_edit={actions.toggle} />
+					{/*<LaurentEditForm index={state.current_index} toggle_initial_state={state.toggle} toggle_edit={actions.toggle} />*/}
 					</React.Fragment>
 				)
 			}
 		}
 		</Consumer>
-		</Row>
+		</tr>
+		</tbody>
 		
 		
-		</Container>
+		</Table>
 		
 		
 		</div>
