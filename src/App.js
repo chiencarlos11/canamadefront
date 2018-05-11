@@ -72,7 +72,7 @@ class PrintThisComponent extends Component {
     return (
       <div>
 
-        <Button onClick={() => window.print()}>PRINT</Button>
+        <Button className="right-align" onClick={() => window.print()}>PRINT</Button>
 
       </div>
 
@@ -114,7 +114,7 @@ class ModalExample extends React.Component {
 		return (
 			
 			<div>
-			<Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+			<Button className="left-align" color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
 			<Modal size={this.state.modalsize} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 			<ModalHeader toggle={this.toggle}>CanaMade</ModalHeader>
 			<ModalBody>
@@ -206,20 +206,24 @@ class App extends Component {
 			<h1 className="App-title">CanaMade</h1>
 			</header>
 			<br/>
-			<Container>
-				<Row>
-					<Col >
+
+					{/*<Col >
 						<ModalExample buttonLabel="New Order" callbackFromParent={this.myCallback.bind(this)}/>
 						
-					</Col>
-					<Col>
-						<ModalExample buttonLabel="Multiple Orders" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
-					</Col>
-					<Col >
-						<PrintThisComponent />
-					</Col>
-				</Row>
+					</Col>*/}
+
+			<Container>
+			<Row>
+			<Col sm="6">
+			<ModalExample buttonLabel="Edit Orders" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
+			</Col>
+			<Col>
+			<PrintThisComponent />
+			</Col>
+			</Row>
 			</Container>
+
+
 			<br/>
 			<br/>
 			<Table>

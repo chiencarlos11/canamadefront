@@ -13,4 +13,14 @@ body {
 	padding: 5px;
 }
 
+.right-align {
+  margin-left: 64%;
+}
+
+.left-align {
+  margin-right: 64%;
+}
+
 .no-print { display: none; }
+
+
