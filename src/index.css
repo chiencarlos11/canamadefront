@@ -13,6 +13,10 @@ body {
 	padding: 5px;
 }
 
+.content-table {
+    margin: 0px auto;
+}
+
 .right-align {
   margin-left: 64%;
 }

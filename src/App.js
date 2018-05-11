@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, CardBody, Container, Row, Col, Table} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, CardBody, Container, Row, Col} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 import ModalContent from './components/ModalContent'
@@ -226,7 +226,7 @@ class App extends Component {
 
 			<br/>
 			<br/>
-			<Table>
+			<table className="content-table">
 			<tbody>
 			<tr>
 			<Consumer>
@@ -265,7 +265,7 @@ class App extends Component {
 		</tbody>
 		
 		
-		</Table>
+		</table>
 		
 		
 		</div>
