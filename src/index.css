@@ -25,6 +25,10 @@ body {
   margin-right: 64%;
 }
 
-.no-print { display: none; }
+@media print {
+  #printPageButton {
+    display: none;
+  }
+}
 
 

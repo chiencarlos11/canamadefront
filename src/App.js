@@ -72,7 +72,7 @@ class PrintThisComponent extends Component {
     return (
       <div>
 
-        <Button className="right-align" onClick={() => window.print()}>PRINT</Button>
+        <Button id="printPageButton" className="right-align" onClick={() => window.print()}>PRINT</Button>
 
       </div>
 
@@ -114,7 +114,7 @@ class ModalExample extends React.Component {
 		return (
 			
 			<div>
-			<Button className="left-align" color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+			<Button id="printPageButton" className="left-align" color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
 			<Modal size={this.state.modalsize} isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 			<ModalHeader toggle={this.toggle}>CanaMade</ModalHeader>
 			<ModalBody>
@@ -201,10 +201,13 @@ class App extends Component {
 
 			<MyProvider>
 			<div className="App">
-			<header className="App-header">
-			<img src={logo} className="App-logo" alt="logo" />
-			<h1 className="App-title">CanaMade</h1>
-			</header>
+
+			<div id="printPageButton">
+				<header className="App-header">
+					<img id="printPageButton" src={logo} className="App-logo" alt="logo" />
+					<h1 id="printPageButton" className="App-title">CanaMade</h1>
+				</header>
+			</div>
 			<br/>
 
 					{/*<Col >
@@ -266,9 +269,8 @@ class App extends Component {
 		
 		
 		</table>
-		
-		
 		</div>
+		
 		</MyProvider>
 		
 		
