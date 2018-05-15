@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 const MyContext = React.createContext();
 
@@ -9,6 +10,8 @@ export class MyProvider extends Component{
     current_index: 0,
     current_blind_type: '',
     toggle: false,
+    po_number:"",
+    date:new moment(),
     curr_order: {}
   };
 
@@ -42,6 +45,25 @@ export class MyProvider extends Component{
     this.setState({ orders: new_orders,
                     curr_order: order })
     order['modal']();
+  };
+
+  update_ponumber = (event) => {
+    console.log("=== Updating po_number ==== " + event.target.value) 
+    this.setState({ po_number: event.target.value});
+
+    if (this.state.orders.length > 0){
+      var new_orders = this.state.orders.slice()
+      for (var order of new_orders){
+        order.body.po_number = event.target.value
+      }
+      this.setState({ orders: new_orders});
+    }
+    
+
+  };
+
+  get_ponumber = () => {
+    return this.state.po_number;
   };
 
   update_order_no_modal = (index,order) => {
@@ -86,6 +108,8 @@ export class MyProvider extends Component{
           update_order_no_modal: this.update_order_no_modal,
           get_order: this.get_order,
           toggle: this.toggle,
+          get_ponumber: this.get_ponumber,
+          update_ponumber: this.update_ponumber,
         },
       }}>
         {this.props.children}

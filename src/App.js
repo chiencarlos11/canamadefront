@@ -216,14 +216,14 @@ class App extends Component {
 					</Col>*/}
 
 			<Container>
-			<Row>
-			<Col sm="6">
-			<ModalExample buttonLabel="Edit Orders" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
-			</Col>
-			<Col>
-			<PrintThisComponent />
-			</Col>
-			</Row>
+				<Row>
+					<Col sm="6">
+						<ModalExample buttonLabel="Edit Orders" batchModal={true} callbackFromParent={this.myCallback.bind(this)}/>
+					</Col>
+					<Col>
+						<PrintThisComponent />
+					</Col>
+				</Row>
 			</Container>
 
 
@@ -231,7 +231,6 @@ class App extends Component {
 			<br/>
 			<table className="content-table">
 			<tbody>
-			<tr>
 			<Consumer>
 			{context => {
 				
@@ -243,7 +242,7 @@ class App extends Component {
 					{state['orders'].map(function(item, i){
 						
 						return(
-							<div>
+							<tr key={i}>
 							<td sm="1" key={i}>
 							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
 							</td>
@@ -253,7 +252,7 @@ class App extends Component {
 							<td>
 							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
 							</td>
-							</div>
+							</tr>
 						)
 						
 					})}
@@ -264,7 +263,6 @@ class App extends Component {
 			}
 		}
 		</Consumer>
-		</tr>
 		</tbody>
 		
 		

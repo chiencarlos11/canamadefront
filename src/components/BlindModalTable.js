@@ -1,13 +1,14 @@
 import React from 'react';
-import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button, ModalFooter, Container, Row, Col } from 'reactstrap';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
+import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button, ModalFooter, Container, Row, Col, Label } from 'reactstrap';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import {Consumer} from '../context/MyContext.js'
 import {handleCanaMadeDataPiece, handleCanaMadeheight, CANAMADE_ITEMS_FABRIC, ROLLER_SHADE_ITEMS_FABRIC} from '../context/Constants'
 import {LAURENT_ITEMS_FABRIC, handleLaurentDataPiece, handleLaurentheight} from '../context/Constants'
 import {CONTROL_SIZE, FRACTIONS} from '../context/Constants'
 import '../blindtable.css';
+import '../date.css'
 var math = require('mathjs');
 
 class FabricDrop extends React.Component {
@@ -439,12 +440,10 @@ class BlindRow extends React.Component{
 
     return(
       <tr>
+            <th scope="row"><Input type="checkbox" /></th>
+
             <th scope="row">{label_id}</th>
             <th scope="row">{this.props.name}</th>
-
-            <td>
-                <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="text" name="po_number" placeholder={this.state.po_number} />
-            </td>
             <td>
               <Container>
               <Row>
@@ -489,11 +488,13 @@ export default class BlindModalTable extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       dropdownOpen: false,
-      value: 'Select'
+      value: 'Select',
     };
 
     // this.blindTypes = ['Laurent','Roller Shades','CanaMade','Vertical Blinds','Cellular Shades'];
     this.blindTypes = ['Laurent','Roller Shades','CanaMade'];
+
+    this.handleDateChange = this.handleDateChange.bind(this);
 
   }
 
@@ -509,6 +510,14 @@ export default class BlindModalTable extends React.Component {
     });
 
     }
+
+  }
+
+  handleDateChange(date) {
+    this.setState({
+      date: date
+    });
+
 
   }
 
@@ -569,20 +578,55 @@ export default class BlindModalTable extends React.Component {
 
   }
 
-  update_order(update_order_action, index, order){
+  handlePONumber(event){
+    console.log("e value = " + JSON.stringify(event.target.value));
 
+    // actions.update_ponumber(e.target.value)
   }
+
 
   render(){
 
     return(
       <div>
-      <Table className="blindtable" hover>
+
+        <Consumer>
+              {context => {
+
+                  const {actions} = context;
+
+                  return (
+
+                  <Container className="blindtable">
+                    <Row>
+                      <Col xs="3">
+                        <Label for="po_number"><b>PO Number</b></Label>
+                        <Input placeholder={actions.get_ponumber()} onBlur={actions.update_ponumber.bind(this)} type="text" name="po_number" />
+                      </Col>
+                      <Col xs="3">
+                        <Label for="date"><b>Date</b></Label>
+                          <DatePicker className="datepicker"
+                            selected={this.state.date}
+                            onChange={this.handleDateChange}
+                          />
+                      </Col>
+                    </Row>
+                  </Container>
+
+                  )
+          }
+        }
+      </Consumer>
+
+      <br/>
+
+
+      <Table className="blindtable">
         <thead>
           <tr>
+            <th className="text-center" ></th>
             <th className="text-center" >#</th>
             <th className="text-center">Blind</th>
-            <th className="text-center">PO Num</th>
             <th className="text-center" >Original Width</th>
             <th className="text-center" >Original Height</th>
             <th className="text-center">Control</th>

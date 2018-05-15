@@ -59,10 +59,10 @@ export var handleLaurentheight = function(original_height, original_height_fract
     if (fabric_type === 'Laurent' || fabric_type === 'Husky' || fabric_type === 'Galaxy'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + (3 + (7/8)); 
     }
-    if (fabric_type === 'Timber' || fabric_type === 'Scotby' || fabric_type === 'Morgan'){
+    if (fabric_type === 'Timber' || fabric_type === 'Scotby'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (1/8));
     }
-    if (fabric_type === 'Richmond'){
+    if (fabric_type === 'Richmond' || fabric_type === 'Morgan'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (1/2));
     }
 
