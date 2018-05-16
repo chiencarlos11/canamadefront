@@ -329,7 +329,6 @@ class BlindRow extends React.Component{
     for (const [key, value] of dateMap.entries()) {
       var newState = {};
       newState[key] = value;
-      this.setState(newState);
       this.props.body[key] = value;
     }
 
