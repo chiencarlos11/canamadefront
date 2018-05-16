@@ -99,6 +99,14 @@ export class MyProvider extends Component{
     return new_order;
   };
 
+  remove_all_checked = () => {
+    console.log("=== Deleting all selected ==== ")
+    var new_orders = this.state.orders.slice()
+    const updated_orders = new_orders.filter(order => order.body.selected !== true);
+    console.log(JSON.stringify(updated_orders))
+    this.setState({ orders: updated_orders})
+  }
+
   toggle = (index, blind_type) => {
     if (!this.state.toggle){
       this.setState({
@@ -129,6 +137,7 @@ export class MyProvider extends Component{
           get_ponumber: this.get_ponumber,
           update_ponumber: this.update_ponumber,
           update_date: this.update_date,
+          remove_all_checked: this.remove_all_checked,
         },
       }}>
         {this.props.children}

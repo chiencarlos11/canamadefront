@@ -2,7 +2,6 @@ import React from 'react';
 import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Button, ModalFooter, Container, Row, Col, Label } from 'reactstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
 import {Consumer} from '../context/MyContext.js'
 import {handleCanaMadeDataPiece, handleCanaMadeheight, CANAMADE_ITEMS_FABRIC, ROLLER_SHADE_ITEMS_FABRIC} from '../context/Constants'
 import {LAURENT_ITEMS_FABRIC, handleLaurentDataPiece, handleLaurentheight} from '../context/Constants'
@@ -312,56 +311,8 @@ class BlindRow extends React.Component{
     super(props)
 
     this.fabric_keys = Object.keys(this.props.body.color_dict)
-
-    this.state = {
-      date: new moment(),
-      original_width: 0,
-      original_height: 0,
-      original_width_fraction: FRACTIONS[0],
-      original_height_fraction: FRACTIONS[0],
-      control_size: CONTROL_SIZE[0],
-      cassette_orientation: 'Left',
-      cassette_extra: 'Cord',
-      cassette_color: 'White',
-      fabric_type: this.fabric_keys[0],
-      fabric_color: this.props.body.color_dict[this.fabric_keys[0]][0],
-      cassette_size: '',
-      tube_tob: '',
-      inner: '',
-      outer: '',
-      height: '',
-      color_selection: [],
-    };
-
   
   }
-
-  componentDidMount(){
-    
-    if (this.props.body){
-      this.setState({
-        // date: this.props.body.date,
-        po_number: this.props.body.po_number,
-        original_width: this.props.body.original_width,
-        original_height: this.props.body.original_height,
-        original_width_fraction: this.props.body.original_width_fraction,
-        original_height_fraction: this.props.body.original_height_fraction,
-        control_size: this.props.body.control_size,
-        cassette_orientation: this.props.body.cassette_orientation,
-        cassette_extra: this.props.body.cassette_extra,
-        cassette_color: this.props.body.cassette_color,
-        fabric_type: this.props.body.fabric_type,
-        fabric_color: this.props.body.fabric_color,
-        cassette_size: this.props.body.cassette_size,
-        tube_tob: this.props.body.tube_tob,
-        height: this.props.body.height,
-        inner:this.props.body.inner,
-        outer: this.props.body.outer,
-      });
-    }
-  }
-
-
 
   handleDateData(dateData) {
     console.log("Starting HandleData")
@@ -412,12 +363,20 @@ class BlindRow extends React.Component{
 
   }
 
+  handleSelected(event){
+    this.setState({selected: event.target.checked})
+    var itemMap = new Map();
+    itemMap.set(event.target.name, event.target.checked)
+    this.handleData(itemMap)
+
+  }
+
 
   compute_height(){
     let new_height = 0;
-    let original_height = this.state['original_height'];
-    let original_height_fraction = this.state['original_height_fraction'];
-    let fabric_type = this.state['fabric_type'];
+    let original_height = this.props.body['original_height'];
+    let original_height_fraction = this.props.body['original_height_fraction'];
+    let fabric_type = this.props.body['fabric_type'];
 
 
     console.log("current fabric_type = " + fabric_type)
@@ -440,7 +399,7 @@ class BlindRow extends React.Component{
 
     return(
       <tr>
-            <th scope="row"><Input type="checkbox" /></th>
+            <th scope="row"><Input checked={this.props.body.selected} name="selected" onChange={this.handleSelected.bind(this)} type="checkbox" /></th>
 
             <th scope="row">{label_id}</th>
             <th scope="row">{this.props.name}</th>
@@ -448,7 +407,7 @@ class BlindRow extends React.Component{
               <Container>
               <Row>
               <Col>
-              <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_width" placeholder={this.state.original_width} />
+              <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_width" placeholder={this.props.body.original_width} />
               </Col>
               <Col > 
               <Input defaultValue={this.props.body.original_width_fraction} type="select" name="original_width_fraction" onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} bsSize="sm">
@@ -462,7 +421,7 @@ class BlindRow extends React.Component{
             <Container>
               <Row>
               <Col>
-                <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_height" placeholder={this.state.original_height} />
+                <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_height" placeholder={this.props.body.original_height} />
                 </Col>
                 <Col> 
                 <Input defaultValue={this.props.body.original_height_fraction} type="select" name="original_height_fraction" id="original_height_fraction" onChange={this.handleDataPiece.bind(this)} onBlur={this.update_order.bind(this)} bsSize="sm">
@@ -545,6 +504,7 @@ export default class BlindModalTable extends React.Component {
       outer: '',
       height: '',
       color_selection: [],
+      selected:false,
     };
 
     if (name && name === 'Laurent'){
@@ -682,18 +642,12 @@ export default class BlindModalTable extends React.Component {
         </Dropdown>
 
 
-
+          <Button color="secondary" onClick={actions.remove_all_checked.bind(this)}>Remove</Button>
           </React.Fragment>
           )
           }
         }
       </Consumer>
-
-
-
-
-
-
 
         
         <Button color="secondary" onClick={this.props.toggleModal} >Cancel</Button>
