@@ -11,12 +11,13 @@ export class MyProvider extends Component{
     current_blind_type: '',
     toggle: false,
     po_number:"",
-    date:new moment(),
+    date:moment(),
     curr_order: {}
   };
 
   add_order = order => {
     var new_orders = this.state.orders.slice()
+    order.body.date = this.state.date;
     new_orders.push(order)
     this.setState({orders: new_orders})
     if (order['modal']){
@@ -33,6 +34,7 @@ export class MyProvider extends Component{
   copy_order = index => {
     var new_orders = this.state.orders.slice()
     var new_order = new_orders[index];
+    new_order.body.date = this.state.date;
     new_orders.push(new_order)
     this.setState({orders: new_orders})
   };
@@ -62,6 +64,21 @@ export class MyProvider extends Component{
 
   };
 
+  update_date = (event) => {
+    console.log("=== Updating date ==== " + JSON.stringify(event)) 
+    this.setState({ date: event});
+
+    if (this.state.orders.length > 0){
+      var new_orders = this.state.orders.slice()
+      for (var order of new_orders){
+        order.body.date = event
+      }
+      this.setState({ orders: new_orders});
+    }
+    
+
+  };
+
   get_ponumber = () => {
     return this.state.po_number;
   };
@@ -70,6 +87,7 @@ export class MyProvider extends Component{
     console.log("=== Updating new Order ==== " + index) 
     console.log(JSON.stringify(order));
     var new_orders = this.state.orders.slice()
+    order.body.date = this.state.date;
     new_orders[index] = order;
     this.setState({ orders: new_orders,
                     curr_order: order })
@@ -110,6 +128,7 @@ export class MyProvider extends Component{
           toggle: this.toggle,
           get_ponumber: this.get_ponumber,
           update_ponumber: this.update_ponumber,
+          update_date: this.update_date,
         },
       }}>
         {this.props.children}

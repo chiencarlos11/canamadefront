@@ -593,7 +593,7 @@ export default class BlindModalTable extends React.Component {
         <Consumer>
               {context => {
 
-                  const {actions} = context;
+                  const {actions, state} = context;
 
                   return (
 
@@ -606,8 +606,8 @@ export default class BlindModalTable extends React.Component {
                       <Col xs="3">
                         <Label for="date"><b>Date</b></Label>
                           <DatePicker className="datepicker"
-                            selected={this.state.date}
-                            onChange={this.handleDateChange}
+                            selected={state.date}
+                            onChange={actions.update_date.bind(this)}
                           />
                       </Col>
                     </Row>
