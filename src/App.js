@@ -227,8 +227,8 @@ class App extends Component {
 			</Container>
 
 
-			<br/>
-			<br/>
+			<br id="printPageIgnore"/>
+			<br id="printPageIgnore"/>
 			<table className="content-table">
 			<tbody>
 			<Consumer>
