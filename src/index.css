@@ -7,14 +7,14 @@ body {
 .CardContent{
 	font-size:12px;
 	text-align: left;
-	width: 430px;
+	width: 350px;
 	border: 1px solid;
 	border-color: #D3D3D3;
 	padding: 5px;
 }
 
 .content-table {
-    margin: 0;
+    margin: 0px auto;
 }
 
 .right-align {
@@ -27,12 +27,6 @@ body {
 
 @media print {
   #printPageButton {
-    display: none;
-  }
-}
-
-@media print {
-  #printPageIgnore {
     display: none;
   }
 }
