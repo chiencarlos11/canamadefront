@@ -45,23 +45,8 @@ class FabricDrop extends React.Component {
       dropdownOpen: false,
       colordropdownOpen: false,
       controldropdownOpen: false,
-      date: new Date(),
-      po_number: '',
-      original_width: 0,
-      original_height: 0,
-      original_width_fraction: FRACTIONS[0],
-      original_height_fraction: FRACTIONS[0],
-      control_size: CONTROL_SIZE[0],
-      cassette_orientation: 'Left',
-      cassette_extra: 'Cord',
-      cassette_color: 'White',
       selected_fabric: this.fabric[0],
       selected_fabric_color: this.fabric_color[0],
-      cassette_size: '',
-      tube_tob: '',
-      inner: '',
-      outer: '',
-      height: '',
       color_selection: [...this.fabric_color],
     };
 
@@ -72,46 +57,6 @@ class FabricDrop extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.toggleColor = this.toggleColor.bind(this);
     this.update_order = this.update_order.bind(this);
-
-  }
-
-  componentDidMount(){
-    
-    if (this.props.body){
-      this.setState({
-        // date: this.props.body.date,
-        po_number: this.props.body.po_number,
-        original_width: this.props.body.original_width,
-        original_height: this.props.body.original_height,
-        original_width_fraction: this.props.body.original_width_fraction,
-        original_height_fraction: this.props.body.original_height_fraction,
-        control_size: this.props.body.control_size,
-        cassette_orientation: this.props.body.cassette_orientation,
-        cassette_extra: this.props.body.cassette_extra,
-        cassette_color: this.props.body.cassette_color,
-        fabric_type: this.props.body.fabric_type,
-        fabric_color: this.props.body.fabric_color,
-        cassette_size: this.props.body.cassette_size,
-        tube_tob: this.props.body.tube_tob,
-        height: this.props.body.height,
-        inner:this.props.body.inner,
-        outer: this.props.body.outer,
-      });
-    }
-
-    if (this.props.body.fabric_type){
-      this.setState({
-        selected_fabric: this.props.body.fabric_type,
-        color_selection: [...this.props.body.color_dict[this.props.body.fabric_type]],
-      })
-    }
-
-    if (this.props.body.fabric_color){
-      this.setState({
-        selected_fabric_color: this.props.body.fabric_color,
-      })
-    }
-
 
   }
 
@@ -224,7 +169,7 @@ class FabricDrop extends React.Component {
     
     let control_sizes = CONTROL_SIZE.map(fa => (  <DropdownItem name='control_size' onClick={this.props.updateDataPiece.bind(this)} key={fa} value={fa} >{fa}</DropdownItem> ));
 
-    let drop_options = this.fabric.map(fa => (  <DropdownItem name='fabric_type' key={fa} value={fa} >{fa}</DropdownItem> ));
+    let drop_options = this.fabric.map(fa => (  <DropdownItem name='fabric_type' onClick={this.props.updateDataPiece.bind(this)} key={fa} value={fa} >{fa}</DropdownItem> ));
 
     let color_drop_options = this.state.color_selection.map(fa => (  <DropdownItem name='fabric_color' onClick={this.props.updateDataPiece.bind(this)} key={fa} value={fa} >{fa}</DropdownItem> ));
 
@@ -282,7 +227,7 @@ class FabricDrop extends React.Component {
       <td>
       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="sm" >
         <DropdownToggle caret>
-          {this.state.selected_fabric}
+          {this.props.body.fabric_type}
         </DropdownToggle>
         <DropdownMenu>
           {drop_options}
@@ -293,7 +238,7 @@ class FabricDrop extends React.Component {
       <td>
       <Dropdown isOpen={this.state.colordropdownOpen} toggle={this.toggleColor} size="sm" >
         <DropdownToggle caret>
-          {this.state.selected_fabric_color}
+          {this.props.body.fabric_color}
         </DropdownToggle>
         <DropdownMenu>
           {color_drop_options}
@@ -394,7 +339,9 @@ class BlindRow extends React.Component{
   render(){
 
     let label_id = math.number(this.props.id) + 1
-    let FRACTION_OPTIONS = FRACTIONS.map(fa => (  <option key={fa} value={fa} >{fa}</option> ));
+
+    let WIDTH_FRACTION_OPTIONS = FRACTIONS.map(fa => (  <option key={fa} value={fa} >{fa}</option> ));
+    let HEIGHT_FRACTION_OPTIONS = FRACTIONS.map(fa => (  <option key={fa} value={fa} >{fa}</option> ));
 
     return(
       <tr>
@@ -406,11 +353,11 @@ class BlindRow extends React.Component{
               <Container>
               <Row>
               <Col>
-              <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_width" placeholder={this.props.body.original_width} />
+              <Input onChange={this.handleDataPiece.bind(this)} type="number" name="original_width" placeholder={this.props.body.original_width} />
               </Col>
               <Col > 
-              <Input defaultValue={this.props.body.original_width_fraction} type="select" name="original_width_fraction" onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} bsSize="sm">
-                {FRACTION_OPTIONS}
+              <Input onChange={this.handleDataPiece.bind(this)} value={this.props.body.original_width_fraction} type="select" name="original_width_fraction" bsSize="sm">
+                {WIDTH_FRACTION_OPTIONS}
               </Input>
               </Col>
               </Row>
@@ -420,18 +367,18 @@ class BlindRow extends React.Component{
             <Container>
               <Row>
               <Col>
-                <Input onBlur={this.update_order.bind(this)} onChange={this.handleDataPiece.bind(this)} type="number" name="original_height" placeholder={this.props.body.original_height} />
+                <Input onChange={this.handleDataPiece.bind(this)} type="number" name="original_height" placeholder={this.props.body.original_height} />
                 </Col>
                 <Col> 
-                <Input defaultValue={this.props.body.original_height_fraction} type="select" name="original_height_fraction" id="original_height_fraction" onChange={this.handleDataPiece.bind(this)} onBlur={this.update_order.bind(this)} bsSize="sm">
-                {FRACTION_OPTIONS}
+                <Input onChange={this.handleDataPiece.bind(this)} value={this.props.body.original_height_fraction} type="select" id="original_height_fraction" name="original_height_fraction" bsSize="sm">
+                {HEIGHT_FRACTION_OPTIONS}
               </Input>
             </Col>
             </Row>
             </Container>
             </td>
 
-            <FabricDrop onBlur={this.update_order.bind(this)} handleData={this.handleData.bind(this)} updateDataPiece={this.handleDataPiece.bind(this)} index={this.props.id} body={this.props.body} name={this.props.name} />
+            <FabricDrop handleData={this.handleData.bind(this)} updateDataPiece={this.handleDataPiece.bind(this)} index={this.props.id} body={this.props.body} name={this.props.name} />
       </tr>
     )};
 
