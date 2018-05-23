@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, CardBody, Container, Row, Col} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Container, Row, Col} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 import ModalContent from './components/ModalContent'
@@ -160,15 +160,11 @@ class BlindPanel extends React.Component {
 			
 			
 			<div>
-			
-			<CardBody onMouseLeave={() => this.mouseOut()} onMouseEnter={() => this.mouseOver()}>
 
 			<CardContent body={this.props.body} blind_type={this.props.name}/>
 
 			{/*{(this.state.flipped) ? (<EditCard remove_order={this.props.remove_order} copy_order={this.props.copy_order} name={this.props.name} index={this.props.index} key={this.props.index} body={this.props.body}/>):(<div><br /><br /></div>)}*/}
 			
-
-			</CardBody>
 		
 			</div>
 		
@@ -242,8 +238,8 @@ class App extends Component {
 					{state['orders'].map(function(item, i){
 						
 						return(
-							<tr key={i}>
-							<td sm="1" key={i}>
+							<tr key={i} className="noBorder">
+							<td key={i}>
 							<BlindPanel remove_order={actions.remove_order} copy_order={actions.copy_order} name={item['name']} index={i} key={i} body={item['body']}/>
 							</td>
 							<td>

@@ -12,13 +12,23 @@ export default class CardContent extends React.Component {
     let frac = value%1;
     var x = new Fraction(frac);
     var res = x.toFraction(true);
-    return Math.trunc(value) + " " + res
+    if ('' + res === '0'){
+      return Math.trunc(value)
+    }
+    else{
+      return Math.trunc(value) + " " + res
+    }
+
   }
 
   render() {
     let myDatetimeFormat= "YYYY-MM-DD";
     var myTimezone = "America/Toronto";
     let date_string = moment(this.props.body['date']).tz(myTimezone).format(myDatetimeFormat);
+
+
+     var curr_original_width_fraction = ('' + this.props.body['original_width_fraction'] !== "0" ? this.props.body['original_width_fraction'] : "");
+     var curr_original_height_fraction = ('' + this.props.body['original_height_fraction'] !== "0" ? this.props.body['original_height_fraction'] : "");
 
     
     return (
@@ -32,7 +42,7 @@ export default class CardContent extends React.Component {
           </Row>
           <Row>
               <Col>
-                Original: <b>{this.props.body['original_width']} {this.props.body['original_width_fraction']} x {this.props.body['original_height']} {this.props.body['original_height_fraction']}</b>
+                Original: <b>{this.props.body['original_width']} {curr_original_width_fraction} x {this.props.body['original_height']} {curr_original_height_fraction}</b>
               </Col>
           </Row>
             <Row>

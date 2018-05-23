@@ -31,4 +31,10 @@ body {
   }
 }
 
+@media print {
+  #printPageIgnore {
+    display: none;
+  }
+}
+
 
