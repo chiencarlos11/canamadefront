@@ -528,7 +528,7 @@ export default class BlindModalTable extends React.Component {
 
 
       <Table className="blindtable">
-        <thead>
+        <tbody>
           <tr>
             <th className="text-center" ></th>
             <th className="text-center" >#</th>
@@ -542,8 +542,8 @@ export default class BlindModalTable extends React.Component {
             <th className="text-center">Fabric</th>
             <th className="text-center">Fabric Color</th>
           </tr>
-        </thead>
-        <tbody>
+        
+        
           <Consumer>
       {context => {
         
@@ -586,8 +586,6 @@ export default class BlindModalTable extends React.Component {
             {blinds_options}
           </DropdownMenu>
         </Dropdown>
-
-
           <Button color="secondary" onClick={actions.remove_all_checked.bind(this)}>Remove</Button>
           </React.Fragment>
           )
@@ -595,8 +593,8 @@ export default class BlindModalTable extends React.Component {
         }
       </Consumer>
 
-        
         <Button color="secondary" onClick={this.props.toggleModal} >Cancel</Button>
+
       </ModalFooter>
       </div>
 

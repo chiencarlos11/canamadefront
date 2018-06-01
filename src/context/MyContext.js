@@ -83,6 +83,10 @@ export class MyProvider extends Component{
     return this.state.po_number;
   };
 
+  get_date = () => {
+    return this.state.date;
+  };
+
   update_order_no_modal = (index,order) => {
     console.log("=== Updating new Order ==== " + index) 
     console.log(JSON.stringify(order));
@@ -135,6 +139,7 @@ export class MyProvider extends Component{
           get_order: this.get_order,
           toggle: this.toggle,
           get_ponumber: this.get_ponumber,
+          get_date: this.get_date,
           update_ponumber: this.update_ponumber,
           update_date: this.update_date,
           remove_all_checked: this.remove_all_checked,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Button, Modal, ModalHeader, ModalBody, Container, Row, Col} from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, Container, Row, Col, Table} from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MyProvider, Consumer} from './context/MyContext'
 import ModalContent from './components/ModalContent'
@@ -9,6 +9,7 @@ import ModalContent from './components/ModalContent'
 import CardContent from './components/CardContent'
 import BlindModalTable from './components/BlindModalTable'
 import './modal.css';
+import './blindtable.css';
 
 // class EditCard extends Component{
 // 	constructor(props){
@@ -65,6 +66,19 @@ import './modal.css';
 // 	}
 // }
 
+function myPrint() {
+        var myPrintContent = document.getElementById('printdiv');
+        var myPrintWindow = window.open(this);
+        myPrintWindow.document.write(myPrintContent.innerHTML);
+        let doc = myPrintWindow.document.getElementById('hidden_div');
+        doc.style.color = "red";
+        myPrintWindow.document.close();
+        myPrintWindow.focus();
+        myPrintWindow.print();
+        myPrintWindow.close();    
+        return false;
+    }
+
 class PrintThisComponent extends Component {
 
   render() {
@@ -72,7 +86,7 @@ class PrintThisComponent extends Component {
     return (
       <div>
 
-        <Button id="printPageButton" className="right-align" onClick={() => window.print()}>PRINT</Button>
+        <Button id="printPageButton" className="right-align" onClick={() => window.print()}>Print Labels</Button>
 
       </div>
 
@@ -180,10 +194,12 @@ class App extends Component {
 		super(props);
 		this.state = {
 			data: "No Data Available Yet!",
+
 		};    
 		
 
 	};
+	
 	
 	
 	myCallback = (dataFromChild) => {
@@ -192,6 +208,19 @@ class App extends Component {
 
 	
 	render() {
+
+		const rows = {
+			'fontFamily': "Trebuchet MS, Arial, Helvetica, sans-serif",
+    		'borderCollapse': "collapse",
+			'width': '100%',
+			'border': '1px solid black',
+		};
+
+		const headers = {
+		    'textAlign': 'center',
+		    'color': 'white',
+		    'border': '1px solid black',
+		}
 
 		return (
 
@@ -219,6 +248,9 @@ class App extends Component {
 					<Col>
 						<PrintThisComponent />
 					</Col>
+					<Col>
+						<Button color="info" onClick={() => myPrint()} >Print Summary</Button>
+					</Col>
 				</Row>
 			</Container>
 
@@ -236,6 +268,8 @@ class App extends Component {
 					<React.Fragment>
 
 					{state['orders'].map(function(item, i){
+
+						
 						
 						return(
 							<tr key={i} className="noBorder">
@@ -263,6 +297,99 @@ class App extends Component {
 		
 		
 		</table>
+
+		
+
+
+			        <Consumer>
+			        {context => {
+				
+				const {state, actions} = context;
+				
+				return (
+					<React.Fragment>
+
+					<div id="printdiv">
+					    <div id="hidden_div" >
+					    <style>{`
+						    .border{
+						     border:1px solid black;
+						     text-align: center;
+						    }
+						  `}</style>
+
+						  <h3>PO Number: {actions.get_ponumber()}</h3>
+						  <h3>Date: {actions.get_date().format('DD/MM/YYYY')}</h3>
+
+					        <Table className="border">
+						        <tbody>
+						          <tr style={headers} className="border">
+						            <th className="tborder" >#</th>
+						            <th className="border">Blind</th>
+						            <th className="border" >Original Width</th>
+						            <th className="border" >Original Height</th>
+						            <th className="border">Control</th>
+						            <th className="border">L/R</th>
+						            <th className="border">Cord/Chain</th>
+						            <th className="border">Silver/White</th>
+						            <th className="border">Fabric</th>
+						            <th className="border">Fabric Color</th>
+						          </tr>
+
+					{state['orders'].map(function(item, i){
+						
+						return(
+							<tr key={i} style={rows} className="border">
+								<td key={i + "z"} className="border">
+									{i}
+								</td>
+								<td key={i + "a"} className="border">
+									{item['name']}
+								</td>
+								<td key={i + "b"} className="border">
+									{item['body']['original_width']} {item['body']['original_width_fraction']}
+								</td>
+								<td key={{i} + "c"} className="border">
+									{item['body']['original_height']} {item['body']['original_height_fraction']}
+								</td>
+								<td key={i + "d"} className="border">
+									{item['body']['control_size']}
+								</td>
+								<td key={i + "e"} className="border">
+									{item['body']['cassette_orientation']}
+								</td>
+								<td key={i + "f"} className="border">
+									{item['body']['cassette_extra']}
+								</td>
+								<td key={i + "g"} className="border">
+									{item['body']['cassette_color']}
+								</td>
+								<td key={i + "h"} className="border">
+									{item['body']['fabric_type']}
+								</td>
+								<td key={i + "i"} className="border">
+									{item['body']['fabric_color']}
+								</td>
+							</tr>
+						)
+						
+					})}
+
+										</tbody>
+				</Table>
+		    </div>
+		</div>
+
+					{/*<LaurentEditForm index={state.current_index} toggle_initial_state={state.toggle} toggle_edit={actions.toggle} />*/}
+					</React.Fragment>
+				)
+			}
+		}
+			        
+			        </Consumer>  
+
+
+
 		</div>
 		
 		</MyProvider>
