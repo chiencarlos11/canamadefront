@@ -1,4 +1,5 @@
 var math = require('mathjs');
+var Fraction = require('fraction.js');
 
 
 //GLOBAL
@@ -126,3 +127,23 @@ export var handleCanaMadeheight = function(original_height,original_height_fract
     return new_height;
 
 }
+
+
+
+export var compute_fraction = function(value){
+
+	if (value === undefined){
+		return 0
+	}
+
+    let frac = value%1;
+    var x = new Fraction(frac);
+    var res = x.toFraction(true);
+    if ('' + res === '0'){
+      return Math.trunc(value)
+    }
+    else{
+      return Math.trunc(value) + " " + res
+    }
+
+  }

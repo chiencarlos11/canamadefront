@@ -10,6 +10,7 @@ import CardContent from './components/CardContent'
 import BlindModalTable from './components/BlindModalTable'
 import './modal.css';
 import './blindtable.css';
+import {compute_fraction} from './context/Constants'
 
 // class EditCard extends Component{
 // 	constructor(props){
@@ -196,7 +197,6 @@ class App extends Component {
 			data: "No Data Available Yet!",
 
 		};    
-		
 
 	};
 	
@@ -205,7 +205,6 @@ class App extends Component {
 	myCallback = (dataFromChild) => {
 		this.setState({ data: dataFromChild });
 	};
-
 	
 	render() {
 
@@ -315,6 +314,9 @@ class App extends Component {
 						    .border{
 						     border:1px solid black;
 						     text-align: center;
+						     font-size: 10px;
+						     padding-left: 2px;
+						     padding-right: 2px;
 						    }
 						  `}</style>
 
@@ -334,10 +336,15 @@ class App extends Component {
 						            <th className="border">Silver/White</th>
 						            <th className="border">Fabric</th>
 						            <th className="border">Fabric Color</th>
+						            <th className="border">CAS</th>
+						            <th className="border">Tube</th>
+						            <th className="border">Inner</th>
+						            <th className="border">Outer</th>
+						            <th className="border">Height</th>
 						          </tr>
 
 					{state['orders'].map(function(item, i){
-						
+
 						return(
 							<tr key={i} style={rows} className="border">
 								<td key={i + "z"} className="border">
@@ -369,6 +376,21 @@ class App extends Component {
 								</td>
 								<td key={i + "i"} className="border">
 									{item['body']['fabric_color']}
+								</td>
+								<td key={{i} + "j"} className="border">
+									{compute_fraction(item['body']['cassette_size'])}
+								</td>
+								<td key={{i} + "k"} className="border">
+									{compute_fraction(item['body']['tube_tob'])}
+								</td>
+								<td key={{i} + "l"} className="border">
+									{compute_fraction(item['body']['inner'])}
+								</td>
+								<td key={{i} + "m"} className="border">
+									{compute_fraction(item['body']['outer'])}
+								</td>
+								<td key={{i} + "n"} className="border">
+									{compute_fraction(item['body']['height'])}
 								</td>
 							</tr>
 						)

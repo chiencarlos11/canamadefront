@@ -332,7 +332,6 @@ class BlindRow extends React.Component{
       new_height = new_result_height
     }
     this.props.body.height = new_height;
-    console.log("new_height = " + new_height)
   }
 
 
@@ -444,11 +443,11 @@ export default class BlindModalTable extends React.Component {
       cassette_orientation: 'Left',
       cassette_extra: 'Cord',
       cassette_color: 'White',
-      cassette_size: '',
-      tube_tob: '',
-      inner: '',
-      outer: '',
-      height: '',
+      cassette_size: 0,
+      tube_tob: 0,
+      inner: 0,
+      outer: 0,
+      height: 0,
       color_selection: [],
       selected:false,
     };
