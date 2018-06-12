@@ -208,19 +208,6 @@ class App extends Component {
 	
 	render() {
 
-		const rows = {
-			'fontFamily': "Trebuchet MS, Arial, Helvetica, sans-serif",
-    		'borderCollapse': "collapse",
-			'width': '100%',
-			'border': '1px solid black',
-		};
-
-		const headers = {
-		    'textAlign': 'center',
-		    'color': 'white',
-		    'border': '1px solid black',
-		}
-
 		return (
 
 			<MyProvider>
@@ -312,21 +299,23 @@ class App extends Component {
 					    <div id="hidden_div" >
 					    <style>{`
 						    .border{
-						     border:1px solid black;
+						     border:1px solid gray;
 						     text-align: center;
 						     font-size: 10px;
 						     padding-left: 4px;
 						     padding-right: 4px;
+						     border-collapse: collapse;
 						    }
+
 						  `}</style>
 
 						  <h3>PO Number: {actions.get_ponumber()}</h3>
 						  <h3>Date: {actions.get_date().format('DD/MM/YYYY')}</h3>
 
 					        <Table className="border">
-						        <tbody>
-						          <tr style={headers} className="border">
-						            <th className="tborder" >#</th>
+						        <tbody className="border">
+						          <tr className="border">
+						            <th className="border" >#</th>
 						            <th className="border">Blind</th>
 						            <th className="border" >Original Width</th>
 						            <th className="border" >Original Height</th>
@@ -344,7 +333,7 @@ class App extends Component {
 					{state['orders'].map(function(item, i){
 
 						return(
-							<tr key={i} style={rows} className="border">
+							<tr key={i} className="border">
 								<td key={i + "z"} className="border">
 									{i}
 								</td>
@@ -379,10 +368,10 @@ class App extends Component {
 									{compute_fraction(item['body']['cassette_size'])}
 								</td>
 								<td key={{i} + "k"} className="border">
-									{compute_fraction(item['body']['tube_tob'])}
+									<b>{compute_fraction(item['body']['tube_tob'])}</b>
 								</td>
 								<td key={{i} + "n"} className="border">
-									{compute_fraction(item['body']['height'])}
+									<b>{compute_fraction(item['body']['height'])}</b>
 								</td>
 							</tr>
 						)
