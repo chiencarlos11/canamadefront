@@ -315,8 +315,8 @@ class App extends Component {
 						     border:1px solid black;
 						     text-align: center;
 						     font-size: 10px;
-						     padding-left: 2px;
-						     padding-right: 2px;
+						     padding-left: 4px;
+						     padding-right: 4px;
 						    }
 						  `}</style>
 
@@ -338,8 +338,6 @@ class App extends Component {
 						            <th className="border">Fabric Color</th>
 						            <th className="border">CAS</th>
 						            <th className="border">Tube</th>
-						            <th className="border">Inner</th>
-						            <th className="border">Outer</th>
 						            <th className="border">Height</th>
 						          </tr>
 
@@ -382,12 +380,6 @@ class App extends Component {
 								</td>
 								<td key={{i} + "k"} className="border">
 									{compute_fraction(item['body']['tube_tob'])}
-								</td>
-								<td key={{i} + "l"} className="border">
-									{compute_fraction(item['body']['inner'])}
-								</td>
-								<td key={{i} + "m"} className="border">
-									{compute_fraction(item['body']['outer'])}
 								</td>
 								<td key={{i} + "n"} className="border">
 									{compute_fraction(item['body']['height'])}
