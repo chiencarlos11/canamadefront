@@ -235,7 +235,7 @@ class App extends Component {
 						<PrintThisComponent />
 					</Col>
 					<Col>
-						<Button color="info" onClick={() => myPrint()} >Print Summary</Button>
+						<Button id="printPageIgnore" color="info" onClick={() => myPrint()} >Print Summary</Button>
 					</Col>
 				</Row>
 			</Container>
