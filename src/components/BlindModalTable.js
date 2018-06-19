@@ -434,7 +434,7 @@ export default class BlindModalTable extends React.Component {
       dropdownOpen: false,
       colordropdownOpen: false,
       date: new Date(),
-      po_number: '',
+      po_number: actions.get_ponumber(),
       original_width: 0,
       original_height: 0,
       original_width_fraction: FRACTIONS[0],
@@ -506,7 +506,7 @@ export default class BlindModalTable extends React.Component {
                     <Row>
                       <Col xs="3">
                         <Label for="po_number"><b>PO Number</b></Label>
-                        <Input placeholder={actions.get_ponumber()} onBlur={actions.update_ponumber.bind(this)} type="text" name="po_number" />
+                        <Input value={actions.get_ponumber()} onChange={actions.update_ponumber.bind(this)} type="text" name="po_number" />
                       </Col>
                       <Col xs="3">
                         <Label for="date"><b>Date</b></Label>

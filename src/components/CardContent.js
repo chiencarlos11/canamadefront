@@ -30,7 +30,43 @@ export default class CardContent extends React.Component {
      var curr_original_width_fraction = ('' + this.props.body['original_width_fraction'] !== "0" ? this.props.body['original_width_fraction'] : "");
      var curr_original_height_fraction = ('' + this.props.body['original_height_fraction'] !== "0" ? this.props.body['original_height_fraction'] : "");
 
-    
+     var show_inner_outer = (
+            <Row>
+              <Col xs="auto">
+                inner: <b>{this.compute_fraction(this.props.body['inner'])}</b>
+              </Col>
+              <Col xs="auto">
+                outer: <b>{this.compute_fraction(this.props.body['outer'])}</b>
+              </Col>
+            </Row>
+            )
+
+     var show_height = (
+        <Col xs="auto">
+            Height: <b>{this.compute_fraction(this.props.body['height'])}</b>       
+        </Col>
+
+      )
+
+     var show_canamade_height = null
+
+     console.log("!!! = " + this.props.blind_type)
+
+     if (this.props.blind_type === 'CanaMade' || this.props.blind_type === 'Roller Shades'){
+      show_inner_outer = null
+
+      show_height = null
+
+      show_canamade_height = (
+        <Row>
+          <Col xs="auto">
+              Height: <b>{this.compute_fraction(this.props.body['height'])}</b>       
+          </Col>
+        </Row>
+      )
+     }
+
+
     return (
       <div>
         <div className="CardContent">
@@ -60,19 +96,12 @@ export default class CardContent extends React.Component {
             <Col xs="auto">
               Tube: <b>{this.compute_fraction(this.props.body['tube_tob'])}</b>
             </Col>
-            <Col xs="auto">
-              Height: <b>{this.compute_fraction(this.props.body['height'])}</b>       
-            </Col>
             
-            
+            {show_height}
           </Row>
+            {show_inner_outer}
+            {show_canamade_height}
           <Row>
-            <Col xs="auto">
-              inner: <b>{this.compute_fraction(this.props.body['inner'])}</b>
-            </Col>
-            <Col xs="auto">
-              outer: <b>{this.compute_fraction(this.props.body['outer'])}</b>
-            </Col>
             <Col xs="8">
               Color: <b>{this.props.body['fabric_type']} {this.props.body['fabric_color']} {this.props.body['cassette_color']} </b>
             </Col>

@@ -301,10 +301,14 @@ class App extends Component {
 						    .border{
 						     border:1px solid gray;
 						     text-align: center;
-						     font-size: 10px;
-						     padding-left: 4px;
-						     padding-right: 4px;
+						     font-size: 11px;
+						     padding-left: 3px;
+						     padding-right: 3px;
 						     border-collapse: collapse;
+						    }
+
+						    .text_big{
+						    	font-size: 13px;
 						    }
 
 						  `}</style>
@@ -365,13 +369,13 @@ class App extends Component {
 									{item['body']['fabric_color']}
 								</td>
 								<td key={{i} + "j"} className="border">
-									{compute_fraction(item['body']['cassette_size'])}
+									<b className="text_big">{compute_fraction(item['body']['cassette_size'])}</b>
 								</td>
 								<td key={{i} + "k"} className="border">
-									<b>{compute_fraction(item['body']['tube_tob'])}</b>
+									<b className="text_big">{compute_fraction(item['body']['tube_tob'])}</b>
 								</td>
 								<td key={{i} + "n"} className="border">
-									<b>{compute_fraction(item['body']['height'])}</b>
+									<b className="text_big">{compute_fraction(item['body']['height'])}</b>
 								</td>
 							</tr>
 						)
