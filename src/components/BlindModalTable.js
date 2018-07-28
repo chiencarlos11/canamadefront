@@ -47,8 +47,10 @@ class FabricDrop extends React.Component {
       controldropdownOpen: false,
       selected_fabric: this.fabric[0],
       selected_fabric_color: this.fabric_color[0],
-      color_selection: [...this.fabric_color],
+      color_selection: this.dict[this.props.fabric_type],
     };
+
+
 
     this.toggleControl = this.toggleControl.bind(this);
     this.toggleCaso = this.toggleCaso.bind(this);
@@ -61,7 +63,6 @@ class FabricDrop extends React.Component {
   }
 
   toggleCaso(e) {
-    console.log("toggleCaso")
     this.setState({
       caso_dropdownOpen: !this.state.caso_dropdownOpen,
     });
@@ -75,7 +76,6 @@ class FabricDrop extends React.Component {
   }
 
   toggleControl(e) {
-    console.log("toggleControl")
     this.setState({
       controldropdownOpen: !this.state.controldropdownOpen,
     });
@@ -89,7 +89,6 @@ class FabricDrop extends React.Component {
   }
 
   toggleCase(e) {
-    console.log("toggleCase")
     this.setState({
       case_dropdownOpen: !this.state.case_dropdownOpen,
     });
@@ -103,7 +102,6 @@ class FabricDrop extends React.Component {
   }
 
   toggleCasc(e) {
-    console.log("toggleCasc")
     this.setState({
       casc_dropdownOpen: !this.state.casc_dropdownOpen,
     });
@@ -117,7 +115,6 @@ class FabricDrop extends React.Component {
   }
 
   toggle(e) {
-    console.log("toggle")
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });
@@ -128,8 +125,6 @@ class FabricDrop extends React.Component {
       color_selection: this.dict[e.target.value],
       selected_fabric_color: this.dict[e.target.value][0],
     });
-
-      console.log("Choosing Fabric = " + e.target.value)
       //Updating Parents
       var fabricMap = new Map();
       fabricMap.set('fabric_type', e.target.value)
@@ -140,7 +135,6 @@ class FabricDrop extends React.Component {
   }
 
   toggleColor(e) {
-    console.log("toggleColor")
     this.setState({
       colordropdownOpen: !this.state.colordropdownOpen,
     });
@@ -154,7 +148,6 @@ class FabricDrop extends React.Component {
   }
 
   updatelabel(e){
-    console.log("Setting new label = " + e.target.value)
     this.setState({
       selected_fabric: e.target.value
     });
@@ -265,7 +258,6 @@ class BlindRow extends React.Component{
 
 
   update_order(){
-    console.log("Executing update_order")
     let mod_object = { name: this.props.name, body: this.props.body}
     this.props.actions.update_order_no_modal(this.props.id, mod_object)
   }
@@ -280,7 +272,6 @@ class BlindRow extends React.Component{
   }
 
   handleDataPiece(event){
-    console.log("Executing handleDataPiece")
     var itemMap = new Map();
     itemMap.set(event.target.name, event.target.value)
     this.handleData(itemMap)
@@ -321,9 +312,6 @@ class BlindRow extends React.Component{
     let original_height = this.props.body['original_height'];
     let original_height_fraction = this.props.body['original_height_fraction'];
     let fabric_type = this.props.body['fabric_type'];
-
-
-    console.log("current fabric_type = " + fabric_type)
 
     let new_result_height = this.props.body.calculateheight(original_height, original_height_fraction, fabric_type)
 
@@ -377,7 +365,7 @@ class BlindRow extends React.Component{
             </Container>
             </td>
 
-            <FabricDrop handleData={this.handleData.bind(this)} updateDataPiece={this.handleDataPiece.bind(this)} index={this.props.id} body={this.props.body} name={this.props.name} />
+            <FabricDrop handleData={this.handleData.bind(this)} updateDataPiece={this.handleDataPiece.bind(this)} index={this.props.id} body={this.props.body} name={this.props.name} fabric_type={this.props.body.fabric_type} />
       </tr>
     )};
 
@@ -403,7 +391,6 @@ export default class BlindModalTable extends React.Component {
   }
 
   toggle(e) {
-    console.log("setting toggle")
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });
@@ -426,7 +413,6 @@ export default class BlindModalTable extends React.Component {
   }
 
   add_new_order(name, actions){
-    console.log("Adding New Order")
     if (name){
 
       let blank_order = {
@@ -484,7 +470,6 @@ export default class BlindModalTable extends React.Component {
   }
 
   handlePONumber(event){
-    console.log("e value = " + JSON.stringify(event.target.value));
 
     // actions.update_ponumber(e.target.value)
   }
