@@ -301,7 +301,7 @@ class App extends Component {
 						    .border{
 						     border:1px solid gray;
 						     text-align: center;
-						     font-size: 9px;
+						     font-size: 11px;
 						     padding-left: 3px;
 						     padding-right: 3px;
 						     border-collapse: collapse;
