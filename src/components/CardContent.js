@@ -60,7 +60,7 @@ export default class CardContent extends React.Component {
         <div className="CardContent">
           <Container fluid>
           <Row>
-            <Col sm="12" md={{ size: 8, offset: 4 }}>
+            <Col sm="12" md={{ size: 8, offset: 4}} style={{ fontSize:"15px"}}>
               <b>{this.props.blind_type}</b>
             </Col>
           </Row>
