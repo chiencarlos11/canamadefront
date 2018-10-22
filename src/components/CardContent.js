@@ -65,7 +65,7 @@ export default class CardContent extends React.Component {
             </Col>
           </Row>
           <Row>
-              <Col style={{ fontSize:"15px"}}>
+              <Col style={{ fontSize:"18px"}}>
                 Original: <b>{this.props.body['original_width']} {curr_original_width_fraction} x {this.props.body['original_height']} {curr_original_height_fraction}</b>
               </Col>
           </Row>
