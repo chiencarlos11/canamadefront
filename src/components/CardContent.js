@@ -30,6 +30,16 @@ export default class CardContent extends React.Component {
      var curr_original_width_fraction = ('' + this.props.body['original_width_fraction'] !== "0" ? this.props.body['original_width_fraction'] : "");
      var curr_original_height_fraction = ('' + this.props.body['original_height_fraction'] !== "0" ? this.props.body['original_height_fraction'] : "");
 
+     var show_inner_outer = (
+            <Row>
+              <Col xs="auto">
+                inner: <b>{this.compute_fraction(this.props.body['inner'])}</b>
+              </Col>
+              <Col xs="auto">
+                outer: <b>{this.compute_fraction(this.props.body['outer'])}</b>
+              </Col>
+            </Row>
+            )
 
      var show_height = (
         <Col xs="auto">
@@ -43,6 +53,7 @@ export default class CardContent extends React.Component {
      console.log("!!! = " + this.props.blind_type)
 
      if (this.props.blind_type === 'CanaMade' || this.props.blind_type === 'Roller Shades'){
+      show_inner_outer = null
 
       show_height = null
 
@@ -55,6 +66,7 @@ export default class CardContent extends React.Component {
       )
      }
 
+
     return (
       <div>
         <div className="CardContent">
@@ -65,7 +77,7 @@ export default class CardContent extends React.Component {
             </Col>
           </Row>
           <Row>
-              <Col style={{ fontSize:"18px"}}>
+              <Col style={{ fontSize:"16px"}}>
                 Original: <b>{this.props.body['original_width']} {curr_original_width_fraction} x {this.props.body['original_height']} {curr_original_height_fraction}</b>
               </Col>
           </Row>
@@ -87,7 +99,7 @@ export default class CardContent extends React.Component {
             
             {show_height}
           </Row>
-
+            {show_inner_outer}
             {show_canamade_height}
           <Row>
             <Col xs="8">
