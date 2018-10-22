@@ -66,6 +66,7 @@ export default class CardContent extends React.Component {
       )
      }
 
+
     return (
       <div>
         <div className="CardContent">
@@ -76,7 +77,7 @@ export default class CardContent extends React.Component {
             </Col>
           </Row>
           <Row>
-              <Col style={{ fontSize:"14px"}}>
+              <Col>
                 Original: <b>{this.props.body['original_width']} {curr_original_width_fraction} x {this.props.body['original_height']} {curr_original_height_fraction}</b>
               </Col>
           </Row>
