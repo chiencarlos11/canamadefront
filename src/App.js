@@ -326,10 +326,10 @@ class App extends Component {
 						            <th className="border">Control</th>
 						            <th className="border">L/R</th>
 						            <th className="border">Cord/Chain</th>
+						            <th className="border">CAS</th>
 						            <th className="border">Silver/White</th>
 						            <th className="border">Fabric</th>
 						            <th className="border">Fabric Color</th>
-						            <th className="border">CAS</th>
 						            <th className="border">Tube</th>
 						            <th className="border">Height</th>
 						          </tr>
@@ -359,6 +359,9 @@ class App extends Component {
 								<td key={i + "f"} className="border">
 									{item['body']['cassette_extra']}
 								</td>
+								<td key={{i} + "j"} className="border">
+									<b className="text_big">{compute_fraction(item['body']['cassette_size'])}</b>
+								</td>
 								<td key={i + "g"} className="border">
 									{item['body']['cassette_color']}
 								</td>
@@ -367,9 +370,6 @@ class App extends Component {
 								</td>
 								<td key={i + "i"} className="border">
 									{item['body']['fabric_color']}
-								</td>
-								<td key={{i} + "j"} className="border">
-									<b className="text_big">{compute_fraction(item['body']['cassette_size'])}</b>
 								</td>
 								<td key={{i} + "k"} className="border">
 									<b className="text_big">{compute_fraction(item['body']['tube_tob'])}</b>
