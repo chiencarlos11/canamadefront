@@ -32,7 +32,7 @@ export default class CardContent extends React.Component {
 
 
      var show_height = (
-        <Col xs="auto" style={{ fontSize:"15px"}}>
+        <Col xs="auto">
             Height: {this.compute_fraction(this.props.body['height'])}       
         </Col>
 
@@ -48,7 +48,7 @@ export default class CardContent extends React.Component {
 
       show_canamade_height = (
         <Row>
-          <Col xs="auto" style={{ fontSize:"11px"}}>
+          <Col xs="auto">
               Height: {this.compute_fraction(this.props.body['height'])}      
           </Col>
         </Row>
@@ -60,7 +60,7 @@ export default class CardContent extends React.Component {
         <div className="CardContent">
           <Container fluid>
           <Row>
-            <Col sm="12" md={{ size: 8, offset: 4}} style={{ fontSize:"15px"}}>
+            <Col sm="12" md={{ size: 8, offset: 4}}>
               <b>{this.props.blind_type}</b>
             </Col>
           </Row>
@@ -78,10 +78,10 @@ export default class CardContent extends React.Component {
                 </Col>
             </Row>
           <Row>
-            <Col xs="auto" style={{ fontSize:"15px"}}>
+            <Col xs="auto" >
               CAS: {this.compute_fraction(this.props.body['cassette_size'])}
             </Col>
-            <Col xs="auto" style={{ fontSize:"15px"}}>
+            <Col xs="auto" >
               Tube: {this.compute_fraction(this.props.body['tube_tob'])}
             </Col>
             
