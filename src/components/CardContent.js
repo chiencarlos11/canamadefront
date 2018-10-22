@@ -48,7 +48,7 @@ export default class CardContent extends React.Component {
 
       show_canamade_height = (
         <Row>
-          <Col xs="auto" style={{ fontSize:"15px"}}>
+          <Col xs="auto" style={{ fontSize:"11px"}}>
               Height: {this.compute_fraction(this.props.body['height'])}      
           </Col>
         </Row>
