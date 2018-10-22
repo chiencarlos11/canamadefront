@@ -426,7 +426,7 @@ export default class BlindModalTable extends React.Component {
       original_width_fraction: FRACTIONS[0],
       original_height_fraction: FRACTIONS[0],
       control_size: CONTROL_SIZE[0],
-      cassette_orientation: 'Right',
+      cassette_orientation: 'Left',
       cassette_extra: 'Cord',
       cassette_color: 'White',
       cassette_size: 0,
