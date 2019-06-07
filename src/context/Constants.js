@@ -58,7 +58,7 @@ export var handleLaurentDataPiece = function(name, value, state){
 export var handleLaurentheight = function(original_height, original_height_fraction,fabric_type){
 
 	let new_height = 0;
-    if (fabric_type === 'Laurent' || fabric_type === 'Husky' || fabric_type === 'Galaxy'){
+    if (fabric_type === 'Laurent' || fabric_type === 'Husky' || fabric_type === 'Galaxy' || fabric_type === 'Bella'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + (3 + (7/8)); 
     }
     if (fabric_type === 'Timber' || fabric_type === 'Scotby' || fabric_type === 'Morgan'){
