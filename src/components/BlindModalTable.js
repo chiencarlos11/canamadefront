@@ -570,6 +570,8 @@ export default class BlindModalTable extends React.Component {
             {blinds_options}
           </DropdownMenu>
         </Dropdown>
+        <Button color="info" onClick={actions.all_white.bind(this)}>All White</Button>
+        <Button color="info" onClick={actions.all_silver.bind(this)}>All Silver</Button>
           <Button color="secondary" onClick={actions.remove_all_checked.bind(this)}>Remove</Button>
           </React.Fragment>
           )

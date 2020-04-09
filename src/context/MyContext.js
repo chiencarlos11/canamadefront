@@ -111,6 +111,24 @@ export class MyProvider extends Component{
     this.setState({ orders: updated_orders})
   }
 
+  all_white = () => {
+    console.log("=== Set all to White ==== ")
+    var new_orders = this.state.orders.slice()
+      for (var order of new_orders){
+        order.body.cassette_color = "White"
+      }
+      this.setState({ orders: new_orders});
+  }
+
+  all_silver = () => {
+    console.log("=== Set all to Silver ==== ")
+    var new_orders = this.state.orders.slice()
+      for (var order of new_orders){
+        order.body.cassette_color = "Silver"
+      }
+      this.setState({ orders: new_orders});
+  }
+
   toggle = (index, blind_type) => {
     if (!this.state.toggle){
       this.setState({
@@ -143,6 +161,8 @@ export class MyProvider extends Component{
           update_ponumber: this.update_ponumber,
           update_date: this.update_date,
           remove_all_checked: this.remove_all_checked,
+          all_white: this.all_white,
+          all_silver: this.all_silver
         },
       }}>
         {this.props.children}
