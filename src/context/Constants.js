@@ -27,12 +27,13 @@ export const LAURENT_ITEMS = ['date', 'po_number', 'original_width', 'original_w
 
 export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
 "Morgan":["801","802","803","805"],
-"Husky": ["701","702","703","704"],
+"Husky": ["701","702","703","704","711","712","713","714"],
 "Scotby": ["401","402","404","407"],
 "Galaxy": ["601","603","605"],
 "Richmond": ["B301","B303","B306","B307"],
 "Timber": ["501","502","504","507"],
-"Bella": ["201","202","203","204","205"]
+"Bella": ["201","202","203","204","205"],
+"Bond": ["311","312","313","314"]
 };
 
 export var handleLaurentDataPiece = function(name, value, state){
@@ -67,6 +68,9 @@ export var handleLaurentheight = function(original_height, original_height_fract
     if (fabric_type === 'Richmond'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (1/2));
     }
+    if (fabric_type === 'Bond'){
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 3 + (7/8));
+    }
 
     return new_height;
 
@@ -96,7 +100,8 @@ export const ROLLER_SHADE_ITEMS_FABRIC = {"Maze Screen 5%": ["101","103","107","
 "Somerset": ["101","102","105"],
 "Urban": ["1101","1103","1107"],
 "Urban B/O": ["1901","1903","1907"],
-"Aliex": ["1901","1903","1905"],};		
+"Aliex": ["1901","1903","1905"],
+"Shawna": ["1111","1112","1114","1911","1912","1914"],};	
 
 
 //CANAMADE
