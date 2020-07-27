@@ -339,7 +339,7 @@ class App extends Component {
 						return(
 							<tr key={i} className="border">
 								<td key={i + "z"} className="border">
-									{i}
+									{i + 1}
 								</td>
 								<td key={i + "a"} className="border">
 									{item['name']}

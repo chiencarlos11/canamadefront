@@ -72,6 +72,9 @@ export var handleLaurentheight = function(original_height, original_height_fract
     if (fabric_type === 'Bond'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 3 + (7/8));
     }
+    if (fabric_type === 'Grand'){
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 5 + (1/4));
+    }
 
     return new_height;
 

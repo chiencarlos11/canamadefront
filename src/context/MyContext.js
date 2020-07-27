@@ -7,7 +7,7 @@ export class MyProvider extends Component{
 
   state = {
     orders: [],
-    current_index: 1,
+    current_index: 0,
     current_blind_type: '',
     toggle: false,
     po_number:"",
