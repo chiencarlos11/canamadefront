@@ -33,7 +33,8 @@ export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
 "Richmond": ["B301","B303","B306","B307"],
 "Timber": ["501","502","504","507"],
 "Bella": ["201","202","203","204","205"],
-"Bond": ["311","312","313","314"]
+"Bond": ["311","312","313","314"],
+"Grand": ["B901","B902","B903","B904"]
 };
 
 export var handleLaurentDataPiece = function(name, value, state){
