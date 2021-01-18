@@ -26,7 +26,7 @@ export const LAURENT_ITEMS = ['date', 'po_number', 'original_width', 'original_w
 'cassette_color', 'fabric_type', 'fabric_color', 'cassette_size', 'tube_tob', 'inner', 'outer','height'];
 
 export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
-"Morgan":["601","602","603","605"],
+"Morgan":["600","601","602","605"],
 "Husky": ["701","702","703","704","711","712","713","714"],
 "Scotby": ["401","402","404","407"],
 "Galaxy": ["601","603","605"],
