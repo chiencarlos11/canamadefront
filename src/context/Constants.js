@@ -34,7 +34,8 @@ export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
 "Timber": ["501","502","504","507"],
 "Bella": ["201","202","203","204","205"],
 "Bond": ["311","312","313","314"],
-"Grand": ["B901","B902","B903","B904"]
+"Grand": ["B901","B902","B903","B904"],
+"Pebble": ["400","401","402","403"],
 };
 
 export var handleLaurentDataPiece = function(name, value, state){
@@ -60,7 +61,7 @@ export var handleLaurentDataPiece = function(name, value, state){
 export var handleLaurentheight = function(original_height, original_height_fraction,fabric_type){
 
 	let new_height = 0;
-    if (fabric_type === 'Laurent' || fabric_type === 'Husky' || fabric_type === 'Galaxy' || fabric_type === 'Bella'){
+    if (fabric_type === 'Laurent' || fabric_type === 'Husky' || fabric_type === 'Galaxy' || fabric_type === 'Bella' || fabric_type === 'Pebble'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + (3 + (7/8)); 
     }
     if (fabric_type === 'Timber' || fabric_type === 'Scotby'){
