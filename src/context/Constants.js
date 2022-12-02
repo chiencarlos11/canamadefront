@@ -124,7 +124,9 @@ export const ROLLER_SHADE_ITEMS_FABRIC = {"Maze Screen 5%": ["101","103","107","
 "Aliex": ["1901","1903","1905"],
 "Shawna": ["1111","1112","1114","1911","1912","1914"],
 "Dona": ["1101","1102","1103","1106","2101B","2102B","2103B","2106B"],
-"Sundance": ["White","Ivory","Grey","Charcoal"],};	
+"Sundance": ["White","Ivory","Grey","Charcoal"],
+"The View": ["T101","T103","T104","T105"],
+"Sunjoy": ["S201","S203","S205"],};	
 
 
 //CANAMADE
