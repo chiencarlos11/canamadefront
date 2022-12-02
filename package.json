@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "homepage": "https://chiencarlos11.github.io/canamadefront",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,7 +8,8 @@
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "express-favicon": "^2.0.1",
-    "mathjs": "^4.4.2",
+    "gh-pages": "^4.0.0",
+    "mathjs": "^11.4.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
     "namor": "^1.1.3",
@@ -16,11 +18,13 @@
     "react-datepicker": "^1.8.0",
     "react-dom": "^16.13.1",
     "react-motion": "^0.5.2",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^2.1.3",
     "react-tilt": "^0.1.4",
     "reactstrap": "^5.0.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
