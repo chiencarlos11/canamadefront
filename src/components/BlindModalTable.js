@@ -428,7 +428,7 @@ export default class BlindModalTable extends React.Component {
       original_height_fraction: FRACTIONS[0],
       control_size: CONTROL_SIZE[0],
       cassette_orientation: 'Right',
-      cassette_extra: 'Chain',
+      cassette_extra: 'RD',
       cassette_color: 'White',
       cassette_size: 0,
       tube_tob: 0,
@@ -523,7 +523,7 @@ export default class BlindModalTable extends React.Component {
             <th className="text-center">Control</th>
             <th className="text-center">L/R</th>
             <th className="text-center">CAS</th>
-            <th className="text-center">Silver/White</th>
+            <th className="text-center">Silver/White/Black</th>
             <th className="text-center">Fabric</th>
             <th className="text-center">Fabric Color</th>
           </tr>
