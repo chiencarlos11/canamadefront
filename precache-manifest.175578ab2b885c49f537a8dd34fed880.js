@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "07fc12a51adecdd7378b",
+    "revision": "a2a9820fef2adbde3529",
     "url": "/canamadefront/static/css/main.96f7c145.chunk.css"
   },
   {
-    "revision": "07fc12a51adecdd7378b",
-    "url": "/canamadefront/static/js/main.07fc12a5.chunk.js"
+    "revision": "a2a9820fef2adbde3529",
+    "url": "/canamadefront/static/js/main.a2a9820f.chunk.js"
   },
   {
     "revision": "25627945b7506de457a7",
@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/canamadefront/static/media/feathericons.a417dc86.svg"
   },
   {
-    "revision": "e694b247fb9d138089cd3ed95dd41ce5",
+    "revision": "96f14153b09c0c8d2dcda8eecee8446e",
     "url": "/canamadefront/index.html"
   }
 ];
