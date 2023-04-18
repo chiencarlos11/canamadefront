@@ -39,6 +39,7 @@ export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
 "Parker 1.0": ["White 1.0"],
 "Parker": ["White 2.0","Gray","Black"],
 "Nice": ["White","Cloud","Gray","Black"],
+"Kelsey": ["White","Linen","Silver","Lava"],
 };
 
 export var handleLaurentDataPiece = function(name, value, state){
@@ -91,6 +92,9 @@ export var handleLaurentheight = function(original_height, original_height_fract
     if (fabric_type === 'Nice'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (3/8));
     }
+    if (fabric_type === 'Kelsey'){
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 5 + (1/8));
+    }
 
     return new_height;
 
@@ -136,8 +140,8 @@ export const CANAMADE_ITEMS = ['date', 'po_number', 'original_width', 'original_
 
 
 
-export const CANAMADE_ITEMS_FABRIC = {"Light Filtering": ["0101","0501","0202","1802","2501","3001"],
-"Room Darkening":["B0101","B0501","B0202","B1802","B2501","B3001"]};
+export const CANAMADE_ITEMS_FABRIC = {"Light Filtering": ["0101","0501","0202","1802","2501","3001","4001","4004"],
+"Room Darkening":["B0101","B0501","B0202","B1802","B2501","B3001","B4001","B4004"]};
 
 
 export var handleCanaMadeDataPiece = function(name, value, state){
