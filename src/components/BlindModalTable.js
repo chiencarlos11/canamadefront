@@ -198,8 +198,8 @@ class FabricDrop extends React.Component {
           {this.props.body.cassette_extra}
         </DropdownToggle>
         <DropdownMenu>
-            <DropdownItem name='cassette_extra' onClick={this.props.updateDataPiece.bind(this)} value='Cord' >Cord</DropdownItem>
-            <DropdownItem name='cassette_extra' onClick={this.props.updateDataPiece.bind(this)} value='Chain' >Chain</DropdownItem>
+            <DropdownItem name='cassette_extra' onClick={this.props.updateDataPiece.bind(this)} value='RD' >RD</DropdownItem>
+            <DropdownItem name='cassette_extra' onClick={this.props.updateDataPiece.bind(this)} value='SQ' >SQ</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       </td>
@@ -212,6 +212,7 @@ class FabricDrop extends React.Component {
         <DropdownMenu>
             <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='White' >White</DropdownItem>
             <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='Silver' >Silver</DropdownItem>
+            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='Black' >Black</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       </td>
@@ -521,7 +522,7 @@ export default class BlindModalTable extends React.Component {
             <th className="text-center" >Original Height</th>
             <th className="text-center">Control</th>
             <th className="text-center">L/R</th>
-            <th className="text-center">Cord/Chain</th>
+            <th className="text-center">CAS</th>
             <th className="text-center">Silver/White</th>
             <th className="text-center">Fabric</th>
             <th className="text-center">Fabric Color</th>

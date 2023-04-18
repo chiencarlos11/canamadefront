@@ -224,14 +224,14 @@ export default class CanaMadeForm extends React.Component {
                 <Col>
                 <FormGroup check>
                 <Label check>
-                  <Input checked={this.state.cassette_extra === 'Court'} type="radio" name="cassette_extra" value= 'Cord' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  Cord
+                  <Input checked={this.state.cassette_extra === 'Court'} type="radio" name="cassette_extra" value= 'RD' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  RD
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input checked={this.state.cassette_extra === 'Trim'} type="radio" name="cassette_extra" value='Chain' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  Chain
+                  <Input checked={this.state.cassette_extra === 'Trim'} type="radio" name="cassette_extra" value='SQ' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  SQ
                 </Label>
               </FormGroup>
               </Col>
@@ -246,6 +246,12 @@ export default class CanaMadeForm extends React.Component {
                 <Label check>
                   <Input checked={this.state.cassette_color === 'Silver'} type="radio" name="cassette_color" value='Silver' onChange={this.handleDataPiece.bind(this)}/>{' '}
                   Silver
+                </Label>
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input checked={this.state.cassette_color === 'Black'} type="radio" name="cassette_color" value='Black' onChange={this.handleDataPiece.bind(this)} />{' '}
+                  Black
                 </Label>
               </FormGroup>
               </Col>
