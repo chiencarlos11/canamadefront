@@ -115,7 +115,7 @@ export class MyProvider extends Component{
     console.log("=== Set all to White ==== ")
     var new_orders = this.state.orders.slice()
       for (var order of new_orders){
-        order.body.cassette_color = "White"
+        order.body.cassette_color = "WH"
       }
       this.setState({ orders: new_orders});
   }
@@ -124,7 +124,7 @@ export class MyProvider extends Component{
     console.log("=== Set all to Silver ==== ")
     var new_orders = this.state.orders.slice()
       for (var order of new_orders){
-        order.body.cassette_color = "Silver"
+        order.body.cassette_color = "SL"
       }
       this.setState({ orders: new_orders});
   }
@@ -133,7 +133,25 @@ export class MyProvider extends Component{
     console.log("=== Set all to Black ==== ")
     var new_orders = this.state.orders.slice()
     for (var order of new_orders) {
-      order.body.cassette_color = "Black"
+      order.body.cassette_color = "BK"
+    }
+    this.setState({ orders: new_orders });
+  }
+
+  all_sq = () => {
+    console.log("=== Set all to SQ ==== ")
+    var new_orders = this.state.orders.slice()
+    for (var order of new_orders) {
+      order.body.cassette_extra = "SQ"
+    }
+    this.setState({ orders: new_orders });
+  }
+
+  all_rd = () => {
+    console.log("=== Set all to RD ==== ")
+    var new_orders = this.state.orders.slice()
+    for (var order of new_orders) {
+      order.body.cassette_extra = "RD"
     }
     this.setState({ orders: new_orders });
   }
@@ -172,7 +190,9 @@ export class MyProvider extends Component{
           remove_all_checked: this.remove_all_checked,
           all_white: this.all_white,
           all_silver: this.all_silver,
-          all_black: this.all_black
+          all_black: this.all_black,
+          all_sq: this.all_sq,
+          all_rd: this.all_rd
         },
       }}>
         {this.props.children}

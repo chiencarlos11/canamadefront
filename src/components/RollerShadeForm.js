@@ -227,14 +227,20 @@ export default class RollerShadeForm extends React.Component {
               <Col>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_color" value='White' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  White
+                  <Input type="radio" name="cassette_color" value='WH' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  WH
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input type="radio" name="cassette_color" value='Silver' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  Silver
+                  <Input type="radio" name="cassette_color" value='SL' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  SL
+                </Label>
+              </FormGroup>
+              <FormGroup check>
+                <Label check>
+                  <Input type="radio" name="cassette_color" value='BK' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  BK
                 </Label>
               </FormGroup>
               </Col>

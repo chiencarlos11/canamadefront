@@ -16,7 +16,7 @@ var parse_fraction = function(string_fraction){
 
 }
 
-export const CONTROL_SIZE = ['24','36','48','60','72','84','96'];
+export const CONTROL_SIZE = ['24','36','48','60','72','84','96','C','M'];
 export const FRACTIONS = ['0','1/8','1/4','3/8','1/2','5/8','3/4','7/8'];
 
 

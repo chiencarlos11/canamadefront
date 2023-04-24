@@ -24,8 +24,8 @@ export default class CanaMadeForm extends React.Component {
       original_height_fraction: FRACTIONS[0],
       control_size: CONTROL_SIZE[0],
       cassette_orientation: 'Left',
-      cassette_extra: 'Court',
-      cassette_color: 'White',
+      cassette_extra: 'RD',
+      cassette_color: 'WH',
       fabric_type: this.fabric_keys[0],
       fabric_color: this.props.constantform[this.fabric_keys[0]][0],
       cassette_size: 0,
@@ -238,20 +238,20 @@ export default class CanaMadeForm extends React.Component {
               <Col>
               <FormGroup check>
                 <Label check>
-                  <Input checked={this.state.cassette_color === 'White'} type="radio" name="cassette_color" value='White' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  White
+                  <Input checked={this.state.cassette_color === 'WH'} type="radio" name="cassette_color" value='WH' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  WH
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input checked={this.state.cassette_color === 'Silver'} type="radio" name="cassette_color" value='Silver' onChange={this.handleDataPiece.bind(this)}/>{' '}
-                  Silver
+                  <Input checked={this.state.cassette_color === 'SL'} type="radio" name="cassette_color" value='SL' onChange={this.handleDataPiece.bind(this)}/>{' '}
+                  SL
                 </Label>
               </FormGroup>
               <FormGroup check>
                 <Label check>
-                  <Input checked={this.state.cassette_color === 'Black'} type="radio" name="cassette_color" value='Black' onChange={this.handleDataPiece.bind(this)} />{' '}
-                  Black
+                  <Input checked={this.state.cassette_color === 'BK'} type="radio" name="cassette_color" value='BK' onChange={this.handleDataPiece.bind(this)} />{' '}
+                  BK
                 </Label>
               </FormGroup>
               </Col>

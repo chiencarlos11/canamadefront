@@ -210,9 +210,9 @@ class FabricDrop extends React.Component {
           {this.props.body.cassette_color}
         </DropdownToggle>
         <DropdownMenu>
-            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='White' >White</DropdownItem>
-            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='Silver' >Silver</DropdownItem>
-            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='Black' >Black</DropdownItem>
+            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='WH' >WH</DropdownItem>
+            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='SL' >SL</DropdownItem>
+            <DropdownItem name='cassette_color' onClick={this.props.updateDataPiece.bind(this)} value='BK' >BK</DropdownItem>
         </DropdownMenu>
       </Dropdown>
       </td>
@@ -429,7 +429,7 @@ export default class BlindModalTable extends React.Component {
       control_size: CONTROL_SIZE[0],
       cassette_orientation: 'Right',
       cassette_extra: 'RD',
-      cassette_color: 'White',
+      cassette_color: 'WH',
       cassette_size: 0,
       tube_tob: 0,
       inner: 0,
@@ -523,7 +523,7 @@ export default class BlindModalTable extends React.Component {
             <th className="text-center">Control</th>
             <th className="text-center">L/R</th>
             <th className="text-center">CAS</th>
-            <th className="text-center">Silver/White/Black</th>
+            <th className="text-center">SL/WH/BK</th>
             <th className="text-center">Fabric</th>
             <th className="text-center">Fabric Color</th>
           </tr>
@@ -571,9 +571,11 @@ export default class BlindModalTable extends React.Component {
             {blinds_options}
           </DropdownMenu>
         </Dropdown>
-        <Button color="info" onClick={actions.all_white.bind(this)}>All White</Button>
-        <Button color="info" onClick={actions.all_silver.bind(this)}>All Silver</Button>
-        <Button color="info" onClick={actions.all_black.bind(this)}>All Black</Button>
+        <Button color="info" onClick={actions.all_white.bind(this)}>All WH</Button>
+        <Button color="info" onClick={actions.all_silver.bind(this)}>All SL</Button>
+        <Button color="info" onClick={actions.all_black.bind(this)}>All BK</Button>
+        <Button color="info" onClick={actions.all_sq.bind(this)}>All SQ</Button>
+        <Button color="info" onClick={actions.all_rd.bind(this)}>All RD</Button>
           <Button color="secondary" onClick={actions.remove_all_checked.bind(this)}>Remove</Button>
           </React.Fragment>
           )

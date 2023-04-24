@@ -327,7 +327,7 @@ class App extends Component {
 						            <th className="border">L/R</th>
 						            <th className="border">CAS</th>
 						            <th className="border">CAS</th>
-						            <th className="border">Silver/White/Black</th>
+						            <th className="border">SL/WH/BK</th>
 						            <th className="border">Fabric</th>
 						            <th className="border">Fabric Color</th>
 						            <th className="border">Tube</th>
