@@ -40,6 +40,7 @@ export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
 "Parker": ["White 2.0","Gray","Black"],
 "Nice": ["White","Cloud","Gray","Black"],
 "Kelsey": ["White","Linen","Silver","Lava"],
+"Husky Evo": ["White","Smoke","Grey"],
 };
 
 export var handleLaurentDataPiece = function(name, value, state){
@@ -95,6 +96,10 @@ export var handleLaurentheight = function(original_height, original_height_fract
     if (fabric_type === 'Kelsey'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 5 + (1/8));
     }
+    if (fabric_type === 'Husky Evo'){
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (1/4));
+    }
+
 
     return new_height;
 
