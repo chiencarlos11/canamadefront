@@ -17,7 +17,7 @@ var parse_fraction = function(string_fraction){
 
 }
 
-export const CONTROL_SIZE = ['24','36','48','60','72','84','96'];
+export const CONTROL_SIZE = ['24','36','48','60','72','84','96','C','M'];
 export const FRACTIONS = ['0','1/8','1/4','3/8','1/2','5/8','3/4','7/8'];
 
 
@@ -40,6 +40,8 @@ export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
 "Parker 1.0": ["White 1.0"],
 "Parker": ["White 2.0","Gray","Black"],
 "Nice": ["White","Cloud","Gray","Black"],
+"Kelsey": ["White","Linen","Silver","Lava"],
+"Husky Evo": ["White","Smoke","Grey"],
 };
 
 export var handleLaurentDataPiece = function(name, value, state){
@@ -92,6 +94,13 @@ export var handleLaurentheight = function(original_height, original_height_fract
     if (fabric_type === 'Nice'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (3/8));
     }
+    if (fabric_type === 'Kelsey'){
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 5 + (1/8));
+    }
+    if (fabric_type === 'Husky Evo'){
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (1/4));
+    }
+
 
     return new_height;
 
@@ -115,6 +124,7 @@ export const ROLLER_SHADE_ITEMS_FABRIC = {"Maze Screen 5%": ["101","103","107","
 "Cana Vision 3%": ["101","102","103","105","107"],
 "Cana Vision 5%": ["101","102","103","105","107"],
 "Magna": ["702","704","708","710","711"],
+"Maxwell": ["1901","1904","1905","1906"],
 "Melrose": ["101","102","104","112"],
 "Melrose B/O": ["101","102","104","112"],
 "Lytton": ["901","902","903","904"],
@@ -123,7 +133,10 @@ export const ROLLER_SHADE_ITEMS_FABRIC = {"Maze Screen 5%": ["101","103","107","
 "Urban B/O": ["1901","1903","1907"],
 "Aliex": ["1901","1903","1905"],
 "Shawna": ["1111","1112","1114","1911","1912","1914"],
-"Dona": ["1101","1102","1103","1106","2101B","2102B","2103B","2106B"],};	
+"Dona": ["1101","1102","1103","1106","2101B","2102B","2103B","2106B"],
+"Sundance": ["White","Ivory","Grey","Charcoal"],
+"The View": ["T101","T103","T104","T105"],
+"Sunjoy": ["S201","S203","S205"],};	
 
 
 //CANAMADE
@@ -133,8 +146,8 @@ export const CANAMADE_ITEMS = ['date', 'po_number', 'original_width', 'original_
 
 
 
-export const CANAMADE_ITEMS_FABRIC = {"Light Filtering": ["0101","0501","0202","1802","2501","3001"],
-"Room Darkening":["B0101","B0501","B0202","B1802","B2501","B3001"]};
+export const CANAMADE_ITEMS_FABRIC = {"Light Filtering": ["0101","0501","0202","1802","2501","3001","4001","4004"],
+"Room Darkening":["B0101","B0501","B0202","B1802","B2501","B3001","B4001","B4004"]};
 
 
 export var handleCanaMadeDataPiece = function(name, value, state){
