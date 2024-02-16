@@ -1,6 +1,6 @@
 {
   "main.css": "/canamadefront/static/css/main.8a0463f8.chunk.css",
-  "main.js": "/canamadefront/static/js/main.4d2e8841.chunk.js",
+  "main.js": "/canamadefront/static/js/main.850eb985.chunk.js",
   "static/css/1.5155e31f.chunk.css": "/canamadefront/static/css/1.5155e31f.chunk.css",
   "static/js/1.25627945.chunk.js": "/canamadefront/static/js/1.25627945.chunk.js",
   "runtime~main.js": "/canamadefront/static/js/runtime~main.7a780336.js",
@@ -12,6 +12,6 @@
   "static/media/CellularShades.png": "/canamadefront/static/media/CellularShades.2263a49b.png",
   "static/media/set1.css": "/canamadefront/static/media/feathericons.c66815eb.ttf",
   "index.html": "/canamadefront/index.html",
-  "precache-manifest.695ef9f5a7a1b840bad827bbef7da0bc.js": "/canamadefront/precache-manifest.695ef9f5a7a1b840bad827bbef7da0bc.js",
+  "precache-manifest.a99c3d47089a322f05b4e1f8e9965068.js": "/canamadefront/precache-manifest.a99c3d47089a322f05b4e1f8e9965068.js",
   "service-worker.js": "/canamadefront/service-worker.js"
 }
