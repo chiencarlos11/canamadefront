@@ -1,6 +1,6 @@
 {
   "main.css": "/canamadefront/static/css/main.8a0463f8.chunk.css",
-  "main.js": "/canamadefront/static/js/main.1153d52b.chunk.js",
+  "main.js": "/canamadefront/static/js/main.4d2e8841.chunk.js",
   "static/css/1.5155e31f.chunk.css": "/canamadefront/static/css/1.5155e31f.chunk.css",
   "static/js/1.25627945.chunk.js": "/canamadefront/static/js/1.25627945.chunk.js",
   "runtime~main.js": "/canamadefront/static/js/runtime~main.7a780336.js",
@@ -10,8 +10,8 @@
   "static/media/CanaMade.png": "/canamadefront/static/media/CanaMade.0ab816f1.png",
   "static/media/VerticalBlinds.png": "/canamadefront/static/media/VerticalBlinds.50d24aae.png",
   "static/media/CellularShades.png": "/canamadefront/static/media/CellularShades.2263a49b.png",
-  "static/media/set1.css": "/canamadefront/static/media/feathericons.2b319658.woff",
+  "static/media/set1.css": "/canamadefront/static/media/feathericons.c66815eb.ttf",
   "index.html": "/canamadefront/index.html",
-  "precache-manifest.160829b044c88437bc2e88ba338e4b5f.js": "/canamadefront/precache-manifest.160829b044c88437bc2e88ba338e4b5f.js",
+  "precache-manifest.695ef9f5a7a1b840bad827bbef7da0bc.js": "/canamadefront/precache-manifest.695ef9f5a7a1b840bad827bbef7da0bc.js",
   "service-worker.js": "/canamadefront/service-worker.js"
 }
