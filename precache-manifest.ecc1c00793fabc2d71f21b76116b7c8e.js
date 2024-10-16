@@ -44,20 +44,20 @@ self.__precacheManifest = [
     "url": "/canamadefront/static/media/CellularShades.2263a49b.png"
   },
   {
-    "revision": "c66815eb97646a0a04689c0ed0d6149b",
-    "url": "/canamadefront/static/media/feathericons.c66815eb.ttf"
-  },
-  {
     "revision": "3d65bed48662f481a94725cdbf49a370",
     "url": "/canamadefront/static/media/feathericons.3d65bed4.eot"
+  },
+  {
+    "revision": "d517dc8ec2e7baf6fade888177ab0fc8",
+    "url": "/canamadefront/static/media/feathericons.d517dc8e.svg"
   },
   {
     "revision": "2b319658e1c35bbc251c22c8a0360aa2",
     "url": "/canamadefront/static/media/feathericons.2b319658.woff"
   },
   {
-    "revision": "d517dc8ec2e7baf6fade888177ab0fc8",
-    "url": "/canamadefront/static/media/feathericons.d517dc8e.svg"
+    "revision": "c66815eb97646a0a04689c0ed0d6149b",
+    "url": "/canamadefront/static/media/feathericons.c66815eb.ttf"
   },
   {
     "revision": "051b9fdbae46f58f7da7cf99a9d4a5c8",
