@@ -40,7 +40,8 @@ export const LAURENT_ITEMS_FABRIC = {"Laurent": ["301","302","305","306"],
 "Parker": ["White 2.0","Gray","Black"],
 "Nice": ["White","Cloud","Gray","Black"],
 "Kelsey": ["White","Linen","Silver","Lava"],
-"Husky Evo": ["White","Smoke","Grey"],
+"Husky Evo": ["White","Smoke","Grey","Ice White"],
+"Parker II": ["White","Vanilla","Cloud","Black"],
 };
 
 export var handleLaurentDataPiece = function(name, value, state){
@@ -99,6 +100,9 @@ export var handleLaurentheight = function(original_height, original_height_fract
     if (fabric_type === 'Husky Evo'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (1/4));
     }
+    if (fabric_type === 'Parker II'){
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 5 + (1/8));
+    }
 
 
     return new_height;
@@ -136,7 +140,9 @@ export const ROLLER_SHADE_ITEMS_FABRIC = {"Maze Screen 5%": ["101","103","107","
 "Sundance": ["White","Ivory","Grey","Charcoal"],
 "The View": ["T101","T103","T104","T105","1% T1011","1% T1031","1% T1051","1% T1071"],
 "Sunjoy": ["S201","S203","S205","1% S1201","1% S1203","1% S1205"],
-"SOHO": ["2101","2102","2105","2106","B3101","B3102","B3105","B3107"],};	
+"SOHO": ["2101","2102","2105","2106","B3101","B3102","B3105","B3107"],
+"Frosty": ["White","Ivory","Grey","Black"],
+};	
 
 
 //CANAMADE
