@@ -83,7 +83,7 @@ export var handleLaurentheight = function(original_height, original_height_fract
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 3 + (7/8));
     }
     if (fabric_type === 'Grand'){
-      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 5 + (1/4));
+      new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + 5;
     }
     if (fabric_type === 'Parker 1.0'){
       new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + ( 4 + (3/8));
