@@ -1,17 +1,17 @@
 {
-  "main.css": "/canamadefront/static/css/main.8a0463f8.chunk.css",
-  "main.js": "/canamadefront/static/js/main.8f8f4d56.chunk.js",
+  "main.css": "/canamadefront/static/css/main.96f7c145.chunk.css",
+  "main.js": "/canamadefront/static/js/main.5ff7c90c.chunk.js",
   "static/css/1.5155e31f.chunk.css": "/canamadefront/static/css/1.5155e31f.chunk.css",
-  "static/js/1.25627945.chunk.js": "/canamadefront/static/js/1.25627945.chunk.js",
+  "static/js/1.db1df4f8.chunk.js": "/canamadefront/static/js/1.db1df4f8.chunk.js",
   "runtime~main.js": "/canamadefront/static/js/runtime~main.7a780336.js",
-  "static/media/logo.svg": "/canamadefront/static/media/logo.ee7cd8ed.svg",
+  "static/media/logo.svg": "/canamadefront/static/media/logo.5d5d9eef.svg",
   "static/media/Laurent.png": "/canamadefront/static/media/Laurent.9327cc79.png",
   "static/media/RollerShades.png": "/canamadefront/static/media/RollerShades.ebb67d62.png",
   "static/media/CanaMade.png": "/canamadefront/static/media/CanaMade.0ab816f1.png",
   "static/media/VerticalBlinds.png": "/canamadefront/static/media/VerticalBlinds.50d24aae.png",
   "static/media/CellularShades.png": "/canamadefront/static/media/CellularShades.2263a49b.png",
-  "static/media/set1.css": "/canamadefront/static/media/feathericons.d517dc8e.svg",
+  "static/media/set1.css": "/canamadefront/static/media/feathericons.a417dc86.svg",
   "index.html": "/canamadefront/index.html",
-  "precache-manifest.5f847457ee3836cb589833b746d72be5.js": "/canamadefront/precache-manifest.5f847457ee3836cb589833b746d72be5.js",
+  "precache-manifest.ca31d5aa1ab4507564019ffde9b1da99.js": "/canamadefront/precache-manifest.ca31d5aa1ab4507564019ffde9b1da99.js",
   "service-worker.js": "/canamadefront/service-worker.js"
 }

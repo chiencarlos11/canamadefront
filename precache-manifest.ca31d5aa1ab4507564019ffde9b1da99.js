@@ -1,27 +1,27 @@
 self.__precacheManifest = [
   {
-    "revision": "8f8f4d567b210a2f7b23",
-    "url": "/canamadefront/static/css/main.8a0463f8.chunk.css"
+    "revision": "5ff7c90c2721f84031ae",
+    "url": "/canamadefront/static/css/main.96f7c145.chunk.css"
   },
   {
-    "revision": "8f8f4d567b210a2f7b23",
-    "url": "/canamadefront/static/js/main.8f8f4d56.chunk.js"
+    "revision": "5ff7c90c2721f84031ae",
+    "url": "/canamadefront/static/js/main.5ff7c90c.chunk.js"
   },
   {
-    "revision": "25627945b7506de457a7",
+    "revision": "db1df4f8b34d401930fd",
     "url": "/canamadefront/static/css/1.5155e31f.chunk.css"
   },
   {
-    "revision": "25627945b7506de457a7",
-    "url": "/canamadefront/static/js/1.25627945.chunk.js"
+    "revision": "db1df4f8b34d401930fd",
+    "url": "/canamadefront/static/js/1.db1df4f8.chunk.js"
   },
   {
     "revision": "7a780336dd36fc164aff",
     "url": "/canamadefront/static/js/runtime~main.7a780336.js"
   },
   {
-    "revision": "ee7cd8ed2dcec943251eb2763684fc6f",
-    "url": "/canamadefront/static/media/logo.ee7cd8ed.svg"
+    "revision": "5d5d9eefa31e5e13a6610d9fa7a283bb",
+    "url": "/canamadefront/static/media/logo.5d5d9eef.svg"
   },
   {
     "revision": "9327cc7911df3eb30c62cfeb893dde74",
@@ -44,6 +44,10 @@ self.__precacheManifest = [
     "url": "/canamadefront/static/media/CellularShades.2263a49b.png"
   },
   {
+    "revision": "2b319658e1c35bbc251c22c8a0360aa2",
+    "url": "/canamadefront/static/media/feathericons.2b319658.woff"
+  },
+  {
     "revision": "3d65bed48662f481a94725cdbf49a370",
     "url": "/canamadefront/static/media/feathericons.3d65bed4.eot"
   },
@@ -52,15 +56,11 @@ self.__precacheManifest = [
     "url": "/canamadefront/static/media/feathericons.c66815eb.ttf"
   },
   {
-    "revision": "2b319658e1c35bbc251c22c8a0360aa2",
-    "url": "/canamadefront/static/media/feathericons.2b319658.woff"
+    "revision": "a417dc8613a03f96f5bf521d1183ccd2",
+    "url": "/canamadefront/static/media/feathericons.a417dc86.svg"
   },
   {
-    "revision": "d517dc8ec2e7baf6fade888177ab0fc8",
-    "url": "/canamadefront/static/media/feathericons.d517dc8e.svg"
-  },
-  {
-    "revision": "aef7c661bd20c6e0ab87d96e7280d3b3",
+    "revision": "05570468974706a40edac52ad3b53d1f",
     "url": "/canamadefront/index.html"
   }
 ];
