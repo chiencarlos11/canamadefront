@@ -75,7 +75,7 @@ export default class RollerShadeForm extends React.Component {
     itemMap.set(event.target.name, event.target.value)
     this.handleData(itemMap)
     if (event.target.name === 'original_width'){
-      let new_cassette_size = math.fraction(event.target.value - (1/8));
+      let new_cassette_size = math.fraction(event.target.value - (3/8));
       this.setState({cassette_size: new_cassette_size});
       let new_tube_tob = math.fraction(new_cassette_size - 1);
       this.setState({tube_tob: new_tube_tob});

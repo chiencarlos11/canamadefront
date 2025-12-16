@@ -3,7 +3,7 @@ import {Table,Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Input, Butto
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {Consumer} from '../context/MyContext.js'
-import {handleCanaMadeDataPiece, handleCanaMadeheight, CANAMADE_ITEMS_FABRIC, ROLLER_SHADE_ITEMS_FABRIC} from '../context/Constants'
+import {handleCanaMadeDataPiece, handleRollerShadeDataPiece, handleRollerShadeheight, handleCanaMadeheight, CANAMADE_ITEMS_FABRIC, ROLLER_SHADE_ITEMS_FABRIC} from '../context/Constants'
 import {LAURENT_ITEMS_FABRIC, handleLaurentDataPiece, handleLaurentheight} from '../context/Constants'
 import {CONTROL_SIZE, FRACTIONS} from '../context/Constants'
 import '../blindtable.css';
@@ -446,8 +446,8 @@ export default class BlindModalTable extends React.Component {
     }
 
     if (name && name === 'Roller Shades'){
-      blank_order['handleaction'] = handleCanaMadeDataPiece
-      blank_order['calculateheight'] = handleCanaMadeheight
+      blank_order['handleaction'] = handleRollerShadeDataPiece
+      blank_order['calculateheight'] = handleRollerShadeheight
       blank_order['color_dict'] = ROLLER_SHADE_ITEMS_FABRIC
     }
 

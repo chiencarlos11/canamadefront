@@ -115,6 +115,32 @@ export const ROLLER_SHADE_ITEMS = ['date', 'po_number', 'original_width', 'origi
 'cassette_color', 'fabric_type', 'fabric_color', 'cassette_size', 'tube_tob','height'];
 
 
+export var handleRollerShadeDataPiece = function(name, value, state){
+
+  if (value && name === 'original_width'){
+      let original_width_fraction_fraction = math.fraction(state.original_width_fraction)
+      let new_cassette_size = (parseFloat(value) + original_width_fraction_fraction) - (3/8);
+      let new_tube_tob = new_cassette_size - 1 - (1/8);
+      return {"cassette_size":new_cassette_size,"tube_tob": new_tube_tob}
+  } else if(value && name === 'original_width_fraction'){
+      console.log("Setting original_width_fraction = " + value)
+      let original_width = math.fraction(state.original_width)
+      let original_width_fraction_fraction = math.fraction(parse_fraction(value))
+      let new_cassette_size = (parseFloat(original_width) + original_width_fraction_fraction) - (3/8);
+      let new_tube_tob = new_cassette_size - 1 - (1/8);
+      return {"cassette_size":new_cassette_size,"tube_tob": new_tube_tob}
+  }
+
+}
+
+export var handleRollerShadeheight = function(original_height,original_height_fraction,fabric_type){
+
+  let new_height = 0;
+  new_height = math.number(original_height) + math.number(parse_fraction(original_height_fraction)) + 10;
+  return new_height;
+
+}
+
 export const ROLLER_SHADE_ITEMS_FABRIC = {"Maze Screen 5%": ["101","103","107","131"],
 "Levendale BO":["B902","B903","B904","B905","B906"],
 "Magna BO": ["B702","B704","B708","B710","B711"],
