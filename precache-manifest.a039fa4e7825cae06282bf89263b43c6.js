@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "5ff7c90c2721f84031ae",
+    "revision": "eaccfb53e23043549400",
     "url": "/canamadefront/static/css/main.96f7c145.chunk.css"
   },
   {
-    "revision": "5ff7c90c2721f84031ae",
-    "url": "/canamadefront/static/js/main.5ff7c90c.chunk.js"
+    "revision": "eaccfb53e23043549400",
+    "url": "/canamadefront/static/js/main.eaccfb53.chunk.js"
   },
   {
     "revision": "db1df4f8b34d401930fd",
@@ -44,10 +44,6 @@ self.__precacheManifest = [
     "url": "/canamadefront/static/media/CellularShades.2263a49b.png"
   },
   {
-    "revision": "2b319658e1c35bbc251c22c8a0360aa2",
-    "url": "/canamadefront/static/media/feathericons.2b319658.woff"
-  },
-  {
     "revision": "3d65bed48662f481a94725cdbf49a370",
     "url": "/canamadefront/static/media/feathericons.3d65bed4.eot"
   },
@@ -60,7 +56,11 @@ self.__precacheManifest = [
     "url": "/canamadefront/static/media/feathericons.a417dc86.svg"
   },
   {
-    "revision": "05570468974706a40edac52ad3b53d1f",
+    "revision": "2b319658e1c35bbc251c22c8a0360aa2",
+    "url": "/canamadefront/static/media/feathericons.2b319658.woff"
+  },
+  {
+    "revision": "6374c1a8b1cbf726887582bce4491cd7",
     "url": "/canamadefront/index.html"
   }
 ];
