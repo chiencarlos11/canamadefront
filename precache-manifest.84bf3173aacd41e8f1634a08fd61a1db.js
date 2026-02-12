@@ -48,12 +48,12 @@ self.__precacheManifest = [
     "url": "/canamadefront/static/media/feathericons.3d65bed4.eot"
   },
   {
-    "revision": "2b319658e1c35bbc251c22c8a0360aa2",
-    "url": "/canamadefront/static/media/feathericons.2b319658.woff"
-  },
-  {
     "revision": "c66815eb97646a0a04689c0ed0d6149b",
     "url": "/canamadefront/static/media/feathericons.c66815eb.ttf"
+  },
+  {
+    "revision": "2b319658e1c35bbc251c22c8a0360aa2",
+    "url": "/canamadefront/static/media/feathericons.2b319658.woff"
   },
   {
     "revision": "a417dc8613a03f96f5bf521d1183ccd2",
